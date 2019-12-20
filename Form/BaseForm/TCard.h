@@ -21,16 +21,20 @@ class TCard : public QWidget
 public:
     explicit TCard(QWidget *parent = 0);
 
-    void addWidget(QWidget *widget);
+    void addItem(int nHeight = 40,int nWidth = 266,QString strColor = "#c55ccc");
+    QWidget *addWidget(QWidget *pWidget);
+    QWidget *at(int i);
     void processStyle();
 protected:
     void paintEvent(QPaintEvent *event);
-signals:
 
-public slots:
 private:
     void initUI();
     QString getStyle(EnmStyle num);
+    QString getStyle(QString strColor,QString strRadius);
+private:
+    int m_nHeight;
+    int m_nWidth;
     QVBoxLayout *m_pVLayout;
     QList<QWidget *> m_listWidget;
 

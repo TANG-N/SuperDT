@@ -1,4 +1,4 @@
-#include "TCardTitle.h"
+﻿#include "TCardTitle.h"
 #include <QHBoxLayout>
 
 TCardTitle::TCardTitle(QString strIconUrl, QString strText, QWidget *parent)
@@ -22,16 +22,18 @@ void TCardTitle::init()
     refreshStyle();
 
     QHBoxLayout *hLayout = new QHBoxLayout;
+    hLayout->addSpacing(2);
     hLayout->addWidget(m_pLabelIcon);
-    hLayout->addStretch();
+    hLayout->addSpacing(5);
     hLayout->addWidget(m_pLabelText);
+    hLayout->addStretch();
 
     this->setLayout(hLayout);
 }
 
 void TCardTitle::refreshStyle()
 {
-    QString strStyle = "border-image:url(:" + m_strIconUrl + ");";
+    QString strStyle = "border-image:url(" + m_strIconUrl + ");";
     m_pLabelIcon->setStyleSheet(strStyle);
 
     m_pLabelText->setText(m_strText);

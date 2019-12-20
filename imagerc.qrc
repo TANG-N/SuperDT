@@ -38,5 +38,15 @@
         <file>image/icon/combox-drop.png</file>
         <file>image/icon/logo.png</file>
         <file>image/icon/logo32.png</file>
+        <file>image/icon/setting/download_c.png</file>
+        <file>image/icon/setting/menu_c.png</file>
+        <file>image/icon/setting/protocol_c.png</file>
+        <file>image/icon/setting/send_c.png</file>
+        <file>image/icon/setting/user_c.png</file>
+        <file>image/icon/setting/download_n.png</file>
+        <file>image/icon/setting/menu_n.png</file>
+        <file>image/icon/setting/protocol_n.png</file>
+        <file>image/icon/setting/send_n.png</file>
+        <file>image/icon/setting/user_n.png</file>
     </qresource>
 </RCC>

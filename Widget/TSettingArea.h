@@ -23,12 +23,10 @@ public slots:
 private:
     void initVal();
     void initUI();
-    void initButtonArea();
     void initUserArea();
     void initSettingArea();
 private:
     QString getImageStytle(QString strImage);
-    QWidget *m_pWidgetButtonArea;
     QWidget *m_pWidgetSettingArea;
     QWidget *m_pWidgetUserArea;
     QWidget *m_pWidgetMain;

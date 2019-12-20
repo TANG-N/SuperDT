@@ -1,18 +1,42 @@
 ﻿#include "TCard.h"
+#include <QDebug>
+
+//父类最小宽度290
 
 TCard::TCard(QWidget *parent) : QWidget(parent)
 {
     initUI();
 }
 
-void TCard::addWidget(QWidget *widget)
+void TCard::addItem(int nHeight, int nWidth, QString strColor)
 {
-    /*添加空白分隔*/
-    if(m_listWidget.count() > 0)
-        m_pVLayout->addSpacing(1);
+    QWidget *pWidget = new QWidget(this);
+    pWidget->resize(nWidth,nHeight);
+    pWidget->setStyleSheet("background-color:" + strColor +";");
 
-    m_pVLayout->addWidget(widget);
-    m_listWidget.append(widget);
+    m_pVLayout->addWidget(pWidget);
+    m_listWidget.append(pWidget);
+
+    qDebug()<<"添加卡片条破"<<this->size();
+    processStyle(); //设置样式
+
+    this->setFixedHeight(m_listWidget.count()*40 + m_listWidget.count() - 1);
+}
+
+QWidget *TCard::addWidget(QWidget *pWidget)
+{
+    m_pVLayout->addWidget(pWidget);
+    m_listWidget.append(pWidget);
+
+    processStyle(); //设置样式
+
+    this->setFixedHeight(m_listWidget.count()*40 + m_listWidget.count() - 1);
+}
+
+
+QWidget *TCard::at(int i)
+{
+    return m_listWidget.at(i);
 }
 
 /******
@@ -32,12 +56,10 @@ void TCard::paintEvent(QPaintEvent *event)
 void TCard::initUI()
 {
     m_pVLayout = new QVBoxLayout(this);
-    //m_pVLayout->setContentsMargins(5,0,5,0);
+    m_pVLayout->setSpacing(2);
+    m_pVLayout->setContentsMargins(15,0,20,0);
 }
 
-/******
- * Note:卡片添加完  要手动调用  设置每条Item的样式
- ******/
 void TCard::processStyle()
 {
     int itemCount = m_listWidget.size();

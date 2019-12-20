@@ -8,9 +8,13 @@ TComBox::TComBox(QWidget *parent)
 
 void TComBox::initUI()
 {
-    this->setFixedSize(150,30);
+    this->setFixedHeight(30);
     this->setStyleSheet("QComboBox{background:#FFFFFF;"
                         "border-radius:5px;"
+//                        "border-top-left-radius:5px;"
+//                        "border-top-right-radius:5px;"
+//                        "border-bottom-left-radius:5px;"
+//                        "border-bottom-right-radius:5px;"
                         "color:#000000;"
                         "}"
                         "QComboBox::drop-down{"

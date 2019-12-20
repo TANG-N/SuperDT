@@ -14,6 +14,8 @@ public:
 private:
     void init();
     void createView();
+signals:
+    void sigSettingBtn(QString strId);
 private slots:
     void slotBtnClicked(QString strId);
 private:
