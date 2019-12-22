@@ -22,8 +22,10 @@ class TCard : public QWidget
 public:
     explicit TCard(QWidget *parent = 0);
 
-    //void addItem(int nHeight = 40,int nWidth = 266,QString strColor = "#c55ccc");
     QWidget *addWidget(QWidget *pWidget,QString strColor = "#b9b9b9",int nHeight = 40);// #30a7f8
+
+    void insert(QWidget *pWidget,QString strColor = "#b9b9b9",int nHeight = 40);
+    void removeAt(int nIndex);
     QWidget *at(int i);
     void processStyle();
 protected:

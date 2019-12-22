@@ -9,22 +9,6 @@ TCard::TCard(QWidget *parent) : QWidget(parent)
     initUI();
 }
 
-//void TCard::addItem(int nHeight, int nWidth, QString strColor)
-//{
-//    QWidget *pWidget = new QWidget(this);
-//    pWidget->resize(nWidth,nHeight);
-//    pWidget->setStyleSheet("background-color:" + strColor +";");
-
-//    m_pVLayout->addWidget(pWidget);
-//    m_listWidget.append(pWidget);
-
-//    qDebug()<<"添加卡片条破"<<this->size();
-//    processStyle(); //设置样式
-
-//    this->setFixedHeight(m_listWidget.count()*40 + m_listWidget.count() - 1);
-
-//}
-
 QWidget *TCard::addWidget(QWidget *pWidget, QString strColor,int nHeight)
 {
     pWidget->setFixedWidth(m_nWidth);
@@ -51,6 +35,14 @@ QWidget *TCard::addWidget(QWidget *pWidget, QString strColor,int nHeight)
 QWidget *TCard::at(int i)
 {
     return m_listWidget.at(i);
+}
+
+void TCard::removeAt(int nIndex)
+{
+    //m_pVLayout->addWidget(pWidget);
+    m_listWidget.removeAt(nIndex);
+    m_listColor.removeAt(nIndex);
+    m_listHeight.removeAt(nIndex);
 }
 
 /******
