@@ -5,6 +5,7 @@
 #include "TComBox.h"
 #include <QLabel>
 #include <QVector>
+#include <QPainter>
 
 class TComBoxCardItem : public QWidget
 {
@@ -16,6 +17,7 @@ public:
     void setText(QString strText){m_strText = strText;refreshStyle();}
 private:
     void init();
+    void paintEvent(QPaintEvent *event);
     void refreshStyle();
 private:
     QString m_strText;

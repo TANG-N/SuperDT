@@ -5,6 +5,7 @@
 #include <QPushbutton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QScrollArea>
 
 #include "TCardItem.h"
 #include "TSettingBtnBar.h"
@@ -23,10 +24,10 @@ public slots:
 private:
     void initVal();
     void initUI();
-    void initUserArea();
     void initSettingArea();
 private:
     QString getImageStytle(QString strImage);
+    QScrollArea *m_pSarea;
     QWidget *m_pWidgetSettingArea;
     QWidget *m_pWidgetUserArea;
     QWidget *m_pWidgetMain;

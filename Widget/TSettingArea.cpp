@@ -25,73 +25,54 @@ void TSettingArea::initUI()
     this->setMinimumWidth(m_nButtonMainWidth);
     this->setFixedWidth(m_nWidgetMainWidth + m_sIconSize.width());
 
-    /*设置条*/
-//    m_pWidgetButtonArea = new QWidget(this);
-//    m_pWidgetButtonArea->setFixedWidth(m_nButtonMainWidth);
-//    m_pWidgetButtonArea->setMinimumWidth(m_nButtonMainWidth);
-
-
-    /*用户信息显示区*/
-//    m_pWidgetUserArea = new QWidget(this);
-//    m_pWidgetUserArea->setFixedSize(m_nWidgetMainWidth,210);
-//    m_pWidgetUserArea->setMinimumWidth(m_nWidgetMainWidth);
-//    m_pWidgetUserArea->setStyleSheet("QWidget{background-color:#cccccc;}");
-
     /*参数设置区*/
-    m_pWidgetSettingArea = new QWidget(this);
-    m_pWidgetSettingArea->setFixedWidth(m_nWidgetMainWidth);
-    m_pWidgetSettingArea->setFixedHeight(650);
-    m_pWidgetSettingArea->setMinimumWidth(m_nWidgetMainWidth);
-    m_pWidgetSettingArea->setStyleSheet("QWidget{background-color:#cccccc;}");
+    m_pSarea = new QScrollArea(this);
+    m_pSarea->setFixedWidth(m_nWidgetMainWidth);
+    m_pSarea->setMinimumWidth(m_nWidgetMainWidth);
+    m_pSarea->setStyleSheet("background-color:#cccccc;");//QScrollArea{
+    m_pSarea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//隐藏横向滚动条
+    m_pSarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//隐藏竖向滚动条
+
+//    m_pWidgetSettingArea = new QWidget(this);
+//    m_pWidgetSettingArea->setFixedWidth(m_nWidgetMainWidth);
+//    m_pWidgetSettingArea->setFixedHeight(650);
+//    m_pWidgetSettingArea->setMinimumWidth(m_nWidgetMainWidth);
+//    m_pWidgetSettingArea->setStyleSheet("QWidget{background-color:#cccccc;}");
 
 
     /*初始化按钮条、用户区、参数设置区*/
     TSettingBtnBar *bar = new TSettingBtnBar(this);
     bar->setFixedWidth(m_nButtonMainWidth);
     bar->setMinimumWidth(m_nButtonMainWidth);
-//    initButtonArea();
-//    initUserArea();
+
     initSettingArea();
-
-    QGridLayout *gLayout = new QGridLayout;
-    //gLayout->addWidget(m_pWidgetUserArea);
-    gLayout->addWidget(m_pWidgetSettingArea);
-
 
     m_pHLayout = new QHBoxLayout;
     m_pHLayout->addWidget(bar);
-    m_pHLayout->addLayout(gLayout);
+    m_pHLayout->addWidget(m_pSarea);
     m_pHLayout->setSpacing(0);
     m_pHLayout->setContentsMargins(0, 0, 0, 0);
 
     this->setLayout(m_pHLayout);
 }
 
-void TSettingArea::initUserArea()
-{
-
-}
-
 void TSettingArea::initSettingArea()
 {
-
-    NetworkApp *networkApp = new NetworkApp(m_pWidgetSettingArea);
-    networkApp->resize(m_pWidgetSettingArea->size());
-    qDebug()<<"setingarea size"<<m_pWidgetSettingArea->size();
-    //networkApp->setFixedWidth(m_nWidgetMainWidth - 10);
+    NetworkApp *networkApp = new NetworkApp;
+    m_pSarea->setWidget(networkApp);
 }
 
 void TSettingArea::slotButtonMain()
 {
     qDebug()<<"设置按键";
 
-    if(m_pWidgetSettingArea->isVisible()){
-        m_pWidgetSettingArea->setVisible(false);
-        this->setFixedWidth(m_nButtonMainWidth);
-    }else{
-        m_pWidgetSettingArea->setVisible(true);
-        this->setFixedWidth(m_nWidgetMainWidth + m_sIconSize.width());
-    }
+//    if(m_pWidgetSettingArea->isVisible()){
+//        m_pWidgetSettingArea->setVisible(false);
+//        this->setFixedWidth(m_nButtonMainWidth);
+//    }else{
+//        m_pWidgetSettingArea->setVisible(true);
+//        this->setFixedWidth(m_nWidgetMainWidth + m_sIconSize.width());
+//    }
 
     static bool bIsOpen = true;
     bIsOpen = !bIsOpen;

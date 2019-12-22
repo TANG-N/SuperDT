@@ -1,0 +1,249 @@
+/*qss 只支持本注释方式*/
+
+QToolButton#addTimeBtn{
+    font-size: 12px;
+    background: url(:/addanddeduct/image/add-l-16-normal.png);
+    background-repeat:no-repeat;
+    border-style: flat;
+    border-left:1px solid #CCCCCC;
+}
+
+QToolButton#addTimeBtn:hover{//按钮高亮属性设置
+    background: url(:/addanddeduct/image/add-l-16-hov.png) no-repeat center center;
+    background-repeat:no-repeat;
+    border-style: flat;
+    border-left:1px solid #CCCCCC;
+}
+
+QToolButton#addTimeBtn:pressed{//按钮按下时的属性设置
+    background: url(:/addanddeduct/image/add-l-16-pressed.png) no-repeat center center;
+    border-style: flat;
+    border-left:1px solid #CCCCCC;
+}
+
+/*删除报警按键设置*/
+QToolButton#delAlarmBtn{
+    font-size: 12px;
+    border-style:inset;
+    border:0px solid #E5E5E5;
+    qproperty-icon: url(:/qss/image/lidaicon-h-trashcan.svg);
+    qproperty-iconSize: 16px 16px;//图片大小
+    qproperty-toolButtonStyle: ToolButtonTextBesideIcon;//文字和图片样式
+}
+
+QToolButton#delAlarmBtn:pressed{
+    color:#1C72DD;
+    border: 0px solid #1C72DD;
+    font-size: 12px;
+    border-style:inset;
+    qproperty-icon: url(:/qss/image/lidaicon-h-trashcan-pressed.svg);
+    qproperty-iconSize: 16px 16px;
+    qproperty-toolButtonStyle: ToolButtonTextBesideIcon;
+}
+
+QToolButton#delAlarmBtn:hover{
+    color:#4C99F8;
+    font-size: 12px;
+    border-style:inset;
+    border: 0px solid #4C99F8;
+    qproperty-icon: url(:/qss/image/lidaicon-h-trashcan-pressed.svg);
+    qproperty-iconSize: 16px 16px;
+    qproperty-toolButtonStyle: ToolButtonTextBesideIcon;
+}
+
+QCheckBox{
+    spacing: 5px;
+    color: black;
+    border-style: flat;
+}
+
+QCheckBox::indicator{
+    width: 17px;
+    height: 17px;
+    image: url(:/checkImage/image/checkImage/check-nor.png);
+}
+
+QCheckBox::indicator:hover {
+
+}
+
+QCheckBox::indicator:checked{
+
+}
+
+QComboBox::drop-down:hover:pressed{
+    subcontrol-position:center right;
+    image:url(:/qss/image/angle-down.png);
+}
+
+QComboBox:drop-down{
+    subcontrol-position:center right;
+    image:url(:/qss/image/angle-down-l-16.png);
+}
+
+QComboBox{
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+}
+
+QComboBox::hover{
+    /* 边框宽度,线条样式,颜色 */
+    border:1px solid #2080F7;
+
+    /* 内边框 */
+    padding:1px 18px 1px 3px;
+    min-width:100px;
+    font:12px;
+}
+
+QComboBox QAbstractItemView{
+    border: 1px solid #2080F7;
+}
+
+/*水平滚动条*/
+QScrollBar:horizontal{
+    width:8px;
+    padding-top:0px;
+    padding-bottom:0px;
+    padding-right:0px;
+    padding-left:0px;
+    background: #000000;
+    border-radius:100px;
+}
+
+QScrollBar::handle:horizontal{
+    background:#E5E5E5;
+    width:8px;
+    border: 0px solid #E5E5E5;
+    min-height:20px;
+    border-radius:100px;
+}
+
+QScrollBar::handle:horizontal:normal{
+    background:#F5F5F5;
+    width:8px;
+    border: 0px solid #E5E5E5;
+    border-radius:100px;
+}
+
+QScrollBar::handle:horizontal:hover{
+    background:#E6E6E6;
+    width:8px;
+    border: 0px solid #E5E5E5;
+    border-radius:100px;
+}
+
+QScrollBar::handle:horizontal:pressed{
+    background:#CCCCCC;
+    width:8px;
+    border: 0px solid #E5E5E5;
+    border-radius:100px;
+}
+
+
+/*垂直滚动条*/
+QScrollBar:vertical{
+    width:8px;
+    padding-top:4px;
+    padding-bottom:0px;
+    padding-right:0px;
+    padding-left:0px;
+    background: #000000;
+    border-radius:100px;
+}
+/*滑块*/
+QScrollBar::handle:vertical{
+    background:#E5E5E5;
+    width:8px;
+    border: 0px solid #E5E5E5;
+    min-height:20px;
+    border-radius:100px;
+}
+
+QScrollBar::handle:vertical:normal{
+    background:#F5F5F5;
+    width:8px;
+    border: 0px solid #E5E5E5;
+    border-radius:100px;
+}
+
+QScrollBar::handle:vertical:hover{
+    background:#E6E6E6;
+    width:8px;
+    border: 0px solid #E5E5E5;
+    border-radius:100px;
+}
+
+QScrollBar::handle:vertical:pressed{
+    background:#CCCCCC;
+    width:8px;
+    border: 0px solid #E5E5E5;
+    border-radius:100px;
+}
+
+QScrollBar{
+    background: #000000;
+}
+
+QScrollBar::pressed{
+    background: #000000;
+}
+
+QTableWidget#tableWidget::Item{
+    border:0px solid #E5E5E5;
+    border-bottom:1px solid #E5E5E5;
+    font-size: 12px;
+    color: #4C4C4C;
+    font - family: Microsoft YaHei;
+    selection-background-color: #E9F2FE; /*选中行背景颜色*/
+}
+
+QTableWidget#tableWidget::Item:selected{
+    background:#4C99F8;
+}
+
+QHeaderView::section{
+    font-size: 12px;
+    color: #000000;
+    font - family: Microsoft YaHei;
+    font-weight: bold;
+    height:36px;/*表头高度*/
+    border-style: flat;
+    border-bottom:1px solid #E5E5E5;
+    border-top:0px solid #E5E5E5;
+    alignment: left;
+}
+
+QTabWidget::pane{
+    border-top: 1px solid #E5E5E5;
+    border-left:1px solid #E5E5E5;
+    position: absolute;
+    font-size: 14px;
+}
+
+QTabWidget::tab-bar {
+    border-bottom: 2px solid #E5E5E5;
+    border-left:1px solid #E5E5E5;
+    alignment: left;
+    font-size: 14px;
+}
+
+QTabBar::tab {//切换按钮设置
+    border: none;
+    border-bottom-color: #C2C7CB;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 2px;
+    font-size: 14px;
+}
+
+QTabBar::tab:hover {
+    color:#2080F7;
+}
+
+QTabBar::tab:selected {
+    color:#2080F7;
+    border-bottom: 2px solid #2080F7;
+    font-weight:bold;
+}

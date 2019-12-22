@@ -10,6 +10,7 @@ TLockButton::TLockButton(QString strId,QString strImgUrlN,QString strImgUrlC,QWi
     m_strTextN = "#ffffff";
     m_strTextC = "#ffffff";
     m_strTextColor = "#ffffff";
+    setCheckable(true);
     connect(this,SIGNAL(clicked(bool)),this,SLOT(slotClicked(bool)));
     refreshButton();
 }
@@ -33,7 +34,7 @@ void TLockButton::refreshButton()
 {
     this->setStyleSheet("QPushButton{border-image:url("+ m_strImgUrlN +");color:"+ m_strTextColor +";}"
                         "QPushButton:checked{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
-                        "QPushButton:hover{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
+//                        "QPushButton:hover{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
                         );
     qDebug()<<"QPushButton:checked{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}";
 }

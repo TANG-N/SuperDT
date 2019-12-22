@@ -1,17 +1,29 @@
-#ifndef TLOCKBUTTONITEM_H
-#define TLOCKBUTTONITEM_H
+#ifndef TLockButtonCardItem_H
+#define TLockButtonCardItem_H
 
 #include <QWidget>
+#include <QLabel>
+#include "TLockButton.h"
 
-class TLockButtonItem : public QWidget
+class TLockButtonCardItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TLockButtonItem(QWidget *parent = 0);
+    explicit TLockButtonCardItem(QString strText,QWidget *parent = 0);
 
+private:
+    void initUI();
+    void paintEvent(QPaintEvent *event);
 signals:
-
-public slots:
+    void sigBtnClicked(bool bState);
+private slots:
+    void slotBtnClicked();
+private:
+    QString m_strText;
+    QString m_strBtnImgN;
+    QString m_strBtnImgC;
+    QLabel *m_pLabel;
+    TLockButton *m_pLockBtn;
 };
 
-#endif // TLOCKBUTTONITEM_H
+#endif // TLockButtonCardItem_H

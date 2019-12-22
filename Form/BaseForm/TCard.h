@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QVBoxLayout>
 #include <QList>
+#include <QVector>
 
 enum EnmStyle{
     ENM_FIRST = 0,
@@ -21,8 +22,8 @@ class TCard : public QWidget
 public:
     explicit TCard(QWidget *parent = 0);
 
-    void addItem(int nHeight = 40,int nWidth = 266,QString strColor = "#c55ccc");
-    QWidget *addWidget(QWidget *pWidget);
+    //void addItem(int nHeight = 40,int nWidth = 266,QString strColor = "#c55ccc");
+    QWidget *addWidget(QWidget *pWidget,QString strColor = "#b9b9b9",int nHeight = 40);// #30a7f8
     QWidget *at(int i);
     void processStyle();
 protected:
@@ -30,12 +31,14 @@ protected:
 
 private:
     void initUI();
-    QString getStyle(EnmStyle num);
+    QString getStyle(EnmStyle num,QString strColor);
     QString getStyle(QString strColor,QString strRadius);
 private:
-    int m_nHeight;
     int m_nWidth;
+
     QVBoxLayout *m_pVLayout;
+    QList<int> m_listHeight;
+    QList<QString> m_listColor;
     QList<QWidget *> m_listWidget;
 
 };

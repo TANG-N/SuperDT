@@ -1,11 +1,9 @@
-﻿#ifndef TUserCardItem_H
-#define TUserCardItem_H
+#ifndef TUSERCARDITEM_H
+#define TUSERCARDITEM_H
 
 #include <QWidget>
 #include <QLabel>
-#include <QEvent>
-#include <QStyleOption>
-#include <QPainter>
+#include <QGridLayout>
 
 class TUserCardItem : public QWidget
 {
@@ -14,18 +12,20 @@ public:
     explicit TUserCardItem(QWidget *parent = 0);
 
     void initUI();
-protected:
+    void refreshStyle();
     void paintEvent(QPaintEvent *event);
-signals:
-
-public slots:
+public:
 
 private:
-    QLabel *m_pLabelUserPicBg; // 头像背景
-    QLabel *m_pLabelUserPic;   // 头像
-    QLabel *m_pLabelUserName;  // 用户名
+    QString m_strImgPath;
+    QString m_strIconPath;
+    QString m_strUserName;
+    int m_nDebugCount;
 
-
+    QLabel *m_pLabelUserImg;
+    QLabel *m_pLabelUserIcon;
+    QLabel *m_pLabelUserName;
+    QLabel *m_PLabelUserMsg;
 };
 
-#endif // TUserCardItem_H
+#endif // TUSERCARDITEM_H

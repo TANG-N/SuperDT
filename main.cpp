@@ -13,7 +13,12 @@ int main(int argc, char *argv[])
     QFont globalFont("SimHei",12);
     a.setFont(globalFont);
 
-//    test1();
+    /*设置样式*/
+//    QFile file(":/qss/style.qss");
+//    file.open(QFile::ReadOnly);
+//    QString styleSheet = tr(file.readAll());
+//    this->setStyleSheet(styleSheet);
+//    file.close();
 
     MainWidget w;
     w.show();

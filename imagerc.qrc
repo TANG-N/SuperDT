@@ -48,5 +48,8 @@
         <file>image/icon/setting/protocol_n.png</file>
         <file>image/icon/setting/send_n.png</file>
         <file>image/icon/setting/user_n.png</file>
+        <file>image/icon/setting/user1.jpg</file>
+        <file>image/icon/setting/del.png</file>
+        <file>image/icon/setting/trig.png</file>
     </qresource>
 </RCC>

@@ -1,5 +1,8 @@
 ﻿#include "TComBoxCardItem.h"
 #include <QHBoxLayout>
+#include <QStyleOption>
+#include <QGridLayout>
+#include <QStyleOption>
 
 TComBoxCardItem::TComBoxCardItem(QString strText, QVector<QString> vecItems, QWidget *parent)
     : QWidget(parent)
@@ -21,15 +24,25 @@ void TComBoxCardItem::init()
 {
     m_pLabel = new QLabel(this);
     m_pComBox = new TComBox(this);
-    m_pComBox->setFixedWidth(120);
+    m_pComBox->setFixedWidth(160);
 
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLabel);
     hLayout->addStretch(1);
     hLayout->addWidget(m_pComBox);
-
+    hLayout->setContentsMargins(5,2,5,2);
     this->setLayout(hLayout);
     refreshStyle();
+}
+
+void TComBoxCardItem::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 void TComBoxCardItem::refreshStyle()

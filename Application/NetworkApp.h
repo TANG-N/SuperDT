@@ -2,9 +2,8 @@
 #define NETWORKAPP_H
 
 #include <QWidget>
-
-
-
+#include <QScrollArea>
+#include <QTextEdit>
 
 class NetworkApp : public QWidget
 {
@@ -13,9 +12,9 @@ public:
     explicit NetworkApp(QWidget *parent = 0);
 
     void initUI();
-signals:
-
-public slots:
+private:
+    QScrollArea *m_pScrollArea;
+    QTextEdit *m_pTextEdit;
 };
 
 #endif // NETWORKAPP_H

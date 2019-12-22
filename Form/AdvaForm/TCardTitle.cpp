@@ -22,11 +22,11 @@ void TCardTitle::init()
     refreshStyle();
 
     QHBoxLayout *hLayout = new QHBoxLayout;
-    hLayout->addSpacing(2);
+    hLayout->addSpacing(5);
     hLayout->addWidget(m_pLabelIcon);
     hLayout->addSpacing(5);
     hLayout->addWidget(m_pLabelText);
-    hLayout->addStretch();
+    hLayout->addStretch(1);
 
     this->setLayout(hLayout);
 }

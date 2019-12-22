@@ -144,5 +144,6 @@ RESOURCES += \
 RC_FILE += icon.rc
 
 DISTFILES += \
-    General/Log/LogWinConfig.xml
+    General/Log/LogWinConfig.xml \
+    Style/SuperDT.qss
 
