@@ -20,29 +20,37 @@ QWidget *TCard::addWidget(QWidget *pWidget, QString strColor,int nHeight)
     m_listColor.append(strColor);
     m_listHeight.append(nHeight);
 
-    processStyle(); //设置样式
-
-    int nGHeight = 0;
-    foreach (int h, m_listHeight) {
-         nGHeight += h;
-    }
-    this->setFixedHeight(nGHeight + (m_listHeight.count()-1)*2);
-
+    refreshStyle(); //设置样式
     return pWidget;
 }
 
+void TCard::insert(int nIndex,QWidget *pWidget, QString strColor, int nHeight)
+{
+    qDebug()<<"insert item 1" << nIndex;
+    pWidget->setFixedWidth(m_nWidth);
+    pWidget->setObjectName("CardWidgetItem");
+    pWidget->setFixedHeight(nHeight);
+
+    qDebug()<<"insert item 2" << nIndex;
+    m_pVLayout->insertWidget(nIndex,pWidget);
+    m_listWidget.insert(nIndex,pWidget);
+    qDebug()<<"insert item 3" << nIndex;
+    m_listColor.insert(nIndex,strColor);
+    m_listHeight.insert(nIndex,nHeight);
+
+    qDebug()<<"insert item 4" << nIndex;
+    refreshStyle(); //设置样式
+    qDebug()<<"insert item 5" << nIndex;
+}
+
+void TCard::bindDelSig(QWidget *pWidget)
+{
+    connect(pWidget,SIGNAL(sigDel(QWidget *)),this,SLOT(slotDelItem(QWidget *)));
+}
 
 QWidget *TCard::at(int i)
 {
     return m_listWidget.at(i);
-}
-
-void TCard::removeAt(int nIndex)
-{
-    //m_pVLayout->addWidget(pWidget);
-    m_listWidget.removeAt(nIndex);
-    m_listColor.removeAt(nIndex);
-    m_listHeight.removeAt(nIndex);
 }
 
 /******
@@ -66,7 +74,7 @@ void TCard::initUI()
     m_pVLayout->setContentsMargins(15,0,20,0);
 }
 
-void TCard::processStyle()
+void TCard::refreshStyle()
 {
     int itemCount = m_listWidget.size();
 
@@ -91,6 +99,13 @@ void TCard::processStyle()
                 m_listWidget.at(i)->setStyleSheet(getStyle(ENM_NORMAL,m_listColor.at(i)));
         }
     }
+
+    int nGHeight = 0;
+    foreach (int h, m_listHeight) {
+         nGHeight += h;
+    }
+    this->setFixedHeight(nGHeight + (m_listHeight.count()-1)*2);
+
 
     foreach(QWidget* pWidget,m_listWidget){
         qDebug()<<"Height:"<<pWidget->height()<<"Stytle:"<<pWidget->styleSheet();
@@ -124,4 +139,23 @@ QString TCard::getStyle(EnmStyle num, QString strColor)
     }
 
     return strStyle;
+}
+
+void TCard::slotDelItem(QWidget *pWidget)
+{
+
+    qDebug()<<"Card 删除Item";
+    if(!m_listWidget.contains(pWidget))
+        return;
+
+    int nIndex = m_listWidget.indexOf(pWidget);
+
+    m_listHeight.removeAt(nIndex);
+    m_listColor.removeAt(nIndex);
+    m_pVLayout->removeWidget(pWidget);
+    m_listWidget.removeAt(nIndex);
+
+    pWidget->deleteLater();
+
+    refreshStyle(); //设置样式
 }

@@ -18,6 +18,9 @@ private:
     void initUI();
     void paintEvent(QPaintEvent *event);
 signals:
+    void sigDel(QWidget *pWidget);
+private slots:
+    void slotDel();
 private:
     QLineEdit *m_pLineEditR;
     QLabel *m_pLabelIcon;

@@ -24,17 +24,18 @@ public:
 
     QWidget *addWidget(QWidget *pWidget,QString strColor = "#b9b9b9",int nHeight = 40);// #30a7f8
 
-    void insert(QWidget *pWidget,QString strColor = "#b9b9b9",int nHeight = 40);
-    void removeAt(int nIndex);
+    void insert(int nIndex,QWidget *pWidget,QString strColor = "#b9b9b9",int nHeight = 40);
+    void bindDelSig(QWidget *pWidget);
     QWidget *at(int i);
-    void processStyle();
+    int count(){return m_listWidget.count();}
 protected:
     void paintEvent(QPaintEvent *event);
 
 private:
     void initUI();
+    void refreshStyle();
     QString getStyle(EnmStyle num,QString strColor);
-    QString getStyle(QString strColor,QString strRadius);
+    //QString getStyle(QString strColor,QString strRadius);
 private:
     int m_nWidth;
 
@@ -42,7 +43,8 @@ private:
     QList<int> m_listHeight;
     QList<QString> m_listColor;
     QList<QWidget *> m_listWidget;
-
+private slots:
+    void slotDelItem(QWidget *pWidget);
 };
 
 #endif // TCARD_H

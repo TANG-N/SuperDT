@@ -21,6 +21,7 @@ void TLoopTextCardItem::initUI()
     m_pBtnDel = new QPushButton(this);
     m_pBtnDel->setFixedSize(28,28);
     m_pBtnDel->setStyleSheet("border-image:url(:image/icon/setting/del.png);");
+    connect(m_pBtnDel,SIGNAL(clicked()),this,SLOT(slotDel()));
 
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLineEdit);
@@ -40,4 +41,9 @@ void TLoopTextCardItem::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
+void TLoopTextCardItem::slotDel()
+{
+    emit sigDel(this);
 }

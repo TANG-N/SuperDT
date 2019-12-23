@@ -4,6 +4,18 @@
 #include <QWidget>
 #include <QScrollArea>
 #include <QTextEdit>
+#include <QVBoxLayout>
+
+#include "TCardItem.h"
+#include "TCard.h"
+#include "TCardTitle.h"
+#include <QDebug>
+#include "TComBoxCardItem.h"
+#include "TComBox.h"
+#include "TLockButtonCardItem.h"
+#include "TUserCardItem.h"
+#include "TLoopTextCardItem.h"
+#include "TTriggerCardItem.h"
 
 class NetworkApp : public QWidget
 {
@@ -15,6 +27,11 @@ public:
 private:
     QScrollArea *m_pScrollArea;
     QTextEdit *m_pTextEdit;
+
+
+    TCard *m_pCardTrig;
+private slots:
+    void slotAddTrig();
 };
 
 #endif // NETWORKAPP_H

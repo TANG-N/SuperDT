@@ -1,17 +1,4 @@
-﻿#include <QVBoxLayout>
-
-#include "NetworkApp.h"
-#include "TCardItem.h"
-#include "TCard.h"
-#include "TCardTitle.h"
-#include <QDebug>
-#include "TComBoxCardItem.h"
-#include "TComBox.h"
-#include "TLockButtonCardItem.h"
-#include "TUserCardItem.h"
-#include "TLoopTextCardItem.h"
-#include <QVBoxLayout>
-#include "TTriggerCardItem.h"
+﻿#include "NetworkApp.h"
 
 NetworkApp::NetworkApp(QWidget *parent)
     : QWidget(parent)
@@ -111,11 +98,13 @@ void NetworkApp::initUI()
     TTriggerCardItem *pCItemTrig = new TTriggerCardItem(this);
     QPushButton *pBtnAddTrig = new QPushButton(this);
     pBtnAddTrig->setText("+");
+    connect(pBtnAddTrig,SIGNAL(clicked()),this,SLOT(slotAddTrig()));
 
-    TCard *pCardTrig = new TCard(this);
-    pCardTrig->addWidget(pCItemTrigAble);
-    pCardTrig->addWidget(pCItemTrig);
-    pCardTrig->addWidget(pBtnAddTrig,"#30a7f8");
+    m_pCardTrig = new TCard(this);
+    m_pCardTrig->addWidget(pCItemTrigAble);
+    m_pCardTrig->addWidget(pCItemTrig);
+    m_pCardTrig->bindDelSig(pCItemTrig);
+    m_pCardTrig->addWidget(pBtnAddTrig,"#30a7f8");
     /*布局*/
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addSpacing(20);
@@ -137,11 +126,23 @@ void NetworkApp::initUI()
     layout->addWidget(pCardSendAdva);
 
     layout->addWidget(pCardTitleTrig);
-    layout->addWidget(pCardTrig);
+    layout->addWidget(m_pCardTrig);
 
     layout->addStretch(1);
     layout->setContentsMargins(2,0,2,0);
 
 
     this->setLayout(layout);
+}
+
+void NetworkApp::slotAddTrig()
+{
+    qDebug()<<"add 1";
+    TTriggerCardItem *pCItemTrig = new TTriggerCardItem(this);
+
+    qDebug()<<"add 2";
+    m_pCardTrig->insert(m_pCardTrig->count()-1,pCItemTrig);
+    m_pCardTrig->bindDelSig(pCItemTrig);
+
+    this->resize(this->width(),this->height() + 42);
 }
