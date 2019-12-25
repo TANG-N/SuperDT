@@ -1,4 +1,4 @@
-#ifndef TTRIGGERCARDITEM_H
+﻿#ifndef TTRIGGERCARDITEM_H
 #define TTRIGGERCARDITEM_H
 
 #include <QWidget>
@@ -22,6 +22,7 @@ signals:
 private slots:
     void slotDel();
 private:
+    QString m_strAppPath;
     QLineEdit *m_pLineEditR;
     QLabel *m_pLabelIcon;
     QLineEdit *m_pLineEditS;

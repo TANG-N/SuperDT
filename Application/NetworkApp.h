@@ -25,6 +25,7 @@ public:
 
     void initUI();
 private:
+    QString m_strAppPath;
     QScrollArea *m_pScrollArea;
     QTextEdit *m_pTextEdit;
 

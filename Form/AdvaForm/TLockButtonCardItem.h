@@ -1,4 +1,4 @@
-#ifndef TLockButtonCardItem_H
+﻿#ifndef TLockButtonCardItem_H
 #define TLockButtonCardItem_H
 
 #include <QWidget>
@@ -19,6 +19,7 @@ signals:
 private slots:
     void slotBtnClicked();
 private:
+    QString m_strAppPath;
     QString m_strText;
     QString m_strBtnImgN;
     QString m_strBtnImgC;

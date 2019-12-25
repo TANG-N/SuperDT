@@ -1,9 +1,11 @@
-#include "TLoopTextCardItem.h"
+﻿#include "TLoopTextCardItem.h"
 #include <QStyleOption>
 #include <QHBoxLayout>
+#include <QApplication>
 
 TLoopTextCardItem::TLoopTextCardItem(QWidget *parent) : QWidget(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     initUI();
 }
 
@@ -20,7 +22,7 @@ void TLoopTextCardItem::initUI()
 
     m_pBtnDel = new QPushButton(this);
     m_pBtnDel->setFixedSize(28,28);
-    m_pBtnDel->setStyleSheet("border-image:url(:image/icon/setting/del.png);");
+    m_pBtnDel->setStyleSheet("border-image:url("+ m_strAppPath + "image/icon/setting/del.png);");
     connect(m_pBtnDel,SIGNAL(clicked()),this,SLOT(slotDel()));
 
     QHBoxLayout *hLayout = new QHBoxLayout;

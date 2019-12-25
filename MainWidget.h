@@ -21,6 +21,7 @@ private:
     void initUI();
 
 private:
+    QString m_strAppPath;
     TitleBar *m_pTitleBar;
     StatusBar *m_pStatusBar;
     TMsgArea *m_pMsgArea;

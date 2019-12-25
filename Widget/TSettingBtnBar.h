@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QPushButton>
 #include <QStringList>
+#include <QPainter>
 
 class TSettingBtnBar:public QWidget
 {
@@ -14,11 +15,13 @@ public:
 private:
     void init();
     void createView();
+    void paintEvent(QPaintEvent *event);
 signals:
     void sigSettingBtn(QString strId);
 private slots:
     void slotBtnClicked(QString strId);
 private:
+    QString m_strAppPath;
     QVector<QPushButton *> m_vecBtn;
     QSize m_sIconSize;
     QString m_strImgUrl;

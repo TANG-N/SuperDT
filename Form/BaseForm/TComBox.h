@@ -11,6 +11,7 @@ public:
     explicit TComBox(QWidget *parent = 0);
 
 private:
+    QString m_strAppPath;
     void initUI();
 };
 

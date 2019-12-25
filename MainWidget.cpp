@@ -4,10 +4,12 @@
 
 #include <QVBoxLayout>
 #include <QTimer>
+#include <QApplication>
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     initUI();
 }
 
@@ -23,7 +25,7 @@ void MainWidget::initUI()
 //    timerLog->start(2000);
 
 //    this->setWindowTitle("QQ ");
-//    this->setWindowIcon(QIcon(":/images/po.jpg"));
+//    this->setWindowIcon(QIcon(m_strAppPath + "images/po.jpg"));
     this->setWindowFlags(Qt::FramelessWindowHint);//去掉标题栏
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);    // 设置尺寸属性
     this->setMinimumSize(1024,720);

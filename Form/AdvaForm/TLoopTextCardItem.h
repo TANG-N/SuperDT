@@ -1,4 +1,4 @@
-#ifndef TLOOPTEXTITEM_H
+﻿#ifndef TLOOPTEXTITEM_H
 #define TLOOPTEXTITEM_H
 
 #include <QWidget>
@@ -21,6 +21,7 @@ signals:
 private slots:
     void slotDel();
 private:
+    QString m_strAppPath;
     QLineEdit *m_pLineEdit;
     TComBox *m_pComBox;
     QPushButton *m_pBtnDel;

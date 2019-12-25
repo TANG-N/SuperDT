@@ -1,4 +1,4 @@
-#ifndef TUSERCARDITEM_H
+﻿#ifndef TUSERCARDITEM_H
 #define TUSERCARDITEM_H
 
 #include <QWidget>
@@ -17,6 +17,7 @@ public:
 public:
 
 private:
+    QString m_strAppPath;
     QString m_strImgPath;
     QString m_strIconPath;
     QString m_strUserName;

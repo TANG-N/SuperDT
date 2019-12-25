@@ -1,14 +1,16 @@
-#include "TLockButtonCardItem.h"
+﻿#include "TLockButtonCardItem.h"
 #include <QHBoxLayout>
 #include <QStyleOption>
 #include <QPainter>
+#include <QApplication>
 
 TLockButtonCardItem::TLockButtonCardItem(QString strText,QWidget *parent)
     : QWidget(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     m_strText = strText;
-    m_strBtnImgN = ":image/icon/btn_n.png";
-    m_strBtnImgC = ":image/icon/btn_c.png";
+    m_strBtnImgN = m_strAppPath + "image/setting/btn_n.png";
+    m_strBtnImgC = m_strAppPath + "image/setting/btn_c.png";
     initUI();
 }
 //Qwidget 自身没有实现paintEvent  对setStyleSheet()无效 实现paintEvent即可
@@ -33,7 +35,7 @@ void TLockButtonCardItem::initUI()
     m_pLabel->setText(m_strText);
 
     m_pLockBtn = new TLockButton("BtnItem",m_strBtnImgN,m_strBtnImgC,this);
-    m_pLockBtn->setFixedSize(32,32);
+    m_pLockBtn->setFixedSize(32,20);
     connect(m_pLockBtn,SIGNAL(clicked(bool)),this,SLOT(slotBtnClicked()));
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLabel);

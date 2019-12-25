@@ -1,7 +1,9 @@
 ﻿#include "TPushButton.h"
+#include <QApplication>
 
 TPushButton::TPushButton(QWidget *parent, bool status) : QPushButton(parent),m_bStatus(status)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     this->initUI();
 }
 

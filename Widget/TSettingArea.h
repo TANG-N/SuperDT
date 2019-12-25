@@ -26,6 +26,7 @@ private:
     void initUI();
     void initSettingArea();
 private:
+    QString m_strAppPath;
     QString getImageStytle(QString strImage);
     QScrollArea *m_pSarea;
     QWidget *m_pWidgetSettingArea;

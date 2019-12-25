@@ -3,12 +3,15 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QButtonGroup>
+#include <QApplication>
+#include <QStyleOption>
 
 TSettingBtnBar::TSettingBtnBar(QWidget *parent)
     :QWidget(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     m_sIconSize = QSize(24,24);
-    m_strImgUrl = ":/image/icon/setting/";
+    m_strImgUrl = m_strAppPath + "image/setting/";
     init();
 }
 
@@ -17,11 +20,22 @@ void TSettingBtnBar::init()
     createView();
 }
 
+void TSettingBtnBar::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
+
 void TSettingBtnBar::createView()
 {
     this->setFixedWidth(36);
-    //this->setStyleSheet("QWidget{background-color:#bebebe;}");
-
+    this->setStyleSheet("QWidget{background-color:#bebebe;}");
+//cccccc
     QStringList listUrl;
     listUrl <<"menu"<<"user"<<"protocol"<<"download"<<"send";
 
@@ -46,7 +60,7 @@ void TSettingBtnBar::createView()
         layout->addSpacing(10);
     }
     layout->addStretch(1);
-    layout->setContentsMargins(2, 0, 2, 0);
+    layout->setContentsMargins(6, 0, 6, 0);
 
     this->setLayout(layout);
 }

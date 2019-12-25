@@ -21,7 +21,7 @@ private:
     QString getImageStytle(QString strImage);
 private:
     bool m_bStatus;
-
+    QString m_strAppPath;
 };
 
 #endif // TPushButton_H

@@ -21,6 +21,7 @@ private:
     void initUI();
 
     QString getImageStytle(QString strImage);
+    QString m_strAppPath;
     QWidget *m_pParentWindow;
     QPushButton *m_pExitButton;
     QPushButton *m_pMaxButton;

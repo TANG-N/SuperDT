@@ -1,11 +1,14 @@
-#include "TUserCardItem.h"
+﻿#include "TUserCardItem.h"
 #include <QStyleOption>
 #include <QPainter>
+#include <QApplication>
 
 TUserCardItem::TUserCardItem(QWidget *parent) : QWidget(parent)
 {
-    m_strImgPath = ":image/icon/setting/user1.jpg";
-    m_strIconPath = ":image/icon/setting/user_n.png";
+    m_strAppPath = QApplication::applicationDirPath() + "/";
+
+    m_strImgPath = m_strAppPath + "image/setting/user1.jpg";
+    m_strIconPath = m_strAppPath + "image/setting/user_n.png";
     m_strUserName = "TANG";
     m_nDebugCount = 23467;
     initUI();

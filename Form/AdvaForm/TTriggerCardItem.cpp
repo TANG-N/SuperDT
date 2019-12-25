@@ -1,12 +1,14 @@
-#include "TTriggerCardItem.h"
+﻿#include "TTriggerCardItem.h"
 #include <QHBoxLayout>
 #include <QPainter>
 #include <QStyleOption>
 #include <QDebug>
+#include <QApplication>
 
 TTriggerCardItem::TTriggerCardItem(QWidget *parent)
     : QWidget(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     initUI();
 }
 
@@ -18,7 +20,7 @@ void TTriggerCardItem::initUI()
     m_pLineEditR->setStyleSheet("background-color:#ffffff;color:#000000;border-radius:5px;");
 
     m_pLabelIcon = new QLabel(this);
-    m_pLabelIcon->setStyleSheet("border-image:url(:image/icon/setting/trig.png);");
+    m_pLabelIcon->setStyleSheet("border-image:url(" + m_strAppPath + "image/icon/setting/trig.png);");
     m_pLabelIcon->setFixedSize(28,28);
 
     m_pLineEditS = new QLineEdit(this);
@@ -28,7 +30,7 @@ void TTriggerCardItem::initUI()
 
     m_pBtnDel = new QPushButton(this);
     m_pBtnDel->setFixedSize(28,28);
-    m_pBtnDel->setStyleSheet("border-image:url(:image/icon/setting/del.png);");
+    m_pBtnDel->setStyleSheet("border-image:url(" +m_strAppPath + "image/icon/setting/del.png);");
     connect(m_pBtnDel,SIGNAL(clicked()),this,SLOT(slotDel()));
 
     QHBoxLayout *hLayout = new QHBoxLayout;

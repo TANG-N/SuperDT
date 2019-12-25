@@ -1,8 +1,10 @@
 ﻿#include "TComBox.h"
+#include <QApplication>
 
 TComBox::TComBox(QWidget *parent)
     : QComboBox(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     initUI();
 }
 

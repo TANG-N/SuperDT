@@ -4,9 +4,11 @@
 #include "TCard.h"
 #include "NetworkApp.h"
 #include <QGridLayout>
+#include <QApplication>
 
 TSettingArea::TSettingArea(QWidget *parent) : QWidget(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     initVal();
     initUI();
 }

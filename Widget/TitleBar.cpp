@@ -8,10 +8,12 @@
 #include "TitleBar.h"
 #include <QDebug>
 #include <QHBoxLayout>
+#include <QApplication>
 
 TitleBar::TitleBar(QWidget *parent)
     : QWidget(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     initVal();
     initUI();
 }
@@ -35,7 +37,7 @@ void TitleBar::initUI()
     m_pLabelIcon = new QLabel(this);
     m_pLabelIcon->setFixedSize(24,24);  //设置最大宽高和最小宽高固定  不再拉伸
     m_pLabelIcon->setScaledContents(true); //允许图片按比例缩小填充Label
-    m_pLabelIcon->setStyleSheet("QLabel {border-image:url(:/image/icon/logo32.png)}");
+    m_pLabelIcon->setStyleSheet("QLabel {border-image:url("+ m_strAppPath + "image/logo32.png)}");
 
     m_pLabelTitle = new QLabel(this);
     m_pLabelTitle->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -72,7 +74,7 @@ void TitleBar::initUI()
 
 QString TitleBar::getImageStytle(QString strImage)
 {
-    return "QPushButton {border-image:url(:/image/icon/" + strImage + ")}";
+    return "QPushButton {border-image:url("+ m_strAppPath + "image/form/" + strImage + ")}";
 }
 
 void TitleBar::mouseMoveEvent(QMouseEvent *event)

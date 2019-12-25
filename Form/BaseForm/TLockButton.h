@@ -20,6 +20,7 @@ private:
 private slots:
     void slotClicked(bool bState);
 private:
+    QString m_strAppPath;
     QString m_strId;
     QString m_strImgUrlN; //默认图片
     QString m_strImgUrlC; //Checked图片

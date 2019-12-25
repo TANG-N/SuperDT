@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     a.setFont(globalFont);
 
     /*设置样式*/
-//    QFile file(":/qss/style.qss");
+//    QFile file(m_strAppPath + "qss/style.qss");
 //    file.open(QFile::ReadOnly);
 //    QString styleSheet = tr(file.readAll());
 //    this->setStyleSheet(styleSheet);

@@ -19,6 +19,7 @@ signals:
     void signalHSplitScreen();
     void signalMergeScreen();
 private:
+    QString m_strAppPath;
     QString getImageStytle(QString strImage);
 
     QWidget *m_pWidget;

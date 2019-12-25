@@ -1,6 +1,6 @@
 ﻿#include "TCard.h"
 #include <QDebug>
-
+#include <QApplication>
 //父类最小宽度290
 
 TCard::TCard(QWidget *parent) : QWidget(parent)

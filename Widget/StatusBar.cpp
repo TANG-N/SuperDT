@@ -1,9 +1,11 @@
 ﻿#include "StatusBar.h"
 
 #include <QHBoxLayout>
+#include <QApplication>
 
 StatusBar::StatusBar(QWidget *parent) : QWidget(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     initVal();
     initUI();
 }
@@ -56,5 +58,5 @@ void StatusBar::initUI()
 
 QString StatusBar::getImageStytle(QString strImage)
 {
-    return "QPushButton {border-image:url(:/image/icon/" + strImage + ")}";
+    return "QPushButton {border-image:url("+ m_strAppPath + "image/form/" + strImage + ")}";
 }

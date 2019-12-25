@@ -1,9 +1,11 @@
 ﻿#include "TLockButton.h"
 #include <QDebug>
+#include <QApplication>
 
 TLockButton::TLockButton(QString strId,QString strImgUrlN,QString strImgUrlC,QWidget *parent )
     :QPushButton(parent)
 {
+    m_strAppPath = QApplication::applicationDirPath() + "/";
     m_strId = strId;
     m_strImgUrlN = strImgUrlN;
     m_strImgUrlC = strImgUrlC;
