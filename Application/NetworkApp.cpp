@@ -86,11 +86,12 @@ void NetworkApp::initUI()
     TLoopTextCardItem *pCItemLoopText = new TLoopTextCardItem(this);
     QPushButton *pBtnAddLoop = new QPushButton(this);
     pBtnAddLoop->setText("+");
+    connect(pBtnAddLoop,SIGNAL(clicked(bool)),this,SLOT(slotAddLoop()));
 
-    TCard *pCardSendAdva = new TCard(this);
-    pCardSendAdva->addWidget(pCItemLoopAble);
-    pCardSendAdva->addWidget(pCItemLoopText);
-    pCardSendAdva->addWidget(pBtnAddLoop,"#30a7f8");
+    m_pCardAdvaSend = new TCard(this);
+    m_pCardAdvaSend->addWidget(pCItemLoopAble);
+    m_pCardAdvaSend->addWidget(pCItemLoopText);
+    m_pCardAdvaSend->addWidget(pBtnAddLoop,"#30a7f8");
 
     /*触发器*/
     TCardTitle *pCardTitleTrig = new TCardTitle(":/image/icon/setting/send_n.png","触发器",this);
@@ -123,7 +124,7 @@ void NetworkApp::initUI()
     layout->addWidget(pCardSendText);
 
     layout->addWidget(pCardTitleAdvaSend);
-    layout->addWidget(pCardSendAdva);
+    layout->addWidget(m_pCardAdvaSend);
 
     layout->addWidget(pCardTitleTrig);
     layout->addWidget(m_pCardTrig);
@@ -143,6 +144,18 @@ void NetworkApp::slotAddTrig()
     qDebug()<<"add 2";
     m_pCardTrig->insert(m_pCardTrig->count()-1,pCItemTrig);
     m_pCardTrig->bindDelSig(pCItemTrig);
+
+    this->resize(this->width(),this->height() + 42);
+}
+
+void NetworkApp::slotAddLoop()
+{
+    qDebug()<<"add l 1";
+    TLoopTextCardItem *pCItemLoopText = new TLoopTextCardItem(this);
+
+    qDebug()<<"add l 2";
+    m_pCardAdvaSend->insert(m_pCardTrig->count()-1,pCItemLoopText);
+    m_pCardAdvaSend->bindDelSig(pCItemLoopText);
 
     this->resize(this->width(),this->height() + 42);
 }

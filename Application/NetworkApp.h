@@ -30,8 +30,10 @@ private:
 
 
     TCard *m_pCardTrig;
+    TCard *m_pCardAdvaSend;
 private slots:
     void slotAddTrig();
+    void slotAddLoop();
 };
 
 #endif // NETWORKAPP_H
