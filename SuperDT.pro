@@ -119,7 +119,8 @@ HEADERS += \
     Form/BaseForm/TLineEdit.h \
     Form/BaseForm/TLockButton.h \
     Form/BaseForm/TPushButton.h \
-    Application/NetworkData.h
+    Application/NetworkData.h \
+    Form/AdvaForm/ICardItem.h
 
 
 INCLUDEPATH += \

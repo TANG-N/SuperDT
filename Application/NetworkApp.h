@@ -16,6 +16,7 @@
 #include "TUserCardItem.h"
 #include "TLoopTextCardItem.h"
 #include "TTriggerCardItem.h"
+#include <QList>
 
 class NetworkApp : public QWidget
 {
@@ -29,12 +30,25 @@ private:
     QScrollArea *m_pScrollArea;
     QTextEdit *m_pTextEdit;
 
-
+    TCard *m_pCardUser;
+    TCard *m_pCardProtocal;
+    TCard *m_pCardRecv;
+    TCard *m_pCardSend;
+    TCard *m_pCardSendText;
     TCard *m_pCardTrig;
     TCard *m_pCardAdvaSend;
+
+    QList<TCard *> m_listCard;
 private slots:
     void slotAddTrig();
     void slotAddLoop();
+
+    void slotChangeForProtocal();
+    void slotChangeForRecv();
+    void slotChangeForSend();
+    void slotChangeForSendText();
+    void slotChangeForTrig();
+    void slotChangeForAdvaSend();
 };
 
 #endif // NETWORKAPP_H

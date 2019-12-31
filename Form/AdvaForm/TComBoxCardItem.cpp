@@ -25,6 +25,7 @@ void TComBoxCardItem::init()
     m_pLabel = new QLabel(this);
     m_pComBox = new TComBox(this);
     m_pComBox->setFixedWidth(160);
+    connect(m_pComBox,SIGNAL(currentTextChanged(QString)),this,SIGNAL(sigSettingChanged()));
 
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLabel);

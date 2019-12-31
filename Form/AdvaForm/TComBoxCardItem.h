@@ -15,6 +15,10 @@ public:
 
     void addItems(QVector<QString> vecItem);
     void setText(QString strText){m_strText = strText;refreshStyle();}
+    QString currentText(){return m_pComBox->currentText();}
+    int currentIndex(){return m_pComBox->currentIndex();}
+signals:
+    void sigSettingChanged();
 private:
     void init();
     void paintEvent(QPaintEvent *event);

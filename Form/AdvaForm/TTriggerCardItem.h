@@ -14,10 +14,13 @@ class TTriggerCardItem : public QWidget
 public:
     explicit TTriggerCardItem(QWidget *parent = 0);
 
+    QString recvText(){return m_pLineEditR->text();}
+    QString sendText(){return m_pLineEditS->text();}
 private:
     void initUI();
     void paintEvent(QPaintEvent *event);
 signals:
+    void sigSettingChanged();
     void sigDel(QWidget *pWidget);
 private slots:
     void slotDel();

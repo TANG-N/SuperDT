@@ -13,10 +13,13 @@ class TLoopTextCardItem : public QWidget
 public:
     explicit TLoopTextCardItem(QWidget *parent = 0);
 
+    QString currentText(){return m_pLineEdit->text();}
+    int pollTime(){return m_pComBox->currentText().toInt();}
 private:
     void initUI();
     void paintEvent(QPaintEvent *event);
 signals:
+    void sigSettingChanged();
     void sigDel(QWidget *pWidget);
 private slots:
     void slotDel();

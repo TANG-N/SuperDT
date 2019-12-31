@@ -31,7 +31,7 @@ void TComBox::initUI()
                             "right:4px;"
                         "}"
                         "QComboBox::down-arrow {"
-                            "image:url(:/image/icon/combox-drop.png);"
+                            "image:url(" + m_strAppPath + "image/form/combox-drop.png);"
                         "}"
                         );
 

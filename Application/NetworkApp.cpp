@@ -11,14 +11,13 @@ NetworkApp::NetworkApp(QWidget *parent)
 
 void NetworkApp::initUI()
 {
-    //m_pScrollArea = new QScrollArea(this);
     this->setMinimumHeight(1500);
 
     /*User Card*/
     TUserCardItem *pUserCard = new TUserCardItem(this);
 
-    TCard *pCardUser = new TCard(this);
-    pCardUser->addWidget(pUserCard,"#b9b9b9",100);
+    m_pCardUser = new TCard(this);
+    m_pCardUser->addWidget(pUserCard,QString("#b9b9b9"),100);
 
     /*通信协议*/
     TCardTitle *pCardTitleProtoal = new TCardTitle(m_strAppPath + "image/setting/protocol_n.png","协议设置",this);
@@ -34,11 +33,12 @@ void NetworkApp::initUI()
     QPushButton *pBtnConnect = new QPushButton(this);
     pBtnConnect->setText("连接");
 
-    TCard *pCardProtocal = new TCard(this);
-    pCardProtocal->addWidget(pCardItemProtocal);
-    pCardProtocal->addWidget(pCardItemIP);
-    pCardProtocal->addWidget(pCardItemPort);
-    pCardProtocal->addWidget(pBtnConnect,"#30a7f8");
+    m_pCardProtocal = new TCard(this);
+    m_pCardProtocal->addWidget(pCardItemProtocal,true);
+    m_pCardProtocal->addWidget(pCardItemIP,true);
+    m_pCardProtocal->addWidget(pCardItemPort,true);
+    m_pCardProtocal->addWidget(pBtnConnect,QString("#30a7f8"));
+    connect(m_pCardProtocal,SIGNAL(sigSettingChanged()),this,SLOT(slotChangeForProtocal()));
 
     /*接收设置*/
     TCardTitle *pCardTitleRecv = new TCardTitle(m_strAppPath + "image/setting/download_n.png","接收设置",this);
@@ -52,22 +52,23 @@ void NetworkApp::initUI()
     TLockButtonCardItem *pCItemRecvDAble = new TLockButtonCardItem("接收显示",this);
     TLockButtonCardItem *pCItemHexAble = new TLockButtonCardItem("十六进制显示",this);
 
-    TCard *pCardRecv = new TCard(this);
-    pCardRecv->addWidget(pCItemSaveAble);
-    pCardRecv->addWidget(pCItemFileName);
-    pCardRecv->addWidget(pCItemPath);
-    pCardRecv->addWidget(pCItemRecvDAble);
-    pCardRecv->addWidget(pCItemHexAble);
+    m_pCardRecv = new TCard(this);
+    m_pCardRecv->addWidget(pCItemSaveAble,true);
+    m_pCardRecv->addWidget(pCItemFileName,true);
+    m_pCardRecv->addWidget(pCItemPath,true);
+    m_pCardRecv->addWidget(pCItemRecvDAble,true);
+    m_pCardRecv->addWidget(pCItemHexAble,true);
+    connect(m_pCardRecv,SIGNAL(sigSettingChanged()),this,SLOT(slotChangeForRecv()));
 
     /*发送设置*/
     TCardTitle *pCardTitleSend = new TCardTitle(m_strAppPath + "image/setting/send_n.png","发送设置",this);
     TLockButtonCardItem *pCItemSendDAble = new TLockButtonCardItem("显示发送",this);
     TLockButtonCardItem *pCItemHexSendAble = new TLockButtonCardItem("十六进制发送",this);
 
-    TCard *pCardSend = new TCard(this);
-    pCardSend->addWidget(pCItemSendDAble);
-    pCardSend->addWidget(pCItemHexSendAble);
-
+    m_pCardSend = new TCard(this);
+    m_pCardSend->addWidget(pCItemSendDAble,true);
+    m_pCardSend->addWidget(pCItemHexSendAble,true);
+    connect(m_pCardSend,SIGNAL(sigSettingChanged()),this,SLOT(slotChangeForSend()));
     /*发送*/
     QWidget *pWidgetBg = new QWidget(this);
     m_pTextEdit = new QTextEdit(pWidgetBg);
@@ -77,9 +78,9 @@ void NetworkApp::initUI()
     QPushButton *pBtnSend = new QPushButton(this);
     pBtnSend->setText("发送");
 
-    TCard *pCardSendText = new TCard(this);
-    pCardSendText->addWidget(pWidgetBg,"#ffffff",150);
-    pCardSendText->addWidget(pBtnSend,"#30a7f8");
+    m_pCardSendText = new TCard(this);
+    m_pCardSendText->addWidget(pWidgetBg,QString("#ffffff"),150);
+    m_pCardSendText->addWidget(pBtnSend,QString("#30a7f8"));
 
     /*高级发送*/
     TCardTitle *pCardTitleAdvaSend = new TCardTitle(m_strAppPath + "image/setting/send_n.png","高级发送",this);
@@ -91,11 +92,10 @@ void NetworkApp::initUI()
     connect(pBtnAddLoop,SIGNAL(clicked(bool)),this,SLOT(slotAddLoop()));
 
     m_pCardAdvaSend = new TCard(this);
-    m_pCardAdvaSend->addWidget(pCItemLoopAble);
-    m_pCardAdvaSend->addWidget(pCItemLoopText);
-    m_pCardAdvaSend->bindDelSig(pCItemLoopText);
-    m_pCardAdvaSend->addWidget(pBtnAddLoop,"#30a7f8");
-
+    m_pCardAdvaSend->addWidget(pCItemLoopAble,true);
+    m_pCardAdvaSend->addWidget(pCItemLoopText,false,true);
+    m_pCardAdvaSend->addWidget(pBtnAddLoop,QString("#30a7f8"));
+    connect(m_pCardAdvaSend,SIGNAL(sigSettingChanged()),this,SLOT(slotChangeForAdvaSend()));
     /*触发器*/
     TCardTitle *pCardTitleTrig = new TCardTitle(m_strAppPath + "image/setting/send_n.png","触发器",this);
     TLockButtonCardItem *pCItemTrigAble = new TLockButtonCardItem("触发器",this);
@@ -105,24 +105,24 @@ void NetworkApp::initUI()
     connect(pBtnAddTrig,SIGNAL(clicked()),this,SLOT(slotAddTrig()));
 
     m_pCardTrig = new TCard(this);
-    m_pCardTrig->addWidget(pCItemTrigAble);
-    m_pCardTrig->addWidget(pCItemTrig);
-    m_pCardTrig->bindDelSig(pCItemTrig);
-    m_pCardTrig->addWidget(pBtnAddTrig,"#30a7f8");
+    m_pCardTrig->addWidget(pCItemTrigAble,true);
+    m_pCardTrig->addWidget(pCItemTrig,false,true);
+    m_pCardTrig->addWidget(pBtnAddTrig,QString("#30a7f8"));
+    connect(m_pCardAdvaSend,SIGNAL(sigSettingChanged()),this,SLOT(slotChangeForTrig()));
     /*布局*/
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addSpacing(20);
-    layout->addWidget(pCardUser);
+    layout->addWidget(m_pCardUser);
 
     layout->addWidget(pCardTitleProtoal);
-    layout->addWidget(pCardProtocal);
+    layout->addWidget(m_pCardProtocal);
 
     layout->addWidget(pCardTitleRecv);
-    layout->addWidget(pCardRecv);
+    layout->addWidget(m_pCardRecv);
 
     layout->addWidget(pCardTitleSend);
-    layout->addWidget(pCardSend);
-    layout->addWidget(pCardSendText);
+    layout->addWidget(m_pCardSend);
+    layout->addWidget(m_pCardSendText);
 
     layout->addWidget(pCardTitleAdvaSend);
     layout->addWidget(m_pCardAdvaSend);
@@ -159,4 +159,35 @@ void NetworkApp::slotAddLoop()
     m_pCardAdvaSend->bindDelSig(pCItemLoopText);
 
     this->resize(this->width(),this->height() + 42);
+}
+
+void NetworkApp::slotChangeForProtocal()
+{
+    qDebug()<<"slotChangeForProtocal";
+    qDebug()<<__FUNCTION__;
+}
+
+void NetworkApp::slotChangeForRecv()
+{
+    qDebug()<<__FUNCTION__;
+}
+
+void NetworkApp::slotChangeForSend()
+{
+    qDebug()<<__FUNCTION__;
+}
+
+void NetworkApp::slotChangeForSendText()
+{
+    qDebug()<<__FUNCTION__;
+}
+
+void NetworkApp::slotChangeForTrig()
+{
+    qDebug()<<__FUNCTION__;
+}
+
+void NetworkApp::slotChangeForAdvaSend()
+{
+    qDebug()<<__FUNCTION__;
 }

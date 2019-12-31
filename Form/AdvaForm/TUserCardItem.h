@@ -15,7 +15,8 @@ public:
     void refreshStyle();
     void paintEvent(QPaintEvent *event);
 public:
-
+signals:
+    void sigSettingChanged();
 private:
     QString m_strAppPath;
     QString m_strImgPath;

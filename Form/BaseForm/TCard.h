@@ -23,14 +23,17 @@ public:
     explicit TCard(QWidget *parent = 0);
 
     QWidget *addWidget(QWidget *pWidget,QString strColor = "#b9b9b9",int nHeight = 40);// #30a7f8
-
+    QWidget *addWidget(QWidget *pWidget,bool bHaveChange = false,bool bHaveDel = false,\
+                       QString strColor = "#b9b9b9",int nHeight = 40);
     void insert(int nIndex,QWidget *pWidget,QString strColor = "#b9b9b9",int nHeight = 40);
+    void bindSignals(QWidget *pWidget,bool bHaveChange = false,bool bHaveDel = false);
     void bindDelSig(QWidget *pWidget);
     QWidget *at(int i);
     int count(){return m_listWidget.count();}
+signals:
+    void sigSettingChanged();
 protected:
     void paintEvent(QPaintEvent *event);
-
 private:
     void initUI();
     void refreshStyle();

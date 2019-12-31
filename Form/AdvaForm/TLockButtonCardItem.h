@@ -11,10 +11,12 @@ class TLockButtonCardItem : public QWidget
 public:
     explicit TLockButtonCardItem(QString strText,QWidget *parent = 0);
 
+    bool currentState(){return m_pLockBtn->isChecked();}
 private:
     void initUI();
     void paintEvent(QPaintEvent *event);
 signals:
+    void sigSettingChanged();
     void sigBtnClicked(bool bState);
 private slots:
     void slotBtnClicked();

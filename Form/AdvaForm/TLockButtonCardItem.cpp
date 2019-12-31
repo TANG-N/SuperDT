@@ -37,6 +37,8 @@ void TLockButtonCardItem::initUI()
     m_pLockBtn = new TLockButton("BtnItem",m_strBtnImgN,m_strBtnImgC,this);
     m_pLockBtn->setFixedSize(32,20);
     connect(m_pLockBtn,SIGNAL(clicked(bool)),this,SLOT(slotBtnClicked()));
+    connect(m_pLockBtn,SIGNAL(clicked(bool)),this,SIGNAL(sigSettingChanged()));
+
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLabel);
     hLayout->addStretch(1);

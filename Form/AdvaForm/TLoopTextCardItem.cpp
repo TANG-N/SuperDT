@@ -20,9 +20,10 @@ void TLoopTextCardItem::initUI()
     m_pComBox->addItem("1s");
     m_pComBox->addItem("2s");
 
+
     m_pBtnDel = new QPushButton(this);
     m_pBtnDel->setFixedSize(28,28);
-    m_pBtnDel->setStyleSheet("border-image:url("+ m_strAppPath + "image/icon/setting/del.png);");
+    m_pBtnDel->setStyleSheet("border-image:url("+ m_strAppPath + "image/setting/del.png);");
     connect(m_pBtnDel,SIGNAL(clicked()),this,SLOT(slotDel()));
 
     QHBoxLayout *hLayout = new QHBoxLayout;

@@ -43,8 +43,5 @@ public:
     /*触发器*/
     bool m_bTriggerAble; //触发器开关
     QMap<QString,QString> m_mapTrg; //触发列表 <接收文本，发送文本>
-
 };
-
-
 #endif // NETWORKDATA_H

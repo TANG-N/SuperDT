@@ -9,7 +9,7 @@ TCard::TCard(QWidget *parent) : QWidget(parent)
     initUI();
 }
 
-QWidget *TCard::addWidget(QWidget *pWidget, QString strColor,int nHeight)
+QWidget *TCard::addWidget(QWidget *pWidget, QString strColor, int nHeight)
 {
     pWidget->setFixedWidth(m_nWidth);
     pWidget->setObjectName("CardWidgetItem");
@@ -22,6 +22,15 @@ QWidget *TCard::addWidget(QWidget *pWidget, QString strColor,int nHeight)
 
     refreshStyle(); //设置样式
     return pWidget;
+}
+
+QWidget *TCard::addWidget(QWidget *pWidget, bool bHaveChange, bool bHaveDel,QString strColor,int nHeight)
+{
+    if(nullptr == pWidget)
+        return nullptr;
+
+    addWidget(pWidget,strColor,nHeight);
+    bindSignals(pWidget,bHaveChange,bHaveDel);
 }
 
 void TCard::insert(int nIndex,QWidget *pWidget, QString strColor, int nHeight)
@@ -41,6 +50,17 @@ void TCard::insert(int nIndex,QWidget *pWidget, QString strColor, int nHeight)
     qDebug()<<"insert item 4" << nIndex;
     refreshStyle(); //设置样式
     qDebug()<<"insert item 5" << nIndex;
+}
+
+void TCard::bindSignals(QWidget *pWidget,bool bHaveChange, bool bHaveDel)
+{
+    if(nullptr == pWidget)
+        return ;
+
+    if(bHaveChange)
+        connect(pWidget,SIGNAL(sigSettingChanged()),this,SIGNAL(sigSettingChanged()));
+    if(bHaveDel)
+        connect(pWidget,SIGNAL(sigDel(QWidget *)),this,SLOT(slotDelItem(QWidget *)));
 }
 
 void TCard::bindDelSig(QWidget *pWidget)
