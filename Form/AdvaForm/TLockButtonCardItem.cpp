@@ -24,25 +24,25 @@ void TLockButtonCardItem::paintEvent(QPaintEvent *event)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void TLockButtonCardItem::slotBtnClicked()
-{
-    emit sigBtnClicked(m_pLockBtn->isChecked());
-}
-
 void TLockButtonCardItem::initUI()
 {
+    this->resize(285,35);
+
     m_pLabel = new QLabel(this);
     m_pLabel->setText(m_strText);
 
-    m_pLockBtn = new TLockButton("BtnItem",m_strBtnImgN,m_strBtnImgC,this);
-    m_pLockBtn->setFixedSize(32,20);
-    connect(m_pLockBtn,SIGNAL(clicked(bool)),this,SLOT(slotBtnClicked()));
-    connect(m_pLockBtn,SIGNAL(clicked(bool)),this,SIGNAL(sigSettingChanged()));
+    m_pBtn = new QPushButton(this);
+    m_pBtn->setCheckable(true);
+    m_pBtn->setStyleSheet("QPushButton{border-image:url("+ m_strBtnImgN +");}"
+                        "QPushButton:checked{border-image:url("+ m_strBtnImgC +");}"
+//                        "QPushButton:hover{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
+                        );
+    m_pBtn->setFixedSize(32,20);
 
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLabel);
     hLayout->addStretch(1);
-    hLayout->addWidget(m_pLockBtn);
+    hLayout->addWidget(m_pBtn);
     hLayout->setContentsMargins(5,2,5,2);
     this->setLayout(hLayout);
 }

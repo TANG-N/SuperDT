@@ -16,6 +16,8 @@ TUserCardItem::TUserCardItem(QWidget *parent) : QWidget(parent)
 
 void TUserCardItem::initUI()
 {
+    this->resize(285,120);
+
     m_pLabelUserImg = new QLabel(this);
     m_pLabelUserImg->setFixedSize(80,80);
 

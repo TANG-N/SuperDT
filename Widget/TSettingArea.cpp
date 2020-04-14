@@ -1,7 +1,5 @@
 ﻿#include <QDebug>
-
 #include "TSettingArea.h"
-#include "TCard.h"
 #include "NetworkApp.h"
 #include <QGridLayout>
 #include <QApplication>
@@ -22,34 +20,30 @@ void TSettingArea::initVal()
 
 void TSettingArea::initUI()
 {
-    /*初始化背景*/
-    this->setMaximumWidth(m_nWidgetMainWidth + m_sIconSize.width());
-    this->setMinimumWidth(m_nButtonMainWidth);
-    this->setFixedWidth(m_nWidgetMainWidth + m_sIconSize.width());
+
+    m_pMsgArea = new TMsgArea(this);
+    connect(this,SIGNAL(signalVSplitScreen()),m_pMsgArea,SLOT(slotVSplitScreen()));
+    connect(this,SIGNAL(signalHSplitScreen()),m_pMsgArea,SLOT(slotHSplitScreen()));
+    connect(this,SIGNAL(signalMergeScreen()),m_pMsgArea,SLOT(slotMergeScreen()));
 
     /*参数设置区*/
+    //this->setFixedWidth(m_nWidgetMainWidth +  m_nButtonMainWidth);
     m_pSarea = new QScrollArea(this);
+    //m_pSarea->setContentsMargins(5,5,5,5);
     m_pSarea->setFixedWidth(m_nWidgetMainWidth);
     m_pSarea->setMinimumWidth(m_nWidgetMainWidth);
     m_pSarea->setStyleSheet("background-color:#cccccc;");//QScrollArea{
     m_pSarea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//隐藏横向滚动条
     m_pSarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//隐藏竖向滚动条
 
-//    m_pWidgetSettingArea = new QWidget(this);
-//    m_pWidgetSettingArea->setFixedWidth(m_nWidgetMainWidth);
-//    m_pWidgetSettingArea->setFixedHeight(650);
-//    m_pWidgetSettingArea->setMinimumWidth(m_nWidgetMainWidth);
-//    m_pWidgetSettingArea->setStyleSheet("QWidget{background-color:#cccccc;}");
-
-
     /*初始化按钮条、用户区、参数设置区*/
     TSettingBtnBar *bar = new TSettingBtnBar(this);
     bar->setFixedWidth(m_nButtonMainWidth);
-    bar->setMinimumWidth(m_nButtonMainWidth);
 
     initSettingArea();
 
     m_pHLayout = new QHBoxLayout;
+    m_pHLayout->addWidget(m_pMsgArea);
     m_pHLayout->addWidget(bar);
     m_pHLayout->addWidget(m_pSarea);
     m_pHLayout->setSpacing(0);
@@ -60,7 +54,8 @@ void TSettingArea::initUI()
 
 void TSettingArea::initSettingArea()
 {
-    NetworkApp *networkApp = new NetworkApp;
+    NetworkApp *networkApp = new NetworkApp(m_pMsgArea->currentTextEditor(),this);
+    networkApp->setContentsMargins(5,0,5,0);
     m_pSarea->setWidget(networkApp);
 }
 

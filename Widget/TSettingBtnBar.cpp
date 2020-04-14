@@ -1,5 +1,4 @@
 ﻿#include "TSettingBtnBar.h"
-#include "TLockButton.h"
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QButtonGroup>
@@ -43,7 +42,11 @@ void TSettingBtnBar::createView()
     pBtnGroup->setExclusive(true);
 
     foreach(QString strUrl,listUrl){
-        TLockButton *pSettingBtn = new TLockButton(strUrl,m_strImgUrl + strUrl + "_n.png",m_strImgUrl + strUrl + "_c.png",this);
+        QPushButton *pSettingBtn = new QPushButton(this);
+        pSettingBtn->setStyleSheet("QPushButton{border-image:url("+ m_strImgUrl + strUrl + "_n.png" +");}"
+                            "QPushButton:checked{border-image:url("+ m_strImgUrl + strUrl + "_c.png" +");}"
+    //                        "QPushButton:hover{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
+                            );
         pSettingBtn->setFixedSize(m_sIconSize);
         pSettingBtn->setCheckable(true);
         connect(pSettingBtn,SIGNAL(sigClicked(QString)),this,SLOT(slotBtnClicked(QString)));

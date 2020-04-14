@@ -5,11 +5,26 @@
 #include <QVBoxLayout>
 #include <QTimer>
 #include <QApplication>
+#include "TListCard.h"
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget(parent)
 {
     m_strAppPath = QApplication::applicationDirPath() + "/";
+
+
+
+//    TListCard *listCard = new TListCard(this);
+
+//    //listCard->setFixedSize(100,90);
+//    for(int i = 0; i < 10; i++){
+//        QPushButton *pBtn = new QPushButton;
+//        pBtn->setText("按钮" + QString::number(i));
+//        pBtn->resize(10 + 30*i,30);
+//        pBtn->setStyleSheet("background-color:#00ff00;");
+//        listCard->addWidget(pBtn);
+//    }
+
     initUI();
 }
 
@@ -37,18 +52,21 @@ void MainWidget::initUI()
 
     m_pStatusBar = new StatusBar(this);
 
-    m_pMsgArea = new TMsgArea(this);
-    connect(m_pStatusBar,SIGNAL(signalVSplitScreen()),m_pMsgArea,SLOT(slotVSplitScreen()));
-    connect(m_pStatusBar,SIGNAL(signalHSplitScreen()),m_pMsgArea,SLOT(slotHSplitScreen()));
-    connect(m_pStatusBar,SIGNAL(signalMergeScreen()),m_pMsgArea,SLOT(slotMergeScreen()));
+//    m_pMsgArea = new TMsgArea(this);
+//    connect(m_pStatusBar,SIGNAL(signalVSplitScreen()),m_pMsgArea,SLOT(slotVSplitScreen()));
+//    connect(m_pStatusBar,SIGNAL(signalHSplitScreen()),m_pMsgArea,SLOT(slotHSplitScreen()));
+//    connect(m_pStatusBar,SIGNAL(signalMergeScreen()),m_pMsgArea,SLOT(slotMergeScreen()));
 
     m_pSettingArea = new TSettingArea(this);
+    connect(m_pStatusBar,SIGNAL(signalVSplitScreen()),m_pSettingArea,SIGNAL(signalVSplitScreen()));
+    connect(m_pStatusBar,SIGNAL(signalHSplitScreen()),m_pSettingArea,SIGNAL(signalHSplitScreen()));
+    connect(m_pStatusBar,SIGNAL(signalMergeScreen()),m_pSettingArea,SIGNAL(signalMergeScreen()));
 
     QSizeGrip *sizeGrip = new QSizeGrip(this);//拖拽
 
     /*Msg和Setting*/
     QHBoxLayout *layoutMsgAndSetting = new QHBoxLayout;
-    layoutMsgAndSetting->addWidget(m_pMsgArea);
+//    layoutMsgAndSetting->addWidget(m_pMsgArea);
     layoutMsgAndSetting->addWidget(m_pSettingArea);
     layoutMsgAndSetting->setSpacing(0); //设置间距
     layoutMsgAndSetting->setContentsMargins(0, 0, 0, 0);
@@ -62,6 +80,10 @@ void MainWidget::initUI()
     layout->setContentsMargins(0, 0, 0, 0);
 
     this->setLayout(layout);
+
+
+
+
 }
 
 void MainWidget::slotLog()

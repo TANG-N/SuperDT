@@ -3,29 +3,27 @@
 #include <QStyleOption>
 #include <QGridLayout>
 #include <QStyleOption>
+#include <QApplication>
 
-TComBoxCardItem::TComBoxCardItem(QString strText, QVector<QString> vecItems, QWidget *parent)
-    : QWidget(parent)
+TComBoxCardItem::TComBoxCardItem(QString strText, QStringList strList, QWidget *parent)
+    : QWidget(parent),m_strText(strText),m_strListItems(strList)
 {
-    m_strText = strText;
-    m_vecItems = vecItems;
-
+    m_strImgPath = QApplication::applicationDirPath() + "/";
     init();
-}
-
-void TComBoxCardItem::addItems(QVector<QString> vecItem)
-{
-    foreach(QString strItem,vecItem){
-        m_pComBox->addItem(strItem);
-    }
 }
 
 void TComBoxCardItem::init()
 {
+    this->resize(285,35);
+
     m_pLabel = new QLabel(this);
-    m_pComBox = new TComBox(this);
-    m_pComBox->setFixedWidth(160);
-    connect(m_pComBox,SIGNAL(currentTextChanged(QString)),this,SIGNAL(sigSettingChanged()));
+    m_pComBox = new QComboBox(this);
+    m_pComBox->setFixedSize(160,30);
+    this->setStyleSheet("QComboBox{background:#ffffff;border-radius:5px;padding:1px;border: 4px solid #ffffff;color:#000000;}"
+                             "QComboBox::drop-down{background-color:transparent;width:20px;top:4px;height:15px;right:4px;}"
+                             "QComboBox::down-arrow {image:url(" + m_strImgPath + "image/form/combox-drop.png);}"
+                             );
+
 
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLabel);
@@ -33,7 +31,9 @@ void TComBoxCardItem::init()
     hLayout->addWidget(m_pComBox);
     hLayout->setContentsMargins(5,2,5,2);
     this->setLayout(hLayout);
-    refreshStyle();
+
+    m_pLabel->setText(m_strText);
+    m_pComBox->addItems(m_strListItems);
 }
 
 void TComBoxCardItem::paintEvent(QPaintEvent *event)
@@ -44,10 +44,4 @@ void TComBoxCardItem::paintEvent(QPaintEvent *event)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-}
-
-void TComBoxCardItem::refreshStyle()
-{
-    m_pLabel->setText(m_strText);
-    addItems(m_vecItems);
 }

@@ -3,9 +3,9 @@
 
 #include <QWidget>
 #include <QLineEdit>
-#include "TComBox.h"
 #include <QPushButton>
 #include <QPainter>
+#include <QComboBox>
 
 class TLoopTextCardItem : public QWidget
 {
@@ -13,20 +13,14 @@ class TLoopTextCardItem : public QWidget
 public:
     explicit TLoopTextCardItem(QWidget *parent = 0);
 
-    QString currentText(){return m_pLineEdit->text();}
-    int pollTime(){return m_pComBox->currentText().toInt();}
 private:
     void initUI();
     void paintEvent(QPaintEvent *event);
-signals:
-    void sigSettingChanged();
-    void sigDel(QWidget *pWidget);
-private slots:
-    void slotDel();
 private:
     QString m_strAppPath;
+public:
     QLineEdit *m_pLineEdit;
-    TComBox *m_pComBox;
+    QComboBox *m_pComBox;
     QPushButton *m_pBtnDel;
 };
 

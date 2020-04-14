@@ -24,18 +24,21 @@ void StatusBar::initUI()
 
     /*水平分屏*/
     m_pHSplitScreenButton = new QPushButton(m_pWidget);
+    m_pHSplitScreenButton->setToolTip("水平分屏");
     m_pHSplitScreenButton->setFixedSize(m_sIconSize);
     m_pHSplitScreenButton->setStyleSheet(getImageStytle("hfenping.png"));
     connect(m_pHSplitScreenButton,SIGNAL(clicked()),this,SIGNAL(signalHSplitScreen()));
 
     /*垂直分屏*/
     m_pVSplitScreenButton = new QPushButton(m_pWidget);
+    m_pVSplitScreenButton->setToolTip("垂直分屏");
     m_pVSplitScreenButton->setFixedSize(m_sIconSize);
     m_pVSplitScreenButton->setStyleSheet(getImageStytle("vfenping.png"));
     connect(m_pVSplitScreenButton,SIGNAL(clicked()),this,SIGNAL(signalVSplitScreen()));
 
     /*合并屏幕*/
     m_pMergeScreen = new QPushButton(m_pWidget);
+    m_pMergeScreen->setToolTip("合并");
     m_pMergeScreen->setFixedSize(m_sIconSize);
     m_pMergeScreen->setStyleSheet(getImageStytle("hebing.png"));
     connect(m_pMergeScreen,SIGNAL(clicked()),this,SIGNAL(signalMergeScreen()));

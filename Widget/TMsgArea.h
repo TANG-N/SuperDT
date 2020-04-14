@@ -14,6 +14,7 @@ class TMsgArea : public QWidget
 public:
     explicit TMsgArea(QWidget *parent = 0);
 
+    TTextEditor *currentTextEditor(){return m_pNowFocusTextEditor;}
 private:
     void initVal();
     void initUI();
@@ -24,15 +25,17 @@ private:
     void removeLastTextEditor();
     void removeLastSplitter();
 signals:
-
+    void sigNewTextEditor(TTextEditor *newTextEditor); //新建了一个textedit
+    void sigCurrentTextEditor(TTextEditor *newTextEditor); //焦点textedit改变了
 public slots:
     void slotVSplitScreen(); //垂直分屏
     void slotHSplitScreen(); //水平分屏
     void slotMergeScreen();  //并且
     void slotFocusChange(QWidget *old, QWidget *now);
 
-private:
+public:
     QList<TTextEditor *> m_listTextEditor;
+private:
     QList<QSplitter *> m_plistSplitter;
     TTextEditor *m_pOldFocusTextEditor;
     TTextEditor *m_pNowFocusTextEditor;

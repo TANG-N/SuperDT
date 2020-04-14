@@ -2,13 +2,13 @@
 #define TSETTINGAREA_H
 
 #include <QWidget>
-#include <QPushbutton>
+#include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QScrollArea>
 
-#include "TCardItem.h"
 #include "TSettingBtnBar.h"
+#include "TMsgArea.h"
 
 class TSettingArea : public QWidget
 {
@@ -18,7 +18,9 @@ public:
 
 
 signals:
-
+    void signalVSplitScreen();
+    void signalHSplitScreen();
+    void signalMergeScreen();
 public slots:
     void slotButtonMain();
 private:
@@ -28,6 +30,7 @@ private:
 private:
     QString m_strAppPath;
     QString getImageStytle(QString strImage);
+    TMsgArea *m_pMsgArea = nullptr;
     QScrollArea *m_pSarea;
     QWidget *m_pWidgetSettingArea;
     QWidget *m_pWidgetUserArea;

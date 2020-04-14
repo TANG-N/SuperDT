@@ -26,7 +26,6 @@
 #include <QLabel>
 #include <QDebug>
 #include <QThread>
-
 #include "TMsgArea.h"
 #include "clog.h"
 
@@ -68,7 +67,7 @@ void TMsgArea::initUI()
     this->setLayout(m_pHLayout);
 
     /*绑定 焦点部件改变 的信号  获取当前鼠标所在的Widget 保存鼠标最后选中的编辑器用于分屏等操作*/
-    connect(qApp,SIGNAL(focusChanged(QWidget *, QWidget *)),this,SLOT(slotFocusChange(QWidget *, QWidget *)));
+    connect(qApp,SIGNAL(focusChanged(QWidget *,QWidget *)),this,SLOT(slotFocusChange(QWidget *,QWidget *)));
 }
 
 QSplitter *TMsgArea::creatSplitter(Qt::Orientation orientation, QWidget *parent)
@@ -85,6 +84,7 @@ void TMsgArea::creatTextEditor(QWidget *parent)
     TTextEditor *textEditor = new TTextEditor(parent);
     textEditor->setObjectName("textEditor" + QString::number(m_listTextEditor.size()));
     m_listTextEditor.append(textEditor);
+    emit sigNewTextEditor(textEditor);
 }
 
 void TMsgArea::removeTextEditor(TTextEditor *rmTextEditor)
@@ -373,6 +373,7 @@ void TMsgArea::slotFocusChange(QWidget *old, QWidget *now)
         }
         if(nullptr != m_pNowFocusTextEditor){
             m_pNowFocusTextEditor->appendPlainText("现在光标在这");
+            emit sigCurrentTextEditor(m_pNowFocusTextEditor);
             logImpInfoWin()<<"现在光标在这！"<<flushWin;
         }
     }

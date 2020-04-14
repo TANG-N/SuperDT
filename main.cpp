@@ -2,6 +2,7 @@
 #include <QApplication>
 
 #include "clog.h"
+#include "CTcpClientConnection.h"
 
 void test1();
 void test2();
@@ -20,6 +21,8 @@ int main(int argc, char *argv[])
 //    this->setStyleSheet(styleSheet);
 //    file.close();
 
+    test2();
+
     MainWidget w;
     w.show();
 
@@ -29,6 +32,8 @@ int main(int argc, char *argv[])
 void test2()
 {
     //bool ok = CTableLogWin::getInstance()->init();
+
+
 }
 void test1()
 {
