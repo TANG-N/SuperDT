@@ -26,8 +26,6 @@ private:
     StatusBar *m_pStatusBar;
     TMsgArea *m_pMsgArea;
     TSettingArea *m_pSettingArea;
-private slots:
-    void slotLog();
 };
 
 #endif // MAINWIDGET_H

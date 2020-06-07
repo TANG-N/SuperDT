@@ -31,10 +31,7 @@ private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
     void updateLineNumberArea(const QRect &, int);
-private slots:
-    void slotVSplitScreen(); //垂直分屏
-    void slotHSplitScreen(); //水平分屏
-    void slotMergeScreen();  //并且
+
 private:
     QWidget *lineNumberArea;
 

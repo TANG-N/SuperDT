@@ -34,42 +34,47 @@ void TSettingBtnBar::createView()
 {
     this->setFixedWidth(36);
     this->setStyleSheet("QWidget{background-color:#bebebe;}");
-//cccccc
-    QStringList listUrl;
-    listUrl <<"menu"<<"user"<<"protocol"<<"download"<<"send";
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setContentsMargins(0,10,0,10);
+    layout->setSpacing(10);
 
     QButtonGroup *pBtnGroup = new QButtonGroup(this);
     pBtnGroup->setExclusive(true);
 
+    QPushButton *pBtnCloset = new QPushButton(this);//壁橱键  打开像壁橱一样
+    pBtnCloset->setStyleSheet("background-color:transparent;color:#ffffff;border:1px solid #ffffff;radius:10px;");
+    pBtnCloset->setCheckable(true);
+    pBtnCloset->setText(">");
+    connect(pBtnCloset,&QPushButton::clicked,[=](bool bIsChecked){
+        emit sigCloset(bIsChecked);
+        if(bIsChecked)
+            pBtnCloset->setText(">");
+        else
+            pBtnCloset->setText("<");
+    });
+    layout->addWidget(pBtnCloset);
+    layout->addStretch(1);
+
+    /*按模块划分的多个按钮*/
+    QStringList listUrl;
+    listUrl <<"menu"<<"user"<<"protocol"<<"download"<<"send";
     foreach(QString strUrl,listUrl){
         QPushButton *pSettingBtn = new QPushButton(this);
         pSettingBtn->setStyleSheet("QPushButton{border-image:url("+ m_strImgUrl + strUrl + "_n.png" +");}"
-                            "QPushButton:checked{border-image:url("+ m_strImgUrl + strUrl + "_c.png" +");}"
-    //                        "QPushButton:hover{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
-                            );
+                                   "QPushButton:checked{border-image:url("+ m_strImgUrl + strUrl + "_c.png" +");}"
+                                    //"QPushButton:hover{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
+                                   );
         pSettingBtn->setFixedSize(m_sIconSize);
         pSettingBtn->setCheckable(true);
-        connect(pSettingBtn,SIGNAL(sigClicked(QString)),this,SLOT(slotBtnClicked(QString)));
-        m_vecBtn.push_back(pSettingBtn);
-        pBtnGroup->addButton(pSettingBtn);
-    }
-
-    QVBoxLayout *layout = new QVBoxLayout;
-//    layout->addSpacing(5);
-//    layout->addWidget(m_vecBtn.at(0));
-    layout->addStretch(1);
-    for(int i = 0; i < m_vecBtn.count(); i++){
-        layout->addWidget(m_vecBtn.at(i));
-        layout->addSpacing(10);
+        pBtnGroup->addButton(pSettingBtn,listUrl.indexOf(strUrl));
+        layout->addWidget(pSettingBtn);
     }
     layout->addStretch(1);
-    layout->setContentsMargins(6, 0, 6, 0);
-
     this->setLayout(layout);
 }
 
 void TSettingBtnBar::slotBtnClicked(QString strId)
 {
-    qDebug()<<"btn Id:"<<strId;
     emit sigSettingBtn(strId);
 }

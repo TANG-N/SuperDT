@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QTextBlock>
+#include <QDebug>
 
 TTextEditor::TTextEditor(QWidget *parent)
     : QPlainTextEdit(parent)
@@ -45,42 +46,6 @@ void TTextEditor::updateLineNumberArea(const QRect &rect, int dy)
 
     if (rect.contains(viewport()->rect()))
         updateLineNumberAreaWidth(0);
-}
-
-void TTextEditor::slotVSplitScreen()
-{
-    QWidget *parent;
-
-
-    /*创建一个水平分割器*/
-    if(m_stackSplitter.isEmpty()){
-        parent = this;
-    }else{
-        parent = m_stackSplitter.top();
-    }
-
-    QSplitter *vSplitter = new QSplitter(Qt::Vertical,parent);
-    TTextEditor *textEditor = new TTextEditor(vSplitter);
-
-    m_stackSplitter.append(vSplitter);
-    m_stackTextEditor.append(textEditor);
-}
-
-void TTextEditor::slotHSplitScreen()
-{
-
-
-//    TTextEditor *textleft4 = new TTextEditor(splitterMain);
-//    TTextEditor *textleft5 = new TTextEditor(splitterMain);
-
-//    QSplitter *vSplitter1 = new QSplitter(Qt::Vertical,textleft);
-//    TTextEditor *textleft1 = new TTextEditor(vSplitter1);
-
-}
-
-void TTextEditor::slotMergeScreen()
-{
-
 }
 
 void TTextEditor::resizeEvent(QResizeEvent *e)

@@ -12,19 +12,6 @@ MainWidget::MainWidget(QWidget *parent)
 {
     m_strAppPath = QApplication::applicationDirPath() + "/";
 
-
-
-//    TListCard *listCard = new TListCard(this);
-
-//    //listCard->setFixedSize(100,90);
-//    for(int i = 0; i < 10; i++){
-//        QPushButton *pBtn = new QPushButton;
-//        pBtn->setText("按钮" + QString::number(i));
-//        pBtn->resize(10 + 30*i,30);
-//        pBtn->setStyleSheet("background-color:#00ff00;");
-//        listCard->addWidget(pBtn);
-//    }
-
     initUI();
 }
 
@@ -35,28 +22,21 @@ MainWidget::~MainWidget()
 
 void MainWidget::initUI()
 {
-//    QTimer *timerLog = new QTimer(this);
-//    connect(timerLog,SIGNAL(timeout()),this,SLOT(slotLog()));
-//    timerLog->start(2000);
-
-//    this->setWindowTitle("QQ ");
-//    this->setWindowIcon(QIcon(m_strAppPath + "images/po.jpg"));
     this->setWindowFlags(Qt::FramelessWindowHint);//去掉标题栏
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);    // 设置尺寸属性
-    this->setMinimumSize(1024,720);
+    this->setMinimumSize(400,300);
     this->setMouseTracking(true); //设置鼠标追踪  只要鼠标在本窗体内  就会触发MouseMoveEvent()
-
-
+    this->resize(800,400);
+    this->setWindowIcon(QIcon(m_strAppPath + "image/logo64.ico"));
+    /*标题栏*/
     m_pTitleBar = new TitleBar(this);
     m_pTitleBar->setWindowTitle("SuperDT");
 
+    /*状态栏*/
     m_pStatusBar = new StatusBar(this);
 
-//    m_pMsgArea = new TMsgArea(this);
-//    connect(m_pStatusBar,SIGNAL(signalVSplitScreen()),m_pMsgArea,SLOT(slotVSplitScreen()));
-//    connect(m_pStatusBar,SIGNAL(signalHSplitScreen()),m_pMsgArea,SLOT(slotHSplitScreen()));
-//    connect(m_pStatusBar,SIGNAL(signalMergeScreen()),m_pMsgArea,SLOT(slotMergeScreen()));
-
+    /*主区域*/
+    /*Msg和Setting*/
     m_pSettingArea = new TSettingArea(this);
     connect(m_pStatusBar,SIGNAL(signalVSplitScreen()),m_pSettingArea,SIGNAL(signalVSplitScreen()));
     connect(m_pStatusBar,SIGNAL(signalHSplitScreen()),m_pSettingArea,SIGNAL(signalHSplitScreen()));
@@ -64,9 +44,8 @@ void MainWidget::initUI()
 
     QSizeGrip *sizeGrip = new QSizeGrip(this);//拖拽
 
-    /*Msg和Setting*/
+
     QHBoxLayout *layoutMsgAndSetting = new QHBoxLayout;
-//    layoutMsgAndSetting->addWidget(m_pMsgArea);
     layoutMsgAndSetting->addWidget(m_pSettingArea);
     layoutMsgAndSetting->setSpacing(0); //设置间距
     layoutMsgAndSetting->setContentsMargins(0, 0, 0, 0);
@@ -85,13 +64,3 @@ void MainWidget::initUI()
 
 
 }
-
-void MainWidget::slotLog()
-{
-    logFatalWin()<< "ssssssssssssssss" <<flushWin;
-    logErrorWin()<< "ssssssssssssssss" <<flushWin;
-    logWarnningWin()<< "ssssssssssssssss" << flushWin;
-    logImpInfoWin()<< "ssssssssssssssss" << flushWin;
-    logDebugWin()<< "ssssssssssssssss" << flushWin;
-}
-

@@ -31,6 +31,8 @@ public:
     void setQueueSPan(int nMs){m_nMsgSpan = nMs;m_pTimerQueue->setInterval(m_nMsgSpan);} //消息队列时间间隔
 signals:
     void sigRecvLine(QString strMsg);
+private slots:
+    void slotReConnection();
 private:
     void init();
     void initQueue();

@@ -8,7 +8,10 @@ CTcpServerConnection::CTcpServerConnection(QObject *parent)
 
 void CTcpServerConnection::disConnect()
 {
-    m_pTcpServer->close();
+    if(nullptr != m_pTcpServer){
+        qDebug()<<"服务器停止监听";
+        m_pTcpServer->close();
+    }
 }
 
 void CTcpServerConnection::connect(QString strIp, int nPort)
@@ -23,6 +26,7 @@ void CTcpServerConnection::connect(QString strIp, int nPort)
         }
     }
 
+    qDebug()<<"CTcpServerConnection 开始监听ip: "<<strIp<<"Port:"<<nPort;
 }
 
 void CTcpServerConnection::send(QString strIp, int nPort, QString strMsg)
