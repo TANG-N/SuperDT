@@ -372,7 +372,7 @@ void TMsgArea::slotFocusChange(QWidget *old, QWidget *now)
             //m_pOldFocusTextEditor->appendPlainText("上次光标在这");
         }
         if(nullptr != m_pNowFocusTextEditor){
-            m_pNowFocusTextEditor->appendPlainText("现在光标在这");
+//            m_pNowFocusTextEditor->appendPlainText("现在光标在这");
             emit sigCurrentTextEditor(m_pNowFocusTextEditor);
             logImpInfoWin()<<"现在光标在这！"<<flushWin;
         }
