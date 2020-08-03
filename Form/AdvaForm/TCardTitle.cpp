@@ -9,7 +9,9 @@ TCardTitle::TCardTitle(QString strIconUrl, QString strText, QWidget *parent)
 
 void TCardTitle::init()
 {
-    setStyleSheet("QWidget,QLabel{border:1px solid red;}");
+//    setStyleSheet("#this,QWidget,QLabel{border:1px solid red;}");
+    this->setFixedHeight(35);
+
     m_pLabelIcon = new QLabel(this);
     m_pLabelIcon->setMinimumSize(24,24);
     m_pLabelIcon->setMaximumSize(36,36);
@@ -26,7 +28,7 @@ void TCardTitle::init()
     hLayout->setSpacing(3);
     hLayout->addWidget(m_pLabelIcon);
     hLayout->addWidget(m_pLabelText);
-    hLayout->addStretch(1);
+    hLayout->addStretch();
 
     this->setLayout(hLayout);
 }

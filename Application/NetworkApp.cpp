@@ -13,6 +13,7 @@ NetworkApp::NetworkApp(TTextEditor *pTextEditor, QWidget *parent)
 
 
     stringToHexString("heello");
+    m_stNetworkConfig.m_bRecvHexAble = false;
     initUI();
 }
 
@@ -34,15 +35,15 @@ void NetworkApp::initUI()
 
 
     /*通信协议*/
-    TCardTitle *pCardTitleProtoal = new TCardTitle(m_strAppPath + "image/setting/protocol_n.png","协议设置",this);
+//    TCardTitle *pCardTitleProtoal = new TCardTitle(m_strAppPath + "image/setting/protocol_n.png","协议设置",this);
     createProtocal(m_pCardProtocol);
-    layout->addWidget(pCardTitleProtoal);
+//    layout->addWidget(pCardTitleProtoal);
     layout->addWidget(m_pCardProtocol);
-//    /*接收设置*/
-//    TCardTitle *pCardTitleRecv = new TCardTitle(m_strAppPath + "image/setting/download_n.png","接收设置",this);
-//    createRecv(m_pCardRecv);
-//    layout->addWidget(pCardTitleRecv);
-//    layout->addWidget(m_pCardRecv);
+    /*接收设置*/
+    TCardTitle *pCardTitleRecv = new TCardTitle(m_strAppPath + "image/setting/download_n.png","接收设置",this);
+    createRecv(m_pCardRecv);
+    layout->addWidget(pCardTitleRecv);
+    layout->addWidget(m_pCardRecv);
 
     /*发送设置*/
     TCardTitle *pCardTitleSend = new TCardTitle(m_strAppPath + "image/setting/send_n.png","发送设置",this);
@@ -78,6 +79,8 @@ void NetworkApp::initUI()
 
 void NetworkApp::createProtocal(TListCard *&pCard)
 {
+    TCardTitle *pCardTitleProtoal = new TCardTitle(m_strAppPath + "image/setting/protocol_n.png","协议设置",this);
+
     QStringList vecItem;
     vecItem<<"TCP Client"<<"TCP Server"<<"UDP";
     TComBoxCardItem *pCardItemProtocal = new TComBoxCardItem("协议类型",vecItem);
@@ -106,7 +109,7 @@ void NetworkApp::createProtocal(TListCard *&pCard)
     });
     vecItem.clear();
 
-    vecItem<<"7006";
+    vecItem<<"3002";
     m_pCardItemPort = new TComBoxCardItem("端  口",vecItem);
     m_pCardItemPort->m_pComBox->setEditable(true);
     connect(m_pCardItemPort->m_pComBox,&QComboBox::currentTextChanged,[=](QString strPort){
@@ -268,6 +271,7 @@ void NetworkApp::createProtocal(TListCard *&pCard)
     });
 
     pCard = new TListCard(this);
+    pCard->addWidget(pCardTitleProtoal);
     pCard->addWidget(pCardItemProtocal);
     pCard->addWidget(m_pCardItemIP);
     pCard->addWidget(m_pCardItemPort);

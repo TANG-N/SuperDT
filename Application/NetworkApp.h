@@ -61,6 +61,9 @@ public:
 };
 class NetworkApp : public QWidget
 {
+    Q_OBJECT
+public:
+
     enum EnmConnectType{
         ENM_TCP_CLIENT = 0,
         ENM_TCP_SERVER,
@@ -76,8 +79,14 @@ class NetworkApp : public QWidget
         ENM_STATUS_UDP_NOT_BINDING,
         ENM_STATUS_UDP_BINDING,
     };
+    enum EnmConnectState{
+        ENM_STATE_DISCONNCTED = 0,
+        ENM_STATE_CONNECTING,
+        ENM_STATE_CONNECTED,
+    };
+    Q_ENUM(EnmConnectState);
 
-    Q_OBJECT
+
 public:
     explicit NetworkApp(TTextEditor *pTextEditor,QWidget *parent = 0);
 
