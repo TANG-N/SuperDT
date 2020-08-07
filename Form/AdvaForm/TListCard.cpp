@@ -12,17 +12,17 @@ TListCard::TListCard(QWidget *parent)
 QListWidgetItem *TListCard::addWidget(QWidget *pWidget)
 {
     QListWidgetItem *pItem = new QListWidgetItem;
-    pItem->setSizeHint(pWidget->size());
+    pItem->setSizeHint(pWidget->size()); //这个就能设置行高
     this->addItem(pItem);
     this->setItemWidget(pItem,pWidget);
+
+    qDebug()<<pWidget->objectName()<<":"<<pWidget->size();
 
     if(pWidget->width() > m_nWidth)
         m_nWidth = pWidget->width();
 
     m_nHeight += pWidget->size().height();
     this->setFixedSize(m_nWidth,m_nHeight + 20); //加的20  是上下10 margin
-
-    qDebug()<<"Card size:"<<this->size();
     return pItem;
 }
 

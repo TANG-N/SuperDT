@@ -15,6 +15,7 @@ TTriggerCardItem::TTriggerCardItem(QWidget *parent)
 void TTriggerCardItem::initUI()
 {
     this->resize(285,35);
+//    this->setMaximumHeight(35);
 
     m_pLineEditR = new QLineEdit(this);
     m_pLineEditR->setMinimumWidth(90);

@@ -13,6 +13,8 @@ TLoopTextCardItem::TLoopTextCardItem(QWidget *parent) : QWidget(parent)
 void TLoopTextCardItem::initUI()
 {
     this->resize(285,35);
+//    this->setMaximumHeight(35);
+
     m_pLineEdit = new QLineEdit(this);
     m_pLineEdit->setMinimumWidth(150);
     m_pLineEdit->setFixedHeight(30);

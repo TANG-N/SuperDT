@@ -36,12 +36,11 @@ void TSettingArea::initUI()
     /*初始化按钮条、用户区、参数设置区*/
     TSettingBtnBar *bar = new TSettingBtnBar(this);
     bar->setFixedWidth(m_nButtonMainWidth);
-    connect(bar,&TSettingBtnBar::sigCloset,[=](bool bIsOpen){
-        if(bIsOpen)
-            m_pNavigationBar->show();
+    connect(bar,&TSettingBtnBar::sigCloset,[=](bool bIsClose){
+        if(bIsClose)
+            m_pSarea->hide();
         else
-            m_pNavigationBar->hide();
-
+            m_pSarea->show();
     });
     m_pNavigationBar = new NetworkApp(m_pMsgArea->currentTextEditor(),this);
     m_pNavigationBar->setContentsMargins(5,0,5,0);

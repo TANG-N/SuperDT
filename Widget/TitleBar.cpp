@@ -9,6 +9,9 @@
 #include <QDebug>
 #include <QHBoxLayout>
 #include <QApplication>
+#include "CFaIcon.h"
+#include <QStyle>
+#include <QApplication>
 
 TitleBar::TitleBar(QWidget *parent)
     : QWidget(parent)
@@ -45,16 +48,37 @@ void TitleBar::initUI()
     m_pMinButton = new QPushButton(this);
     m_pMinButton->setFixedSize(24,24);
     m_pMinButton->setStyleSheet(getImageStytle("min-gray.png"));
+//    QIcon iconMini = QApplication::style()->standardIcon(QStyle::SP_TitleBarMinButton);
+//    m_pMinButton->setIconSize(QSize(50,50));
+//    m_pMinButton->setIcon(iconMini);
+//    m_pMinButton->setText(CFaIcon::iconsQString(CFaIcon::Fa_minus_square_o));
+//    m_pMinButton->setStyleSheet("QPushButton{background-color:transparent;color:#000000;font:22px FontAwesome;}"
+//                               "QPushButton::checked{color:#30A7F8;text-decoration:underline;}"
+//                               "QPushButton::hover{background-color:#B3C9D9;color:#30A7F8;}"
+//                               "QPushButton::pressed{color:#30A7F8;font-style:italic;}"
+//                               );
     connect(m_pMinButton,SIGNAL(clicked()),this,SLOT(slotMin()));
 
     m_pMaxButton = new QPushButton(this);
     m_pMaxButton->setFixedSize(24,24);
     m_pMaxButton->setStyleSheet(getImageStytle("max-gray.png"));
+//    m_pMaxButton->setText(CFaIcon::iconsQString(CFaIcon::Fa_clone));
+//    m_pMaxButton->setStyleSheet("QPushButton{background-color:transparent;color:#000000;font:22px FontAwesome;}"
+//                               "QPushButton::checked{color:#30A7F8;text-decoration:underline;}"
+//                               "QPushButton::hover{background-color:#B3C9D9;color:#30A7F8;}"
+//                               "QPushButton::pressed{color:#30A7F8;font-style:italic;}"
+//                               );
     connect(m_pMaxButton,SIGNAL(clicked()),this,SLOT(slotMax()));
 
     m_pExitButton = new QPushButton(this);
     m_pExitButton->setFixedSize(24,24);
     m_pExitButton->setStyleSheet(getImageStytle("exit-gray.png"));
+//    m_pExitButton->setText(CFaIcon::iconsQString(CFaIcon::Fa_window_close_o));
+//    m_pExitButton->setStyleSheet("QPushButton{background-color:transparent;color:#000000;font:22px FontAwesome;}"
+//                               "QPushButton::checked{color:#30A7F8;text-decoration:underline;}"
+//                               "QPushButton::hover{background-color:#FF2821;color:#ffffff;}"
+//                               "QPushButton::pressed{color:#30A7F8;font-style:italic;}"
+//                               );
     connect(m_pExitButton,SIGNAL(clicked()),this,SLOT(slotExit()));
 
 

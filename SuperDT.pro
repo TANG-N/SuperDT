@@ -58,7 +58,11 @@ SOURCES += \
     Form/AdvaForm/TLoopTextCardItem.cpp \
     Form/AdvaForm/TTriggerCardItem.cpp \
     Form/AdvaForm/TUserCardItem.cpp \
-    Application/NetworkData.cpp
+    Application/NetworkData.cpp \
+    Tools/CAdvLogger.cpp \
+    Tools/CQuickQss.cpp \
+    Tools/CQuickTools.cpp \
+    Widget/TCenterWidget.cpp
 
 
 
@@ -94,7 +98,12 @@ HEADERS += \
     Form/AdvaForm/TLoopTextCardItem.h \
     Form/AdvaForm/TTriggerCardItem.h \
     Form/AdvaForm/TUserCardItem.h \
-    Application/NetworkData.h
+    Application/NetworkData.h \
+    Tools/CAdvLogger.h \
+    Tools/CQuickQss.h \
+    Tools/CQuickTools.h \
+    Tools/CFaIcon.h \
+    Widget/TCenterWidget.h
 
 
 INCLUDEPATH += \
@@ -105,7 +114,8 @@ INCLUDEPATH += \
         General/Log \
         Network \
         General/Database \
-        Application
+        Application \
+        Tools
 
 
 # Default rules for deployment.
@@ -113,9 +123,10 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES +=
+RESOURCES += \
+    resource.qrc
 
-#RC_FILE += icon.rc
+RC_ICONS = AppIcon.ico
 
 DISTFILES += \
     General/Log/LogWinConfig.xml \

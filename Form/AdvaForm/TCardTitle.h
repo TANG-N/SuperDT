@@ -8,14 +8,14 @@ class TCardTitle : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TCardTitle(QString strIconUrl = "",QString strText = "标题名称",QWidget *parent = 0);
+    explicit TCardTitle(QString strIcon = "",QString strText = "标题名称",QWidget *parent = 0);
 
     QLabel *m_pLabelIcon = nullptr;
     QLabel *m_pLabelText = nullptr;
 private:
     void init();
 private:
-    QString m_strIconUrl;
+    QString m_strIcon;
     QString m_strText;
 
 };

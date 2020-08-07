@@ -4,6 +4,7 @@
 #include <QButtonGroup>
 #include <QApplication>
 #include <QStyleOption>
+#include "CFaIcon.h"
 
 TSettingBtnBar::TSettingBtnBar(QWidget *parent)
     :QWidget(parent)
@@ -42,32 +43,45 @@ void TSettingBtnBar::createView()
     QButtonGroup *pBtnGroup = new QButtonGroup(this);
     pBtnGroup->setExclusive(true);
 
+    QString strRight = CFaIcon::iconsQString(CFaIcon::Fa_chevron_right);
+    QString strLeft = CFaIcon::iconsQString(CFaIcon::Fa_chevron_left);
     QPushButton *pBtnCloset = new QPushButton(this);//壁橱键  打开像壁橱一样
-    pBtnCloset->setStyleSheet("background-color:transparent;color:#ffffff;border:1px solid #ffffff;radius:10px;");
+    pBtnCloset->setStyleSheet("QPushButton{background-color:transparent;color:#ffffff;font:16px FontAwesome;}"
+                              "QPushButton::hover{background:#bdbdbd;}");
     pBtnCloset->setCheckable(true);
-    pBtnCloset->setText(">");
+    pBtnCloset->setChecked(false);
+    pBtnCloset->setText(strRight);
+    pBtnCloset->setMinimumHeight(15);
+
     connect(pBtnCloset,&QPushButton::clicked,[=](bool bIsChecked){
         emit sigCloset(bIsChecked);
         if(bIsChecked)
-            pBtnCloset->setText(">");
+            pBtnCloset->setText(strLeft);
         else
-            pBtnCloset->setText("<");
+            pBtnCloset->setText(strRight);
     });
     layout->addWidget(pBtnCloset);
     layout->addStretch(1);
 
     /*按模块划分的多个按钮*/
-    QStringList listUrl;
-    listUrl <<"menu"<<"user"<<"protocol"<<"download"<<"send";
-    foreach(QString strUrl,listUrl){
+    QStringList strListIcon;
+    strListIcon <<CFaIcon::iconsQString(CFaIcon::Fa_list_alt)
+           <<CFaIcon::iconsQString(CFaIcon::Fa_user_circle_o)
+          <<CFaIcon::iconsQString(CFaIcon::Fa_file_text_o)
+         <<CFaIcon::iconsQString(CFaIcon::Fa_download)
+        <<CFaIcon::iconsQString(CFaIcon::Fa_paper_plane_o);
+
+    foreach(QString strUrl,strListIcon){
         QPushButton *pSettingBtn = new QPushButton(this);
-        pSettingBtn->setStyleSheet("QPushButton{border-image:url("+ m_strImgUrl + strUrl + "_n.png" +");}"
-                                   "QPushButton:checked{border-image:url("+ m_strImgUrl + strUrl + "_c.png" +");}"
-                                    //"QPushButton:hover{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
+        pSettingBtn->setText(strUrl);
+        pSettingBtn->setStyleSheet("QPushButton{background-color:transparent;color:#ffffff;font:22px FontAwesome;}"
+                                   "QPushButton::checked{color:#30A7F8;text-decoration:underline;}"
+                                   "QPushButton::hover{color:#30A7F8;}"
+                                   "QPushButton::pressed{color:#30A7F8;font-style:italic;}"
                                    );
-        pSettingBtn->setFixedSize(m_sIconSize);
+        pSettingBtn->setMinimumSize(m_sIconSize);
         pSettingBtn->setCheckable(true);
-        pBtnGroup->addButton(pSettingBtn,listUrl.indexOf(strUrl));
+        pBtnGroup->addButton(pSettingBtn,strListIcon.indexOf(strUrl));
         layout->addWidget(pSettingBtn);
     }
     layout->addStretch(1);

@@ -15,6 +15,7 @@ TComBoxCardItem::TComBoxCardItem(QString strText, QStringList strList, QWidget *
 void TComBoxCardItem::init()
 {
     this->resize(285,35);
+//    this->setMaximumHeight(35);
 
     m_pLabel = new QLabel(this);
     m_pComBox = new QComboBox(this);

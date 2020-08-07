@@ -14,6 +14,7 @@ TLineEditCardItem::TLineEditCardItem(QString strBtnText,QWidget *parent)
 void TLineEditCardItem::init()
 {
     this->resize(285,35);
+//    this->setMaximumHeight(35);
 
     m_pLineEdit = new QLineEdit(this);
     m_pLineEdit->setFixedHeight(30);

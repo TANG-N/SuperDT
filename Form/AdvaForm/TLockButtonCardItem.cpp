@@ -28,6 +28,8 @@ void TLockButtonCardItem::initUI()
 {
     this->resize(285,35);
 
+    this->setObjectName("LOckbutton");
+
     m_pLabel = new QLabel(this);
     m_pLabel->setText(m_strText);
 
@@ -45,4 +47,5 @@ void TLockButtonCardItem::initUI()
     hLayout->addWidget(m_pBtn);
     hLayout->setContentsMargins(5,2,5,2);
     this->setLayout(hLayout);
+
 }

@@ -1,21 +1,21 @@
 ﻿#include "TCardTitle.h"
 #include <QHBoxLayout>
 
-TCardTitle::TCardTitle(QString strIconUrl, QString strText, QWidget *parent)
-    : QWidget(parent),m_strIconUrl(strIconUrl),m_strText(strText)
+TCardTitle::TCardTitle(QString strIcon, QString strText, QWidget *parent)
+    : QWidget(parent),m_strIcon(strIcon),m_strText(strText)
 {
     init();
 }
 
 void TCardTitle::init()
 {
-//    setStyleSheet("#this,QWidget,QLabel{border:1px solid red;}");
-    this->setFixedHeight(35);
+    this->resize(285,35);
 
     m_pLabelIcon = new QLabel(this);
     m_pLabelIcon->setMinimumSize(24,24);
     m_pLabelIcon->setMaximumSize(36,36);
-    m_pLabelIcon->setStyleSheet("QLabel{border-image:url(" + m_strIconUrl + ");}");
+    m_pLabelIcon->setText(m_strIcon);
+    m_pLabelIcon->setStyleSheet("QLabel{font:22px FontAwesome;color:#ffffff;}");
 
     m_pLabelText = new QLabel(this);
     m_pLabelText->setMinimumHeight(24);
@@ -27,6 +27,7 @@ void TCardTitle::init()
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->setSpacing(3);
     hLayout->addWidget(m_pLabelIcon);
+    hLayout->addSpacing(5);
     hLayout->addWidget(m_pLabelText);
     hLayout->addStretch();
 

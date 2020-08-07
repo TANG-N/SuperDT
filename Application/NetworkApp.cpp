@@ -5,6 +5,7 @@
 #include "TTreeCard.h"
 #include "CConnectTools.h"
 #include <QStringList>
+#include "CFaIcon.h"
 
 NetworkApp::NetworkApp(TTextEditor *pTextEditor, QWidget *parent)
     : QWidget(parent),m_pOutTextEditor(pTextEditor)
@@ -19,14 +20,6 @@ NetworkApp::NetworkApp(TTextEditor *pTextEditor, QWidget *parent)
 
 void NetworkApp::initUI()
 {
-
-    this->setFixedWidth(300);
-    //this->setMinimumWidth(300);
-
-    /*布局*/
-    QVBoxLayout *layout = new QVBoxLayout;
-    //layout->addSpacing(20);
-    layout->setSpacing(3);
     /*User Card*/
     //    TUserCardItem *pUserCard = new TUserCardItem(this);
     //    m_pCardUser = new TListCard(this);
@@ -35,51 +28,40 @@ void NetworkApp::initUI()
 
 
     /*通信协议*/
-//    TCardTitle *pCardTitleProtoal = new TCardTitle(m_strAppPath + "image/setting/protocol_n.png","协议设置",this);
     createProtocal(m_pCardProtocol);
-//    layout->addWidget(pCardTitleProtoal);
-    layout->addWidget(m_pCardProtocol);
     /*接收设置*/
-    TCardTitle *pCardTitleRecv = new TCardTitle(m_strAppPath + "image/setting/download_n.png","接收设置",this);
     createRecv(m_pCardRecv);
-    layout->addWidget(pCardTitleRecv);
-    layout->addWidget(m_pCardRecv);
 
     /*发送设置*/
-    TCardTitle *pCardTitleSend = new TCardTitle(m_strAppPath + "image/setting/send_n.png","发送设置",this);
     createSend(m_pCardSend);
     createSendText(m_pCardSendText);
-    layout->addWidget(pCardTitleSend);
-    layout->addWidget(m_pCardSend);
-    layout->addWidget(m_pCardSendText);
 
     /*快捷发送*/
-    TCardTitle *pCardTitleQuickSend = new TCardTitle(m_strAppPath + "image/setting/send_n.png","快捷发送",this);
     createQuickSend(m_pCardQuickSend);
-    layout->addWidget(pCardTitleQuickSend);
-    layout->addWidget(m_pCardQuickSend);
 
     /*高级发送*/
-    TCardTitle *pCardTitleAdvaSend = new TCardTitle(m_strAppPath + "image/setting/send_n.png","高级发送",this);
     createAdvaSend(m_pCardAdvaSend);
-    layout->addWidget(pCardTitleAdvaSend);
-    layout->addWidget(m_pCardAdvaSend);
     /*触发器*/
-    TCardTitle *pCardTitleTrig = new TCardTitle(m_strAppPath + "image/setting/send_n.png","触发器",this);
     createTrig(m_pCardTrig);
-    layout->addWidget(pCardTitleTrig);
+
+    /*布局*/
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setSpacing(10);
+    layout->setContentsMargins(2,10,2,10);
+    layout->addWidget(m_pCardProtocol);
+    layout->addWidget(m_pCardRecv);
+    layout->addWidget(m_pCardSend);
+    layout->addWidget(m_pCardSendText);
+    layout->addWidget(m_pCardQuickSend);
+    layout->addWidget(m_pCardAdvaSend);
     layout->addWidget(m_pCardTrig);
 
-
     layout->addStretch(4);
-    layout->setContentsMargins(2,0,2,0);
-
-    this->setLayout(layout);
 }
 
 void NetworkApp::createProtocal(TListCard *&pCard)
 {
-    TCardTitle *pCardTitleProtoal = new TCardTitle(m_strAppPath + "image/setting/protocol_n.png","协议设置",this);
+    TCardTitle *pCardTitleProtoal = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_newspaper_o),"协议设置",this);
 
     QStringList vecItem;
     vecItem<<"TCP Client"<<"TCP Server"<<"UDP";
@@ -280,6 +262,8 @@ void NetworkApp::createProtocal(TListCard *&pCard)
 
 void NetworkApp::createRecv(TListCard *&pCard)
 {
+    TCardTitle *pCardTitleRecv = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_download),"接收设置",this);
+
     /*接收设置*/
     QStringList vecItem;
     TLockButtonCardItem *pCItemSaveAble = new TLockButtonCardItem("保存到文件",this);
@@ -295,6 +279,7 @@ void NetworkApp::createRecv(TListCard *&pCard)
         m_stNetworkConfig.m_bRecvHexAble = bIsChecked;
     });
     pCard = new TListCard(this);
+    pCard->addWidget(pCardTitleRecv);
     pCard->addWidget(pCItemSaveAble);
     pCard->addWidget(pCItemFileName);
     pCard->addWidget(pCItemPath);
@@ -304,6 +289,8 @@ void NetworkApp::createRecv(TListCard *&pCard)
 
 void NetworkApp::createSend(TListCard *&pCard)
 {
+    TCardTitle *pCardTitleSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_paper_plane_o),"发送设置",this);
+
     TLockButtonCardItem *pCItemSendDAble = new TLockButtonCardItem("显示发送",this);
     connect(pCItemSendDAble->m_pBtn,&QPushButton::clicked,[=](bool bIsChecked){
         m_stNetworkConfig.m_bDispalySendAble = bIsChecked;
@@ -311,6 +298,7 @@ void NetworkApp::createSend(TListCard *&pCard)
     TLockButtonCardItem *pCItemHexSendAble = new TLockButtonCardItem("十六进制发送",this);
 
     pCard = new TListCard(this);
+    pCard->addWidget(pCardTitleSend);
     pCard->addWidget(pCItemSendDAble);
     pCard->addWidget(pCItemHexSendAble);
 }
@@ -358,6 +346,8 @@ void NetworkApp::createSendText(TListCard *&pCard)
 
 void NetworkApp::createQuickSend(TListCard *&pCard)
 {
+    TCardTitle *pCardTitleQuickSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_fighter_jet),"快捷发送",this);
+
     /*快捷发送*/
     QPushButton *pBtnAdd = new QPushButton(this);
     pBtnAdd->setText("+");
@@ -383,12 +373,15 @@ void NetworkApp::createQuickSend(TListCard *&pCard)
     });
 
     pCard = new TListCard(this);
+    pCard->addWidget(pCardTitleQuickSend);
     pCard->addWidget(pBtnAdd);
     //emit pBtnAdd->clicked();
 }
 
 void NetworkApp::createTrig(TListCard *&pCard)
 {
+    TCardTitle *pCardTitleTrig = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_slack),"触发器",this);
+
     TLockButtonCardItem *pCItemTrigAble = new TLockButtonCardItem("触发器",this);
     TTriggerCardItem *pCItemTrig = new TTriggerCardItem(this);
     QPushButton *pBtnAddTrig = new QPushButton(this);
@@ -403,6 +396,7 @@ void NetworkApp::createTrig(TListCard *&pCard)
     });
 
     pCard = new TListCard(this);
+    pCard->addWidget(pCardTitleTrig);
     pCard->addWidget(pCItemTrigAble);
     pCard->addWidget(pCItemTrig);
     pCard->addWidget(pBtnAddTrig);
@@ -410,6 +404,9 @@ void NetworkApp::createTrig(TListCard *&pCard)
 
 void NetworkApp::createAdvaSend(TListCard *&pCard)
 {
+    TCardTitle *pCardTitleAdvaSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_hourglass_half),"高级发送",this);
+
+
     TLockButtonCardItem *pCItemLoopAble = new TLockButtonCardItem("循环列表",this);
 
     TLoopTextCardItem *pCItemLoopText = new TLoopTextCardItem(this);
@@ -425,6 +422,7 @@ void NetworkApp::createAdvaSend(TListCard *&pCard)
     });
 
     pCard = new TListCard(this);
+    pCard->addWidget(pCardTitleAdvaSend);
     pCard->addWidget(pCItemLoopAble);
     pCard->addWidget(pCItemLoopText);
     pCard->addWidget(pBtnAddLoop);
