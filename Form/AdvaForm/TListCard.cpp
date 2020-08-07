@@ -56,7 +56,7 @@ void TListCard::removeItem(QListWidgetItem *pItem)
 
 void TListCard::init()
 {
-    this->setStyleSheet("QWidget{background-color:#bbbbbe;border-radius:10px;}"
+    this->setStyleSheet("QWidget{background-color:#bbbbbe;border-radius:5px;}"
                         "TListCard{padding-top:10px;padding-bottom:10px;}"
                         "QListWidget::item{border-bottom:1px solid #ffffff;}"
 //                        "QListWidget::item:hover{background:skyblue; }"

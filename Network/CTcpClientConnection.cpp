@@ -10,6 +10,7 @@ void CTcpClientConnection::connect(QString strIp, int nPort)
 {
     setIpPort(strIp,nPort);
 
+    slotReConnection();
     if(!m_pTimerReconnection->isActive()){
         m_pTimerReconnection->start();
     }
@@ -35,10 +36,13 @@ void CTcpClientConnection::send(QString strIp, int nPort, QString strMsg)
            qDebug()<<"激活队列定时器";
         }
     }else{
-        while(!m_queueMsg.isEmpty()){  //队列有内容  先发完
-            QString strQueueMsg = m_queueMsg.dequeue();
-            m_pTcpSocket->write(strQueueMsg.toUtf8());
-        }
+        if(!m_queueMsg.isEmpty()) //队列有内容 清空
+            m_queueMsg.clear();
+
+//        while(!m_queueMsg.isEmpty()){  //队列有内容  先发完
+//            QString strQueueMsg = m_queueMsg.dequeue();
+//            m_pTcpSocket->write(strQueueMsg.toUtf8());
+//        }
         m_pTcpSocket->write(strMsg.toUtf8());
 
         qDebug()<<"发送"<<strMsg;
@@ -51,6 +55,15 @@ void CTcpClientConnection::setIpPort(QString strIp, int nPort)
     m_nPort = nPort;
 
     m_pServerIp->setAddress(m_strIp);
+}
+
+void CTcpClientConnection::slotReConnection()
+{
+    if(!m_bIsConnected){
+        qDebug()<<"Tcp 发起重连";
+        m_pTcpSocket->abort();
+        m_pTcpSocket->connectToHost(*m_pServerIp,m_nPort);
+    }
 }
 
 void CTcpClientConnection::init()
@@ -94,13 +107,14 @@ void CTcpClientConnection::init()
     /*重连检测*/
     m_pTimerReconnection = new QTimer(this);
     m_pTimerReconnection->setInterval(m_nReConnectionSpan);
-    QObject:: connect(m_pTimerReconnection,&QTimer::timeout,[=]{
-        qDebug()<<"Tcp 发起重连";
-        if(!m_bIsConnected){
-            m_pTcpSocket->abort();
-            m_pTcpSocket->connectToHost(*m_pServerIp,m_nPort);
-        }
-    });
+    QObject::connect(m_pTimerReconnection,SIGNAL(timeout()),this,SLOT(slotReConnection()));
+//    QObject::connect(m_pTimerReconnection,&QTimer::timeout,[=]{
+//        qDebug()<<"Tcp 发起重连";
+//        if(!m_bIsConnected){
+//            m_pTcpSocket->abort();
+//            m_pTcpSocket->connectToHost(*m_pServerIp,m_nPort);
+//        }
+//    });
 
 
     initQueue(); //初始化命令队列机制

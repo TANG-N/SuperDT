@@ -18,6 +18,7 @@ private:
     void paintEvent(QPaintEvent *event);
 signals:
     void sigSettingBtn(QString strId);
+    void sigCloset(bool bIsOpen); //设置页面开关
 private slots:
     void slotBtnClicked(QString strId);
 private:

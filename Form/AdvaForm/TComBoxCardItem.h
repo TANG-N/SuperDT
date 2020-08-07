@@ -21,8 +21,8 @@ private:
     QStringList m_strListItems;
     QString m_strImgPath = "";
 public:
-    QLabel *m_pLabel;
-    QComboBox *m_pComBox;
+    QLabel *m_pLabel = nullptr;
+    QComboBox *m_pComBox = nullptr;
 };
 
 #endif // TCOMBOXCARDITEM_H

@@ -6,9 +6,9 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QScrollArea>
-
 #include "TSettingBtnBar.h"
 #include "TMsgArea.h"
+#include "NetworkApp.h"
 
 class TSettingArea : public QWidget
 {
@@ -22,11 +22,11 @@ signals:
     void signalHSplitScreen();
     void signalMergeScreen();
 public slots:
-    void slotButtonMain();
+   // void slotButtonMain();
 private:
     void initVal();
     void initUI();
-    void initSettingArea();
+
 private:
     QString m_strAppPath;
     QString getImageStytle(QString strImage);
@@ -39,13 +39,7 @@ private:
     int m_nWidgetMainWidth;
     int m_nButtonMainWidth;
     QHBoxLayout *m_pHLayout;
-    QPushButton *m_pButtonMain;
-    QPushButton *m_pButtonUser;
-    QPushButton *m_pButtonMenu;
-    QPushButton *m_pButtonRecvSetting;
-    QPushButton *m_pButtonCodec;
-    QPushButton *m_pButtonSend;
-    QPushButton *m_pButtonConnect;
+    NetworkApp *m_pNavigationBar = nullptr;  //导航栏
 };
 
 #endif // TSETTINGAREA_H
