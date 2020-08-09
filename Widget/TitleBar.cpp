@@ -13,6 +13,7 @@
 #include <QStyle>
 #include <QApplication>
 
+
 TitleBar::TitleBar(QWidget *parent)
     : QWidget(parent)
 {
@@ -37,10 +38,17 @@ void TitleBar::initUI()
 {
     this->setFixedHeight(32);
 
-    m_pLabelIcon = new QLabel(this);
-    m_pLabelIcon->setFixedSize(24,24);  //设置最大宽高和最小宽高固定  不再拉伸
-    m_pLabelIcon->setScaledContents(true); //允许图片按比例缩小填充Label
-    m_pLabelIcon->setStyleSheet("QLabel {border-image:url("+ m_strAppPath + "image/logo32.png)}");
+    m_pMenu = new QMenu(this);
+    m_pMenu->addAction("透明度设置");
+    m_pMenu->addAction("背景设置");
+
+    m_pBtnIcon = new QPushButton(this);
+    m_pBtnIcon->setFixedSize(24,24);  //设置最大宽高和最小宽高固定  不再拉伸
+    m_pBtnIcon->setStyleSheet("QPushButton {border-image:url("+ m_strAppPath + "image/logo32.png)}"
+                              "QPushButton::hover{}");
+    connect(m_pBtnIcon,&QPushButton::clicked,[=]{
+        m_pMenu->exec(m_pBtnIcon->mapToGlobal(m_pBtnIcon->rect().bottomLeft()));
+    });
 
     m_pLabelTitle = new QLabel(this);
     m_pLabelTitle->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -84,7 +92,7 @@ void TitleBar::initUI()
 
     QHBoxLayout* layout = new QHBoxLayout;
     layout->addSpacing(5);
-    layout->addWidget(m_pLabelIcon);
+    layout->addWidget(m_pBtnIcon);
     layout->addStretch(1);  //中间添加一个拉伸量 空白区
     layout->addWidget(m_pLabelTitle);
     layout->addStretch(1);

@@ -24,6 +24,7 @@ OBJECTS_DIR = temp/obj
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += QT_MESSAGELOGCONTEXT
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -58,11 +59,11 @@ SOURCES += \
     Form/AdvaForm/TLoopTextCardItem.cpp \
     Form/AdvaForm/TTriggerCardItem.cpp \
     Form/AdvaForm/TUserCardItem.cpp \
-    Application/NetworkData.cpp \
     Tools/CAdvLogger.cpp \
     Tools/CQuickQss.cpp \
     Tools/CQuickTools.cpp \
-    Widget/TCenterWidget.cpp
+    Widget/TCenterWidget.cpp \
+    Form/AdvaForm/TTabBar.cpp
 
 
 
@@ -98,12 +99,12 @@ HEADERS += \
     Form/AdvaForm/TLoopTextCardItem.h \
     Form/AdvaForm/TTriggerCardItem.h \
     Form/AdvaForm/TUserCardItem.h \
-    Application/NetworkData.h \
     Tools/CAdvLogger.h \
     Tools/CQuickQss.h \
     Tools/CQuickTools.h \
     Tools/CFaIcon.h \
-    Widget/TCenterWidget.h
+    Widget/TCenterWidget.h \
+    Form/AdvaForm/TTabBar.h
 
 
 INCLUDEPATH += \

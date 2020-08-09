@@ -20,7 +20,7 @@ void StatusBar::initUI()
     this->setFixedHeight(22);
 
     m_pWidget = new QWidget(this);
-    m_pWidget->setStyleSheet("QWidget{background-color:#bebebe;}");
+    m_pWidget->setStyleSheet("QWidget{background-color:#88bebebe;}");
 
     /*水平分屏*/
     m_pHSplitScreenButton = new QPushButton(m_pWidget);

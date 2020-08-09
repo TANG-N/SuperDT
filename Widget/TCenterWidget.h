@@ -6,6 +6,7 @@
 #include "StatusBar.h"
 #include "TMsgArea.h"
 #include "TSettingArea.h"
+#include <QStackedWidget>
 
 class TCenterWidget : public QWidget
 {
@@ -15,6 +16,9 @@ public:
 
     void init();
 
+private slots:
+    void slotNewTextEditor(TTextEditor *pTextEditor);
+    void slotSelectedTextEditor(TTextEditor *pTextEditor);
 private:
     StatusBar *m_pStatusBar;
 
@@ -22,6 +26,8 @@ private:
     TMsgArea *m_pMsgArea;
     QScrollArea *m_pSarea;
     NetworkApp *m_pNavigationBar = nullptr;
+    QMap<TTextEditor *,NetworkApp *> m_mapTextEdit_App;
+    QStackedWidget *m_pStackWidget = nullptr;
 };
 
 #endif // TCENTERWIDGET_H

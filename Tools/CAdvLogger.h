@@ -44,7 +44,9 @@
 
 #define ONE_HOUR_MSEC (60*60*1000)
 
-
+#ifndef QT_MESSAGELOGCONTEXT
+    #define QT_MESSAGELOGCONTEXT
+#endif
 struct StLogContext{
     int m_nLevel;
     QString m_strLevel;

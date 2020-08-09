@@ -8,6 +8,7 @@
 #include <QIcon>
 #include <QMetaEnum>
 #include <QVBoxLayout>
+#include "CAdvLogger.h"
 
 void test1();
 void test2();
@@ -16,11 +17,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    CAdvLogger::getInstance()->installAdvaLoging();
+    CFontInstaller::fontInstaller(":/font/image/font/fontawesome-webfont.ttf");
+
     QFont globalFont("SimHei",12);
     a.setFont(globalFont);
-
-
-
 
     /*设置样式*/
 //    QFile file(m_strAppPath + "qss/style.qss");
@@ -33,14 +34,14 @@ int main(int argc, char *argv[])
 
     MainWidget w;
     w.show();
-
+//    w.setStyle(QStyleFactory::create("Windows"));
 
     return a.exec();
 }
 
 void test2()
 {
-    CFontInstaller::fontInstaller(":/font/image/font/fontawesome-webfont.ttf");
+
 
     QFont fontFaIcon("FontAwesome");
     fontFaIcon.setPixelSize(20);

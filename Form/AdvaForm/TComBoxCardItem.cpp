@@ -18,12 +18,14 @@ void TComBoxCardItem::init()
 //    this->setMaximumHeight(35);
 
     m_pLabel = new QLabel(this);
+    m_pLabel->setStyleSheet("QLabel{background:transparent;}");
+
     m_pComBox = new QComboBox(this);
     m_pComBox->setFixedSize(160,30);
     this->setStyleSheet("QComboBox{background:#ffffff;border-radius:5px;padding:1px;border: 4px solid #ffffff;color:#000000;}"
-                             "QComboBox::drop-down{background-color:transparent;width:20px;top:4px;height:15px;right:4px;}"
-                             "QComboBox::down-arrow {image:url(" + m_strImgPath + "image/form/combox-drop.png);}"
-                             );
+                        "QComboBox::drop-down{background-color:transparent;width:20px;top:4px;height:15px;right:4px;}"
+                        "QComboBox::down-arrow{border-image:url(" + m_strImgPath + "image/form/combox-drop.png);}"
+                        );
 
 
     QHBoxLayout *hLayout = new QHBoxLayout;

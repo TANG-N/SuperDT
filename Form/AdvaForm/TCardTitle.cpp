@@ -15,7 +15,7 @@ void TCardTitle::init()
     m_pLabelIcon->setMinimumSize(24,24);
     m_pLabelIcon->setMaximumSize(36,36);
     m_pLabelIcon->setText(m_strIcon);
-    m_pLabelIcon->setStyleSheet("QLabel{font:22px FontAwesome;color:#ffffff;}");
+    m_pLabelIcon->setStyleSheet("QLabel{background:transparent;font:22px FontAwesome;color:#ffffff;}");
 
     m_pLabelText = new QLabel(this);
     m_pLabelText->setMinimumHeight(24);

@@ -28,10 +28,13 @@ void TLockButtonCardItem::initUI()
 {
     this->resize(285,35);
 
-    this->setObjectName("LOckbutton");
+//    this->setObjectName("bg");
+//    this->setAttribute(Qt::WA_TranslucentBackground);
+//    this->setStyleSheet("#bg{background:transparents;}");
 
     m_pLabel = new QLabel(this);
     m_pLabel->setText(m_strText);
+    m_pLabel->setStyleSheet("QLabel{background:transparent;}");
 
     m_pBtn = new QPushButton(this);
     m_pBtn->setCheckable(true);

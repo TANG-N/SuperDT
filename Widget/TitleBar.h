@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QMouseEvent>
 #include <QLabel>
+#include <QMenu>
 
 #include "TWindowLayoutDefine.h"
 
@@ -27,13 +28,15 @@ private:
     QPushButton *m_pMaxButton;
     QPushButton *m_pMinButton;
     QLabel *m_pLabelTitle;
-    QLabel *m_pLabelIcon;
+    QPushButton *m_pBtnIcon;
     QString m_strIconPath;
 
     QPoint m_pointWindowPos;
     QPoint m_pointMousePos;
     QPoint m_pointDPos;
     bool m_bLeftButtonPressed;
+
+    QMenu *m_pMenu = nullptr;
 protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);

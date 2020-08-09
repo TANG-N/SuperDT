@@ -7,9 +7,11 @@
 #include <QApplication>
 #include "TListCard.h"
 #include "TCenterWidget.h"
+#include <QGraphicsBlurEffect>
+#include <QStackedLayout>
 
 MainWidget::MainWidget(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
 {
     m_strAppPath = QApplication::applicationDirPath() + "/";
 
@@ -21,6 +23,11 @@ MainWidget::~MainWidget()
 
 }
 
+void MainWidget::setBgImage(QString strUrl)
+{
+
+}
+
 void MainWidget::initUI()
 {
     this->setWindowFlags(Qt::FramelessWindowHint);//去掉标题栏
@@ -28,40 +35,44 @@ void MainWidget::initUI()
     this->setMouseTracking(true); //设置鼠标追踪  只要鼠标在本窗体内  就会触发MouseMoveEvent()
     this->resize(800,800);
     this->setWindowIcon(QIcon(m_strAppPath + "image/logo64.ico"));
+    //    this->setAttribute(Qt::WA_TranslucentBackground);
+//    this->setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint | Qt::Tool);
+
+    /*模糊背景*/
+    QGraphicsBlurEffect *pBlurEffect = new QGraphicsBlurEffect;
+    pBlurEffect->setBlurRadius(30);
+
+    m_pWidgetBg = new QWidget(this);
+    m_pWidgetBg->setStyleSheet("QWidget{border-image:url(C:/Users/anfae/Pictures/deepin/luca-micheli-ruWkmt3nU58-unsplash.jpg);}");
+    m_pWidgetBg->setGraphicsEffect(pBlurEffect);
+
+    QStackedLayout *pStackLayout = new QStackedLayout(this);
+    pStackLayout->setStackingMode(QStackedLayout::StackAll);
+    pStackLayout->addWidget(m_pWidgetBg);
+    pStackLayout->addWidget(createMainWidget());
+    pStackLayout->setCurrentIndex(1);
+}
+
+QWidget *MainWidget::createMainWidget()
+{
+    QWidget *pWidgetBg = new QWidget(this);
+
     /*标题栏*/
-    m_pTitleBar = new TitleBar(this);
+    m_pTitleBar = new TitleBar(pWidgetBg);
     m_pTitleBar->setWindowTitle("SuperDT");
+    m_pTitleBar->setStyleSheet("TitleBar{background:#ffffff;}");
 
-    /*状态栏*/
-//    m_pStatusBar = new StatusBar(this);
+    TCenterWidget *pCenterWidget = new TCenterWidget(pWidgetBg);
 
-    /*主区域*/
-    /*Msg和Setting*/
-//    m_pSettingArea = new TSettingArea(this);
-//    connect(m_pStatusBar,SIGNAL(signalVSplitScreen()),m_pSettingArea,SIGNAL(signalVSplitScreen()));
-//    connect(m_pStatusBar,SIGNAL(signalHSplitScreen()),m_pSettingArea,SIGNAL(signalHSplitScreen()));
-//    connect(m_pStatusBar,SIGNAL(signalMergeScreen()),m_pSettingArea,SIGNAL(signalMergeScreen()));
+    QSizeGrip *sizeGrip = new QSizeGrip(pWidgetBg);//拖拽
 
-    QSizeGrip *sizeGrip = new QSizeGrip(this);//拖拽
-
-
-//    QHBoxLayout *layoutMsgAndSetting = new QHBoxLayout;
-//    layoutMsgAndSetting->addWidget(m_pSettingArea);
-//    layoutMsgAndSetting->setSpacing(0); //设置间距
-//    layoutMsgAndSetting->setContentsMargins(0, 0, 0, 0);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(m_pTitleBar);
-    layout->addWidget(new TCenterWidget(this));
-//    layout->addWidget(m_pStatusBar);
-//    layout->addLayout(layoutMsgAndSetting);
-    layout->addWidget(sizeGrip);
+    QVBoxLayout *layout = new QVBoxLayout(pWidgetBg);
     layout->setSpacing(0); //设置间距
     layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(m_pTitleBar);
+    layout->addWidget(pCenterWidget);
+    layout->addWidget(sizeGrip);
 
-    this->setLayout(layout);
 
-
-
-
+    return pWidgetBg;
 }

@@ -63,6 +63,7 @@ void TMsgArea::initUI()
     m_pNowFocusTextEditor = m_pTextEditorMain; //初始化选中的编辑器为主编辑器
 
     m_pHLayout = new QHBoxLayout(this);
+    m_pHLayout->setContentsMargins(0,0,0,0);
     m_pHLayout->addWidget(m_pSplitterMain);
     this->setLayout(m_pHLayout);
 

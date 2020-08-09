@@ -28,6 +28,19 @@
 #include <QScrollArea>
 #include <QMap>
 
+
+enum EnmConnectType{
+    ENM_TCP_CLIENT = 0,
+    ENM_TCP_SERVER,
+    ENM_UDP,
+};
+
+enum EnmConnectState{
+    ENM_STATE_DISCONNCTED = 0,
+    ENM_STATE_CONNECTING,
+    ENM_STATE_CONNECTED,
+};
+
 class StNetworkConfig
 {
 public:
@@ -35,10 +48,14 @@ public:
     QString m_strId;
 
     /*协议参数*/
-    QString m_strProcoalType;
-    QString m_strIp;
-    int m_strPort;
-    int m_nNetState;
+    EnmConnectType m_enmConnectType;
+    EnmConnectState m_enmConnectState;
+    QStringList m_strListIp;
+    QStringList m_strListPort;
+    QString m_strCurrentLocalIp = "";   //设置本地ip
+    int m_nCurrentLocalPort = 0;        //本地端口
+    QString m_strCurrentRemoteIp = "";  //远程ip
+    int m_nCurrentRemotePort = 0;       //远程端口
 
     /*接收设置*/
     bool m_bSaveAble;
@@ -50,10 +67,14 @@ public:
     /*发送设置*/
     bool m_bDispalySendAble;   //显示发送
     bool m_bSendHexAble;
+    QMap<QString,int> m_mapIpPort; //存储所有的远程连接
+
+    /*快捷发送*/
+    QStringList m_strListQuickText; //快捷发送文本项
 
     /*高级设置*/
     bool m_bLoopSendAble;
-    QVector<QPair<QString,int>> m_vecLoopText; //循环文本条目 <文本，n秒后发送> 不自动排序
+    QMap<QString,int> m_mapLoopSend; //循环文本条目 <文本，n秒后发送>
 
     /*触发器*/
     bool m_bTriggerAble; //触发器开关
@@ -64,27 +85,7 @@ class NetworkApp : public QWidget
     Q_OBJECT
 public:
 
-    enum EnmConnectType{
-        ENM_TCP_CLIENT = 0,
-        ENM_TCP_SERVER,
-        ENM_UDP,
-    };
-    enum EnmConnectStatus{
-        ENM_STATUS_CLI_CONNECTED = 0,
-        ENM_STATUS_CLI_CONNECTING,
-        ENM_STATUS_CLI_DISCONNECTED,
-        ENM_STATUS_SER_NOT_LISTENING,
-        ENM_STATUS_SER_LISTENING,
-        ENM_STATUS_SER_CONNECTED,
-        ENM_STATUS_UDP_NOT_BINDING,
-        ENM_STATUS_UDP_BINDING,
-    };
-    enum EnmConnectState{
-        ENM_STATE_DISCONNCTED = 0,
-        ENM_STATE_CONNECTING,
-        ENM_STATE_CONNECTED,
-    };
-    Q_ENUM(EnmConnectState);
+//    Q_ENUM(EnmConnectState)
 
 
 public:
@@ -92,6 +93,7 @@ public:
 
     void initUI();
 private:
+    void initVal(); //先与UI
     void createProtocal(TListCard *&pCard);
     void createRecv(TListCard *&pCard);
     void createSend(TListCard *&pCard);
@@ -100,27 +102,29 @@ private:
     void createTrig(TListCard *&pCard);
     void createAdvaSend(TListCard *&pCard);
 
-    //void addQuickSendItem();
-    int getProtocalPort(){return m_pCardItemPort->m_pComBox->currentText().toInt();}
-    QString getProtocalIp(){return m_pCardItemIP->m_pComBox->currentText();}
-    void setBtnStatus(QPushButton *pBtn,EnmConnectStatus enmStatus);
-    int chToChar(char ch);
-    QString stringToHexString(QString strMsg);
-private:
+    //连接
+    void toConnecting();
+    void toDisconnect();
+    void send(QString strIp,int nPort,QString strMsg);
+    void send(QString strMsg);
 
+    void refreshBtn(); //点击按钮
+    void refreshUI();
+    QString stringToHexString(QString strMsg);
+
+    //
+    void addQuickItem(); //添加快捷发送
+    void addLoopItem(); //添加循环条目
+    void addTrigItem(); //添加触发器条目
 private slots:
-    /*协议槽函数*/
-//    void slotRecv(QString strIp,int nPort,QString strMsg);
-//    void slotConnectStateChanged(QString strIp,int nPort,bool bState);
+    void slotLoop();
+
 private:
     //共用
     QString m_strAppPath;
-    QScrollArea *m_pScrollArea = nullptr;
-    QTextEdit *m_pTextEdit = nullptr;         //编辑发送内容
-    TComBoxCardItem *m_pCardItemIP = nullptr; //协议Ip
-    TComBoxCardItem *m_pCardItemPort = nullptr;//协议端口
-    TComBoxCardItem *m_pCurrentConnections = nullptr;  //当前所有连接
-    StNetworkConfig m_stNetworkConfig;
+    StNetworkConfig m_stNetworkConfig;  //所有的设置信息
+
+    //各部分
     TListCard *m_pCardUser = nullptr;           //用户信息卡片
     TListCard *m_pCardProtocol = nullptr;       //网络协议
     TListCard *m_pCardRecv = nullptr;           //接收设置
@@ -130,27 +134,30 @@ private:
     TListCard *m_pCardTrig = nullptr;           //接收触发器
     TListCard *m_pCardAdvaSend = nullptr;       //高级发送
 
-    StNetworkConfig TLineEditCardItemm_stNetworkConfig;
     /*Connection*/
-    CTcpClientConnection *m_pTcpClient = nullptr;
-    CTcpServerConnection *m_pTcpServer = nullptr;
-    CUdpConnection *m_pUdpConnect = nullptr;
-
-    EnmConnectType m_enmProtocolType = ENM_TCP_CLIENT;
-    EnmConnectStatus m_enmConnectStatus = ENM_STATUS_CLI_DISCONNECTED;  //初始状态与连接类型对应
     AbsConnection *m_pConnection = nullptr;
+    QPushButton *m_pBtnConnect = nullptr;
+
+    /*协议*/
+    TComBoxCardItem *m_pCardItemIP = nullptr; //协议Ip
+    TComBoxCardItem *m_pCardItemPort = nullptr;//协议端口
+
+
+    //发送区域
+    QTextEdit *m_pTextEdit = nullptr;         //编辑发送内容
     TTextEditor *m_pOutTextEditor = nullptr;  //输出内容显示
-    QString m_strCurrentLocalIp = "";   //设置本地ip
-    int m_nCurrentLocalPort = 0;        //本地端口
-    QString m_strCurrentRemoteIp = "";  //远程ip
-    int m_nCurrentRemotePort = 0;       //远程端口
-    bool m_bIsConnected = false;
-    bool m_bIsConnecting = false;
+    TComBoxCardItem *m_pCurrentConnections = nullptr;  //当前所有连接  TcpClient不必 显示   因为只有一个发送目标  server和Udp都可选择
+    QListWidgetItem *m_pConnectionsItem = nullptr;
+
     /*变长项*/
     QMap<QPushButton*,QListWidgetItem*> m_mapQuckSend;
     QMap<QPushButton*,QListWidgetItem*> m_mapTrigger;
-    QMap<QPushButton*,QListWidgetItem*> m_mapLoopSend;  //循环发送
+    QMap<TLoopTextCardItem*,QListWidgetItem*> m_mapLoopSend;  //高级循环发送
+    QVector<TLoopTextCardItem *> m_vecLoopItems;
 
+    /*循环发送*/
+    QTimer *m_pTimerLoop = nullptr;
+    int m_nLoopIndex = 0;
 };
 
 

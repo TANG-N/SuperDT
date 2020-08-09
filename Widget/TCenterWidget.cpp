@@ -20,13 +20,19 @@ void TCenterWidget::init()
     connect(m_pStatusBar,SIGNAL(signalHSplitScreen()),m_pMsgArea,SLOT(slotHSplitScreen()));
     connect(m_pStatusBar,SIGNAL(signalMergeScreen()),m_pMsgArea,SLOT(slotMergeScreen()));
 
+    connect(m_pMsgArea,SIGNAL(sigNewTextEditor(TTextEditor *)),this,SLOT(slotNewTextEditor(TTextEditor *)));
+    connect(m_pMsgArea,SIGNAL(sigCurrentTextEditor(TTextEditor *)),this,SLOT(slotSelectedTextEditor(TTextEditor *)));
+
     /*参数设置区*/
     m_pSarea = new QScrollArea(this);
     m_pSarea->setFixedWidth(300);
-    m_pSarea->setStyleSheet("background-color:#cccccc;");//QScrollArea{
     m_pSarea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//隐藏横向滚动条
     m_pSarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//隐藏竖向滚动条
     m_pSarea->setWidgetResizable(true);
+
+    //
+    m_pStackWidget = new QStackedWidget(this);
+    m_pSarea->setWidget(m_pStackWidget);
 
     /*初始化按钮条、用户区、参数设置区*/
     TSettingBtnBar *bar = new TSettingBtnBar(this);
@@ -38,8 +44,9 @@ void TCenterWidget::init()
     });
     m_pNavigationBar = new NetworkApp(m_pMsgArea->currentTextEditor(),this);
     m_pNavigationBar->setContentsMargins(5,0,5,0);
-    m_pSarea->setWidget(m_pNavigationBar);
+    m_pStackWidget->addWidget(m_pNavigationBar);
 
+    m_pSarea->setStyleSheet("background-color:transparent;");//
     QHBoxLayout *pHLayout = new QHBoxLayout;
     pHLayout->setSpacing(0);
     pHLayout->setContentsMargins(0, 0, 0, 0);
@@ -48,9 +55,23 @@ void TCenterWidget::init()
     pHLayout->addWidget(m_pSarea);
 
 
+    m_mapTextEdit_App.insert(m_pMsgArea->currentTextEditor(),m_pNavigationBar);
+
     QVBoxLayout *pVLayout = new QVBoxLayout(this);
     pVLayout->setContentsMargins(0,0,0,0);
     pVLayout->setSpacing(0);
     pVLayout->addWidget(m_pStatusBar);
     pVLayout->addLayout(pHLayout);
+}
+
+void TCenterWidget::slotNewTextEditor(TTextEditor *pTextEditor)
+{
+    NetworkApp *pNetworkApp = new NetworkApp(pTextEditor,this);
+    m_pStackWidget->addWidget(pNetworkApp);
+    m_mapTextEdit_App.insert(pTextEditor,pNetworkApp);
+}
+
+void TCenterWidget::slotSelectedTextEditor(TTextEditor *pTextEditor)
+{
+    m_pStackWidget->setCurrentWidget(m_mapTextEdit_App.value(pTextEditor));
 }
