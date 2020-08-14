@@ -57,9 +57,9 @@ void TListCard::removeItem(QListWidgetItem *pItem)
 
 void TListCard::init()
 {
-    this->setStyleSheet("QWidget{background-color:#88bebebe;border-radius:5px;}" //半透白
+    this->setStyleSheet("QWidget{background-color:#88bebebe;border-radius:5px;}" //半透白 88bebebe
                         "TListCard{padding-top:10px;padding-bottom:10px;}"
-                        "QListWidget::item{border-bottom:1px solid #ffffff;}"
+                        "QListWidget::item{border-bottom:1px solid #b3b3b3;}"
                         "QListWidget::item:hover{background:#88bebebe; }"
 //                        "QListWidget::item:selected{background:lightgray; color:red; }"
 //                        "QListWidget::item:selected:!active{border-width:0px; background:lightgreen; }"
@@ -84,7 +84,8 @@ void TListCard::init()
                           "QScrollBar::sub-page {background: none;}"
                            );
 
-
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     /*阴影效果*/
 //    QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect;
 //    effect->setBlurRadius(8);        // 阴影圆角的大小

@@ -2,6 +2,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QDebug>
 
+#include <QVBoxLayout>
 
 TTabBar::TTabBar(QWidget *parent)
     : QFrame(parent)
@@ -17,6 +18,8 @@ void TTabBar::addTab(QString strText, int nId)
     pBtn->setStyleSheet("QPushButton{background:transparent;color:#000000;}"
                         "QPushButton:checked{background-color:transparent;color:#ffffff;}"
                         );
+    new QVBoxLayout(pBtn);
+
     m_pBtnGp->addButton(pBtn,nId);
 
     m_pHLayout->addWidget(pBtn);
@@ -59,7 +62,14 @@ void TTabBar::initUI()
          [=](QAbstractButton *button, bool checked){
         if(checked){
              qDebug()<<"checked*******8888888888888888888888"<<checked<<button->geometry()<<m_pBtnGp->id(button);
-            m_pAnimation->setStartValue(m_pWidgetSelected->geometry());
+
+//            if(m_pBtnOld != nullptr){
+//                m_pBtnOld->layout()->removeWidget(m_pWidgetSelected);
+//                button->layout()->addWidget(m_pWidgetSelected);
+//            }
+//            m_pBtnOld = button;
+
+             m_pAnimation->setStartValue(m_pWidgetSelected->geometry());
             m_pAnimation->setEndValue(button->geometry());
             m_pAnimation->start();
         }

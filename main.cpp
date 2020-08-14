@@ -9,6 +9,7 @@
 #include <QMetaEnum>
 #include <QVBoxLayout>
 #include "CAdvLogger.h"
+#include <QGraphicsDropShadowEffect>
 
 void test1();
 void test2();
@@ -34,6 +35,8 @@ int main(int argc, char *argv[])
 
     MainWidget w;
     w.show();
+
+
 //    w.setStyle(QStyleFactory::create("Windows"));
 
     return a.exec();

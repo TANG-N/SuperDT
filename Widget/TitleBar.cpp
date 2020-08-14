@@ -52,6 +52,7 @@ void TitleBar::initUI()
 
     m_pLabelTitle = new QLabel(this);
     m_pLabelTitle->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_pLabelTitle->setStyleSheet("color:#ffffff;");
 
     m_pMinButton = new QPushButton(this);
     m_pMinButton->setFixedSize(24,24);

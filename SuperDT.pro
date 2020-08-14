@@ -63,7 +63,8 @@ SOURCES += \
     Tools/CQuickQss.cpp \
     Tools/CQuickTools.cpp \
     Widget/TCenterWidget.cpp \
-    Form/AdvaForm/TTabBar.cpp
+    Form/AdvaForm/TTabBar.cpp \
+    Form/TShadowEffect.cpp
 
 
 
@@ -104,7 +105,8 @@ HEADERS += \
     Tools/CQuickTools.h \
     Tools/CFaIcon.h \
     Widget/TCenterWidget.h \
-    Form/AdvaForm/TTabBar.h
+    Form/AdvaForm/TTabBar.h \
+    Form/TShadowEffect.h
 
 
 INCLUDEPATH += \

@@ -61,6 +61,7 @@ void NetworkApp::initUI()
 //    pTabBar->addTab("工具",4);
 //    pTabBar->setChecked(2);
 
+
     /*通信协议*/
     createProtocal(m_pCardProtocol);
     /*接收设置*/

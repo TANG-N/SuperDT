@@ -29,9 +29,10 @@ void TCenterWidget::init()
     m_pSarea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//隐藏横向滚动条
     m_pSarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);//隐藏竖向滚动条
     m_pSarea->setWidgetResizable(true);
-
-    //
+    m_pSarea->setFrameShape(QFrame::NoFrame);
+    /*设置分页*/
     m_pStackWidget = new QStackedWidget(this);
+    m_pStackWidget->setStyleSheet("QStackedWidget{background:transparent;}");
     m_pSarea->setWidget(m_pStackWidget);
 
     /*初始化按钮条、用户区、参数设置区*/

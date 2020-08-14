@@ -16,7 +16,7 @@ TTextEditor::TTextEditor(QWidget *parent)
 
     updateLineNumberAreaWidth(0);
     highlightCurrentLine();
-    this->setStyleSheet("background:#44ffffff;color:#000000;");
+    this->setStyleSheet("background:#aaffffff;color:#000000;");
 }
 
 int TTextEditor::lineNumberAreaWidth()

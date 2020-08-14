@@ -34,7 +34,7 @@ void TSettingBtnBar::paintEvent(QPaintEvent *event)
 void TSettingBtnBar::createView()
 {
     this->setFixedWidth(36);
-    this->setStyleSheet("QWidget{background-color:#55bebebe;}");
+    this->setStyleSheet("QWidget{background-color:transparent;}"); //55bebebe
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setContentsMargins(0,10,0,10);

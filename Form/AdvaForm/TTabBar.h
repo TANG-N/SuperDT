@@ -29,7 +29,7 @@ private:
     QHBoxLayout *m_pHLayout = nullptr;
     QWidget *m_pWidgetSelected = nullptr;
     QButtonGroup *m_pBtnGp = nullptr;
-
+    QAbstractButton *m_pBtnOld = nullptr;
     QPropertyAnimation *m_pAnimation = nullptr;
 };
 
