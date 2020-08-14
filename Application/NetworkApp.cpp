@@ -357,6 +357,9 @@ void NetworkApp::toConnecting()
     if(m_pConnection != nullptr)
         delete  m_pConnection; //删除旧的连接
 
+    //重置连接状态
+    m_stNetworkConfig.m_enmConnectState = ENM_STATE_DISCONNCTED;
+
     switch(m_stNetworkConfig.m_enmConnectType){
         case ENM_TCP_CLIENT:
             qDebug()<<"创建 Tcp 客户端";

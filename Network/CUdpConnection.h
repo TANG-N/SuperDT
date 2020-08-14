@@ -22,8 +22,8 @@ public:
     void setRemoteAddress(QString strIp,int nPort);
 signals:
     void sigRecvLine(QString strIp,int nPort,QString strMsg);
-    void sigRecv(QString strIp,int nPort,QString strMsg);
-    void sigConnectStateChanged(QString strIp,int nPort,bool bState); //无连接的Udp  绑定本地即为已连接
+//    void sigRecv(QString strIp,int nPort,QString strMsg);
+//    void sigConnectStateChanged(QString strIp,int nPort,bool bState); //无连接的Udp  绑定本地即为已连接
 private:
     void init();
 private:

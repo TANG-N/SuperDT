@@ -90,17 +90,17 @@ void CUdpConnection::init()
             m_pUdpSocket->readDatagram(arrDatagrams.data(),arrDatagrams.size(),&hostPeerAddr,&nPeerPort);
 
 
-            qDebug()<<"Udp 接收到来自："<<QString(hostPeerAddr.toString() + ":" + QString::number(nPeerPort))<<"的报文";
+            qDebug()<<"Udp 接收到来自："<<QString(hostPeerAddr.toString() + ":" + QString::number(nPeerPort))<<"的报文内容是:"<<QString(arrDatagrams).toUtf8();
             emit sigRecv(hostPeerAddr.toString(),nPeerPort,QString(arrDatagrams).toUtf8());
         }
-        /*接收一行 */
-        while(m_pUdpSocket->canReadLine()){
+//        /*接收一行 */
+//        while(m_pUdpSocket->canReadLine()){
 
-            QByteArray arrLine = m_pUdpSocket->readLine();
+//            QByteArray arrLine = m_pUdpSocket->readLine();
 
-            emit sigRecvLine(m_hostRemote.toString(),m_nRPort,QString(arrLine).toUtf8());
+//            emit sigRecvLine(m_hostRemote.toString(),m_nRPort,QString(arrLine).toUtf8());
 
-        }
+//        }
 
     });
 

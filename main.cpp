@@ -11,8 +11,10 @@
 #include "CAdvLogger.h"
 #include <QGraphicsDropShadowEffect>
 
+
 void test1();
 void test2();
+
 
 int main(int argc, char *argv[])
 {
