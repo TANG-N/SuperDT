@@ -10,7 +10,7 @@
 #include "TTabBar.h"
 //#include <QHorizonTalLine>
 
-NetworkApp::NetworkApp(TTextEditor *pTextEditor, QWidget *parent)
+NetworkApp::NetworkApp(TSession *pTextEditor, QWidget *parent)
     : QWidget(parent),m_pOutTextEditor(pTextEditor)
 {
     m_strAppPath = QApplication::applicationDirPath() + "/";
@@ -73,8 +73,8 @@ void NetworkApp::initUI()
     /*快捷发送*/
     createQuickSend(m_pCardQuickSend);
 
-    /*高级发送*/
-    createAdvaSend(m_pCardAdvaSend);
+    /*循环发送*/
+    createLoopSend(m_pCardAdvaSend);
     /*触发器*/
     createTrig(m_pCardTrig);
 
@@ -98,11 +98,13 @@ void NetworkApp::initUI()
 
 void NetworkApp::createProtocal(TListCard *&pCard)
 {
-    TCardTitle *pCardTitleProtoal = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_newspaper_o),"协议设置",this);
+    TCardTitle *pCardTitleProtoal = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_newspaper_o),"协议设置","选择网络协议",this);
 
     QStringList vecItem;
     vecItem<<"TCP Client"<<"TCP Server"<<"UDP";
+
     TComBoxCardItem *pCardItemProtocal = new TComBoxCardItem("协议类型",vecItem);
+    //修改网络协议  Tcp client 、Tcp server 、Udp
     connect(pCardItemProtocal->m_pComBox,static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),[=](int nIndex){
         m_stNetworkConfig.m_enmConnectType = (EnmConnectType)nIndex;
         //隐藏或显示 目标主机选择
@@ -111,6 +113,12 @@ void NetworkApp::createProtocal(TListCard *&pCard)
         }else{
             m_pConnectionsItem->setHidden(false);
         }
+        m_stNetworkConfig.m_enmConnectState = ENM_STATE_DISCONNCTED;
+        //释放掉原有的链接  @MAJA不用释放貌似也没毛病  真正发起连接的时候去释放、创建和连接
+//        if(m_pBtnConnect != nullptr){
+//            delete m_pBtnConnect;
+//            m_pBtnConnect = nullptr;
+//        }
         refreshBtn();
     });
 
@@ -179,7 +187,7 @@ void NetworkApp::createProtocal(TListCard *&pCard)
 
 void NetworkApp::createRecv(TListCard *&pCard)
 {
-    TCardTitle *pCardTitleRecv = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_download),"接收设置",this);
+    TCardTitle *pCardTitleRecv = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_download),"接收设置","接收数据的设置",this);
 
     /*接收设置*/
     QStringList vecItem;
@@ -206,7 +214,7 @@ void NetworkApp::createRecv(TListCard *&pCard)
 
 void NetworkApp::createSend(TListCard *&pCard)
 {
-    TCardTitle *pCardTitleSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_paper_plane_o),"发送设置",this);
+    TCardTitle *pCardTitleSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_paper_plane_o),"发送设置","发送设置",this);
 
     TLockButtonCardItem *pCItemSendDAble = new TLockButtonCardItem("显示发送",this);
     connect(pCItemSendDAble->m_pBtn,&QPushButton::clicked,[=](bool bIsChecked){
@@ -259,7 +267,7 @@ void NetworkApp::createSendText(TListCard *&pCard)
 
 void NetworkApp::createQuickSend(TListCard *&pCard)
 {
-    TCardTitle *pCardTitleQuickSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_fighter_jet),"快捷发送",this);
+    TCardTitle *pCardTitleQuickSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_fighter_jet),"快捷发送","您可以在这创建快捷发送的内容",this);
 
     /*快捷发送*/
     QPushButton *pBtnAdd = new QPushButton(this);
@@ -292,9 +300,9 @@ void NetworkApp::createQuickSend(TListCard *&pCard)
     //emit pBtnAdd->clicked();
 }
 
-void NetworkApp::createAdvaSend(TListCard *&pCard)
+void NetworkApp::createLoopSend(TListCard *&pCard)
 {
-    TCardTitle *pCardTitleAdvaSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_hourglass_half),"循环发送",this);
+    TCardTitle *pCardTitleAdvaSend = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_hourglass_half),"循环发送","加入循环的文本会遍历发送",this);
 
     /*循环发送定时器*/
     m_pTimerLoop = new QTimer(this);
@@ -329,25 +337,25 @@ void NetworkApp::createAdvaSend(TListCard *&pCard)
 
 void NetworkApp::createTrig(TListCard *&pCard)
 {
-    TCardTitle *pCardTitleTrig = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_slack),"触发器",this);
+    TCardTitle *pCardTitleTrig = new TCardTitle(CFaIcon::iconsQString(CFaIcon::Fa_slack),"触发器","接收到前边自定的文本，会发送后边自定义的文本回去",this);
 
+    /*触发器开关*/
     TLockButtonCardItem *pCItemTrigAble = new TLockButtonCardItem("触发器",this);
-    TTriggerCardItem *pCItemTrig = new TTriggerCardItem(this);
+    connect(pCItemTrigAble->m_pBtn,&QPushButton::toggled,[=](bool bIsChecked){
+        m_stNetworkConfig.m_bTriggerAble = bIsChecked;
+    });
     QPushButton *pBtnAddTrig = new QPushButton(this);
     pBtnAddTrig->setText("+");
     pBtnAddTrig->resize(285,35);
     pBtnAddTrig->setStyleSheet("QPushButton{background-color:#30a7f8;color:#ffffff;border-radius:0px;}"
                                "QPushButton:pressed{background-color:#2190db;}");
     connect(pBtnAddTrig,&QPushButton::clicked,[=](){
-        TTriggerCardItem *pCItemTrig = new TTriggerCardItem(this);
-        m_pCardTrig->insertWidget(2,pCItemTrig);
-        this->adjustSize();//添加项之后 需要自动调大高度值
+        addTrigItem();
     });
 
     pCard = new TListCard(this);
     pCard->addWidget(pCardTitleTrig);
     pCard->addWidget(pCItemTrigAble);
-    pCard->addWidget(pCItemTrig);
     pCard->addWidget(pBtnAddTrig);
 }
 
@@ -383,6 +391,7 @@ void NetworkApp::toConnecting()
         Q_UNUSED(nPort)
 
         qDebug()<<"连接状态变化： "<<bState;
+        emit sigStateChanged(strIp,nPort,bState);
 
         m_pCardItemPort->m_pComBox->setEnabled(!bState);
 //        pCardItemProtocal->m_pComBox->setEnabled(!bState);
@@ -425,7 +434,7 @@ void NetworkApp::send(QString strIp, int nPort, QString strMsg)
         m_pConnection->send(strIp,nPort,strMsg);
 
         if(m_stNetworkConfig.m_bDispalySendAble) //显示我发送的
-            m_pOutTextEditor->appendPlainText("send#:" + strMsg);
+            m_pOutTextEditor->appendPlainText("[send:]" + strMsg);
     }else{
         qWarning()<<"未连接，不能发送";
     }
@@ -514,8 +523,27 @@ void NetworkApp::addLoopItem()
     this->adjustSize();//添加项之后 需要自动调大高度值
 }
 
+void NetworkApp::addTrigItem()
+{
+    TTriggerCardItem *pCItemTrig = new TTriggerCardItem(this);
+    connect(m_pConnection,&AbsConnection::sigRecv,[=](QString strIp,int nPort,QString strMsg){
+        Q_UNUSED(strIp)
+        Q_UNUSED(nPort)
+
+        if(!m_stNetworkConfig.m_bTriggerAble) //触发器关闭直接返回
+            return ;
+
+        if(pCItemTrig->m_pLineEditR->text() == strMsg){
+            send(pCItemTrig->m_pLineEditS->text());
+        }
+    });
+    m_pCardTrig->insertWidget(2,pCItemTrig);
+    this->adjustSize();//添加项之后 需要自动调大高度值
+}
+
 void NetworkApp::slotLoop()
 {
+    /*循环发送*/
     if((m_vecLoopItems.count() > m_nLoopIndex)){
         QString strText = m_vecLoopItems.at(m_nLoopIndex)->m_pLineEdit->text();
         send(strText);

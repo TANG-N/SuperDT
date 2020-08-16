@@ -5,8 +5,12 @@
 #include "TitleBar.h"
 #include "StatusBar.h"
 #include "TMsgArea.h"
-#include "TSettingArea.h"
 #include <QStackedWidget>
+#include <QScrollArea>
+#include "NetworkApp.h"
+#include "TSettingBtnBar.h"
+#include <QMap>
+#include "TSessions.h"
 
 class TCenterWidget : public QWidget
 {
@@ -17,16 +21,16 @@ public:
     void init();
 
 private slots:
-    void slotNewTextEditor(TTextEditor *pTextEditor);
-    void slotSelectedTextEditor(TTextEditor *pTextEditor);
+    void slotNewTextEditor(TSession *pTextEditor);
+    void slotSelectedTextEditor(TSession *pTextEditor);
 private:
     StatusBar *m_pStatusBar;
 
 
-    TMsgArea *m_pMsgArea;
+    TSessions *m_pMsgArea;
     QScrollArea *m_pSarea;
     NetworkApp *m_pNavigationBar = nullptr;
-    QMap<TTextEditor *,NetworkApp *> m_mapTextEdit_App;
+    QMap<TSession *,NetworkApp *> m_mapTextEdit_App;
     QStackedWidget *m_pStackWidget = nullptr;
 };
 

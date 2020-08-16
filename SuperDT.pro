@@ -45,7 +45,6 @@ SOURCES += \
     MainWidget.cpp \
     Widget/TMsgArea.cpp \
     Widget/TTextEditor.cpp \
-    Widget/TSettingArea.cpp \
     Application/NetworkApp.cpp \
     General/Log/CLogWin.cpp \
     General/Log/CLogWinForWindow.cpp \
@@ -63,7 +62,10 @@ SOURCES += \
     Tools/CQuickQss.cpp \
     Tools/CQuickTools.cpp \
     Widget/TCenterWidget.cpp \
-    Form/AdvaForm/TTabBar.cpp
+    Form/AdvaForm/TTabBar.cpp \
+    Widget/TSession.cpp \
+    Widget/TSplitter.cpp \
+    Widget/TSessions.cpp
 
 
 
@@ -83,7 +85,6 @@ HEADERS += \
     Widget/TitleBar.h \
     Widget/TMsgArea.h \
     Widget/TTextEditor.h \
-    Widget/TSettingArea.h \
     General/Log/clog.h \
     General/Log/CLogWin.h \
     Application/NetworkApp.h \
@@ -104,7 +105,10 @@ HEADERS += \
     Tools/CQuickTools.h \
     Tools/CFaIcon.h \
     Widget/TCenterWidget.h \
-    Form/AdvaForm/TTabBar.h
+    Form/AdvaForm/TTabBar.h \
+    Widget/TSession.h \
+    Widget/TSplitter.h \
+    Widget/TSessions.h
 
 
 INCLUDEPATH += \
