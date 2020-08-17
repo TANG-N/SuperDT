@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     CAdvLogger::getInstance()->installAdvaLoging();
-    CFontInstaller::fontInstaller(":/font/image/font/fontawesome-webfont.ttf");
+    CFontInstaller::fontInstaller(":/font/Resource/Font/fontawesome-webfont.ttf");
 
     QFont globalFont("SimHei",12);
     a.setFont(globalFont);

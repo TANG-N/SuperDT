@@ -12,6 +12,9 @@ class TLineEditCardItem : public QWidget
 public:
     explicit TLineEditCardItem(QString strBtnText,QWidget *parent = nullptr);
 
+protected:
+    void enterEvent(QEvent *event);
+    void leaveEvent(QEvent *event);
 private:
     void init();
     void paintEvent(QPaintEvent *event);
@@ -22,6 +25,7 @@ public:
     QLineEdit *m_pLineEdit = nullptr;
     QPushButton *m_pBtn = nullptr;
     QPushButton *m_pBtnDel;
+    bool m_bOn = false; //表示鼠标是否在控件内
 };
 
 #endif // TLINEEDITCARDITEM_H

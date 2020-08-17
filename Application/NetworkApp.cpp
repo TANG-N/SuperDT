@@ -245,7 +245,7 @@ void NetworkApp::createSendText(TListCard *&pCard)
     });
 
     m_pTextEdit = new QTextEdit(this);
-    m_pTextEdit->setStyleSheet("background-color:#ffffff;color:#000000;border-radius:0px;");
+    m_pTextEdit->setStyleSheet("background-color:transparent;color:#000000;border-radius:0px;");
     m_pTextEdit->setEnabled(true);
     m_pTextEdit->append("test...");
     m_pTextEdit->resize(285,200);

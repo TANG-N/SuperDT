@@ -3,11 +3,32 @@
 #include <QHBoxLayout>
 #include <QApplication>
 #include <QDebug>
+#include "CFaIcon.h"
+#include <QTimer>
 
 TLoopTextCardItem::TLoopTextCardItem(QWidget *parent) : QWidget(parent)
 {
     m_strAppPath = QApplication::applicationDirPath() + "/";
     initUI();
+}
+
+void TLoopTextCardItem::enterEvent(QEvent *event)
+{
+    Q_UNUSED(event)
+    m_bOn = true;
+    QTimer::singleShot(500,[=]{
+        if(m_bOn){
+            m_pBtnDel->show();
+        }
+    });
+
+}
+
+void TLoopTextCardItem::leaveEvent(QEvent *event)
+{
+    Q_UNUSED(event)
+    m_bOn = false;
+    m_pBtnDel->hide();
 }
 
 void TLoopTextCardItem::initUI()
@@ -19,50 +40,19 @@ void TLoopTextCardItem::initUI()
     m_pLineEdit->setMinimumWidth(150);
     m_pLineEdit->setFixedHeight(30);
     m_pLineEdit->setStyleSheet("background-color:#ffffff;color:#000000;border-radius:5px;");
-    m_pComBox = new QComboBox(this);
-    m_pComBox->setFixedHeight(30);
-    //this->setAttribute(Qt::AA_AttributeCount);
-    m_pComBox->setStyleSheet("QComboBox{background:#ffffff;"
-                        "border-radius:5px;"
-                        "padding:1px;"
-                        "border: 4px solid #ffffff;"
-                        "text-align:right;"
-//                        "border-radius:5px;"
-//                        "border-top-left-radius:5px;"
-//                        "border-top-right-radius:5px;"
-//                        "border-bottom-left-radius:5px;"
-//                        "border-bottom-right-radius:5px;"
-                        "color:#000000;"
-                        "}"
-                        "QComboBox::drop-down{"
-                            "background-color:transparent;"
-                            "width:20px;"
-                            "top:1px;"
-                            "height:20px;"
-                            "left:0px;"
-                        "}"
-                        "QComboBox::down-arrow {"
-                            "image:url(" + m_strAppPath + "image/form/combox-s.png);"
-                        "}"
-                        );
 
     QLineEdit* pTmpLineEdit = new QLineEdit();
     pTmpLineEdit->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    m_pComBox->setLineEdit(pTmpLineEdit);
-
-    m_pComBox->setEditable(true);
-    m_pComBox->setMinimumWidth(65);
-    m_pComBox->addItem("1");
-    m_pComBox->addItem("2");
-
 
     m_pBtnDel = new QPushButton(this);
     m_pBtnDel->setFixedSize(28,28);
-    m_pBtnDel->setStyleSheet("border-image:url("+ m_strAppPath + "image/setting/del.png);");
+    m_pBtnDel->setText(CFaIcon::iconsQString(CFaIcon::Fa_times_circle_o));
+    m_pBtnDel->setStyleSheet("QPushButton{color:#ff3333;font:22px FontAwesome;}");
+    m_pBtnDel->hide();
 
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLineEdit);
-    hLayout->addWidget(m_pComBox);
+//    hLayout->addWidget(m_pComBox);
     hLayout->addWidget(m_pBtnDel);
     hLayout->setContentsMargins(5,2,5,2);
     hLayout->setSpacing(2);

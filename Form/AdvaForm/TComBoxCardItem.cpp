@@ -33,7 +33,7 @@ void TComBoxCardItem::init()
     this->setStyleSheet("QWidget{background:transparent;}"
                         "QLabel{background:transparent;}"
                         "QComboBox{background:#88d9d9d9;border-radius:5px;padding:1px;color:#000000;}"
-                        "QComboBox::drop-down{background:transparent;border-image:url(" + m_strImgPath +"image/form/combox-dropback.png);width:20px;top:4px;height:15px;right:4px;}"
+                        "QComboBox::drop-down{background:transparent;border-image:url(:/image/Resource/Image/combox-dropback.png);width:20px;top:4px;height:15px;right:4px;}"
                         "QComboBox::down-arrow{background:transparent;}"
                         );
 }

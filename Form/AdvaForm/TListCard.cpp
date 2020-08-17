@@ -57,6 +57,7 @@ void TListCard::removeItem(QListWidgetItem *pItem)
 
 void TListCard::init()
 {
+    this->setFocusPolicy(Qt::NoFocus);
     this->setStyleSheet("QWidget{background-color:#88bebebe;border-radius:5px;}" //半透白 88bebebe
                         "TListCard{padding-top:10px;padding-bottom:10px;}"
                         "QListWidget::item{border-bottom:1px solid #b3b3b3;}"

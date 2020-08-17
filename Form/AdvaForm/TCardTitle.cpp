@@ -10,14 +10,12 @@ TCardTitle::TCardTitle(QString strIcon, QString strText, QString strHelp,QWidget
 
 void TCardTitle::enterEvent(QEvent *event)
 {
-    m_pLabelHelp->setStyleSheet("QLabel{background:transparent;font:22px FontAwesome;color:#ffffff;}"
-                              "QToolTip{background:#bbbbbb;color:#ffffff;border-radius:2px;}");
+    m_pLabelHelp->show();
 }
 
 void TCardTitle::leaveEvent(QEvent *event)
 {
-    m_pLabelHelp->setStyleSheet("QLabel{background:transparent;font:22px FontAwesome;color:transparent;}"
-                              "QToolTip{background:#bbbbbb;color:#ffffff;border-radius:2px;}");
+    m_pLabelHelp->hide();
 }
 
 void TCardTitle::init()
@@ -41,8 +39,9 @@ void TCardTitle::init()
     m_pLabelHelp->setFixedSize(24,24);
     m_pLabelHelp->setText(CFaIcon::iconsQString(CFaIcon::Fa_question_circle));
     m_pLabelHelp->setToolTip(m_strHelp);
-    m_pLabelHelp->setStyleSheet("QLabel{background:transparent;font:22px FontAwesome;color:transparent;}"
-                              "QToolTip{background:#bbbbbb;color:#ffffff;border-radius:5px;padding:5px;}");
+    m_pLabelHelp->setStyleSheet("QLabel{background:transparent;font:22px FontAwesome;color:#ffffff;}"
+                              "QToolTip{background:#bbbbbb;color:#ffffff;border-radius:2px;}");
+    m_pLabelHelp->hide();
 
     QHBoxLayout *hLayout = new QHBoxLayout(this);
     hLayout->setContentsMargins(5,3,5,3);

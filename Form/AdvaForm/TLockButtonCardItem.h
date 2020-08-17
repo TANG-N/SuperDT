@@ -21,8 +21,6 @@ private:
 private:
     QString m_strAppPath;
     QString m_strText;
-    QString m_strBtnImgN;
-    QString m_strBtnImgC;
 };
 
 #endif // TLockButtonCardItem_H

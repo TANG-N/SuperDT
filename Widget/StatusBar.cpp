@@ -61,5 +61,5 @@ void StatusBar::initUI()
 
 QString StatusBar::getImageStytle(QString strImage)
 {
-    return "QPushButton {border-image:url("+ m_strAppPath + "image/form/" + strImage + ")}";
+    return "QPushButton {border-image:url(:/image/Resource/Image/" + strImage + ")}";
 }

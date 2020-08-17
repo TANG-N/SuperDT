@@ -36,7 +36,7 @@ void MainWidget::initUI()
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);    // 设置尺寸属性
     this->setMouseTracking(true); //设置鼠标追踪  只要鼠标在本窗体内  就会触发MouseMoveEvent()
     this->resize(800,800);
-    this->setWindowIcon(QIcon(m_strAppPath + "image/logo64.ico"));
+    this->setWindowIcon(QIcon(":image/logo64.ico"));
     this->setObjectName("mainWidget");
     this->setStyleSheet("#mainWidget{border-radius:5px;}");
 //    this->setAttribute(Qt::WA_TranslucentBackground);

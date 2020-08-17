@@ -10,8 +10,6 @@ TLockButtonCardItem::TLockButtonCardItem(QString strText,QWidget *parent)
 {
     m_strAppPath = QApplication::applicationDirPath() + "/";
     m_strText = strText;
-    m_strBtnImgN = m_strAppPath + "image/setting/btn_n.png";
-    m_strBtnImgC = m_strAppPath + "image/setting/btn_c.png";
     initUI();
 }
 //Qwidget 自身没有实现paintEvent  对setStyleSheet()无效 实现paintEvent即可
