@@ -16,8 +16,8 @@ public:
 
     TSession *currentTextEditor(){return m_pNowFocusTextEditor;}
 signals:
-    void sigNewTextEditor(TSession *newTextEditor); //新建了一个textedit
-    void sigCurrentTextEditor(TSession *newTextEditor); //焦点textedit改变了
+    void sigNewSession(TSession *newTextEditor); //新建了一个textedit
+    void sigSelected(TSession *newTextEditor); //焦点textedit改变了
 private:
     void initVal();
     void initUI();

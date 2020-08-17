@@ -35,19 +35,12 @@ void TLockButtonCardItem::initUI()
 
     m_pLabel = new QLabel(this);
     m_pLabel->setText(m_strText);
-    m_pLabel->setStyleSheet("QLabel{background:transparent;}");
+//    m_pLabel->setStyleSheet("QLabel{background:transparent;}");
 
     m_pBtn = new QPushButton(this);
     m_pBtn->setCheckable(true);
-
-//    m_pBtn->setStyleSheet("QPushButton{border-image:url("+ m_strBtnImgN +");}"
-//                        "QPushButton:checked{border-image:url("+ m_strBtnImgC +");}"
-////                        "QPushButton:hover{border-image:url("+ m_strImgUrlC +");color:"+ m_strTextColor +";}"
-//                        );
     m_pBtn->setText(CFaIcon::iconsQString(CFaIcon::Fa_toggle_off));
-    m_pBtn->setStyleSheet("QPushButton{background-color:transparent;color:#ffffff;font:28px FontAwesome;}"
-                          "QPushButton::checked{color:#30A7F8;}"
-                        );
+
     connect(m_pBtn,&QPushButton::clicked,[=](bool bIsChecked){
         if(bIsChecked){
             m_pBtn->setText(CFaIcon::iconsQString(CFaIcon::Fa_toggle_on));
@@ -65,4 +58,9 @@ void TLockButtonCardItem::initUI()
     hLayout->setContentsMargins(5,2,5,2);
     this->setLayout(hLayout);
 
+    this->setStyleSheet("QWidget{background:transparent;}"
+                        "QLabel{background:transparent;}"
+                        "QPushButton{background-color:transparent;color:#30A7F8;font:28px FontAwesome;}"
+                        "QPushButton::checked{color:#30A7F8;}"
+                        );
 }

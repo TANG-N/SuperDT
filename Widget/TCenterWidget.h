@@ -24,11 +24,10 @@ private slots:
     void slotNewTextEditor(TSession *pTextEditor);
     void slotSelectedTextEditor(TSession *pTextEditor);
 private:
-    StatusBar *m_pStatusBar;
+    StatusBar *m_pStatusBar; //状态栏
+    TSessions *m_pSessions;   //会话窗
+    QScrollArea *m_pScrollArea; //滚动区
 
-
-    TSessions *m_pMsgArea;
-    QScrollArea *m_pSarea;
     NetworkApp *m_pNavigationBar = nullptr;
     QMap<TSession *,NetworkApp *> m_mapTextEdit_App;
     QStackedWidget *m_pStackWidget = nullptr;

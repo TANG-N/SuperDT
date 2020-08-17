@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QDesktopWidget>
 #include <QPropertyAnimation>
+#include <QFile>
 
 class CQuickTools : public QObject
 {
@@ -29,6 +30,7 @@ public:
                                 QString strColor = "#ffffff",
                                 QString strBgColor = "#000000",
                                 int nShowTime = 2*1000);
+      static void installQss(QString strFile);
 
       //动画工具-------------------------------------------------------------------------------------------------------
       //控件抖动

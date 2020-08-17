@@ -15,28 +15,27 @@ TComBoxCardItem::TComBoxCardItem(QString strText, QStringList strList, QWidget *
 void TComBoxCardItem::init()
 {
     this->resize(285,35);
-//    this->setMaximumHeight(35);
 
     m_pLabel = new QLabel(this);
-    m_pLabel->setStyleSheet("QLabel{background:transparent;}");
 
     m_pComBox = new QComboBox(this);
     m_pComBox->setFixedSize(160,30);
-    this->setStyleSheet("QComboBox{background:#ffffff;border-radius:5px;padding:1px;border: 4px solid #ffffff;color:#000000;}"
-                        "QComboBox::drop-down{background-color:transparent;width:20px;top:4px;height:15px;right:4px;}"
-                        "QComboBox::down-arrow{border-image:url(" + m_strImgPath + "image/form/combox-drop.png);}"
-                        );
 
-
-    QHBoxLayout *hLayout = new QHBoxLayout;
+    QHBoxLayout *hLayout = new QHBoxLayout(this);
     hLayout->addWidget(m_pLabel);
     hLayout->addStretch(1);
     hLayout->addWidget(m_pComBox);
     hLayout->setContentsMargins(5,2,5,2);
-    this->setLayout(hLayout);
 
     m_pLabel->setText(m_strText);
     m_pComBox->addItems(m_strListItems);
+
+    this->setStyleSheet("QWidget{background:transparent;}"
+                        "QLabel{background:transparent;}"
+                        "QComboBox{background:#88d9d9d9;border-radius:5px;padding:1px;color:#000000;}"
+                        "QComboBox::drop-down{background:transparent;border-image:url(" + m_strImgPath +"image/form/combox-dropback.png);width:20px;top:4px;height:15px;right:4px;}"
+                        "QComboBox::down-arrow{background:transparent;}"
+                        );
 }
 
 void TComBoxCardItem::paintEvent(QPaintEvent *event)

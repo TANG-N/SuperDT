@@ -110,6 +110,8 @@ private:
     void toDisconnect();
     void send(QString strIp,int nPort,QString strMsg);
     void send(QString strMsg);
+    //设置远程Ip
+    void setRemoteAddress(QString strIp,int nPort);
 
     void refreshBtn(); //点击按钮
     void refreshUI();

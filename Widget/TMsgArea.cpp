@@ -27,7 +27,7 @@
 #include <QDebug>
 #include <QThread>
 #include "TMsgArea.h"
-#include "clog.h"
+
 
 TMsgArea::TMsgArea(QWidget *parent)
     : QWidget(parent)
@@ -375,7 +375,6 @@ void TMsgArea::slotFocusChange(QWidget *old, QWidget *now)
         if(nullptr != m_pNowFocusTextEditor){
 //            m_pNowFocusTextEditor->appendPlainText("现在光标在这");
             emit sigCurrentTextEditor(m_pNowFocusTextEditor);
-            logImpInfoWin()<<"现在光标在这！"<<flushWin;
         }
     }
 }

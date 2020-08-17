@@ -44,15 +44,13 @@ void TCardTitle::init()
     m_pLabelHelp->setStyleSheet("QLabel{background:transparent;font:22px FontAwesome;color:transparent;}"
                               "QToolTip{background:#bbbbbb;color:#ffffff;border-radius:5px;padding:5px;}");
 
-    QHBoxLayout *hLayout = new QHBoxLayout;
-    hLayout->setContentsMargins(3,3,3,3);
+    QHBoxLayout *hLayout = new QHBoxLayout(this);
+    hLayout->setContentsMargins(5,3,5,3);
     hLayout->setSpacing(3);
     hLayout->addWidget(m_pLabelIcon);
     hLayout->addSpacing(5);
     hLayout->addWidget(m_pLabelText);
     hLayout->addStretch();
     hLayout->addWidget(m_pLabelHelp);
-
-    this->setLayout(hLayout);
 }
 

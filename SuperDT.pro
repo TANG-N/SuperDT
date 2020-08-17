@@ -46,11 +46,6 @@ SOURCES += \
     Widget/TMsgArea.cpp \
     Widget/TTextEditor.cpp \
     Application/NetworkApp.cpp \
-    General/Log/CLogWin.cpp \
-    General/Log/CLogWinForWindow.cpp \
-    General/Log/CLogWinForDB.cpp \
-    General/Log/CLogWinForTxt.cpp \
-    General/Log/CLogWinEnm.cpp \
     Widget/TSettingBtnBar.cpp \
     Form/AdvaForm/TCardTitle.cpp \
     Form/AdvaForm/TComBoxCardItem.cpp \
@@ -87,14 +82,7 @@ HEADERS += \
     Widget/TitleBar.h \
     Widget/TMsgArea.h \
     Widget/TTextEditor.h \
-    General/Log/clog.h \
-    General/Log/CLogWin.h \
     Application/NetworkApp.h \
-    General/Log/CLogWin.h \
-    General/Log/CLogWinForWindow.h \
-    General/Log/CLogWinForDB.h \
-    General/Log/CLogWinForTxt.h \
-    General/Log/CLogWinEnm.h \
     Widget/TSettingBtnBar.h \
     Form/AdvaForm/TCardTitle.h \
     Form/AdvaForm/TComBoxCardItem.h \
@@ -119,9 +107,7 @@ INCLUDEPATH += \
         Form \
         Form/BaseForm \
         Form/AdvaForm \
-        General/Log \
         Network \
-        General/Database \
         Application \
         Tools
 
@@ -137,6 +123,6 @@ RESOURCES += \
 RC_ICONS = AppIcon.ico
 
 DISTFILES += \
-    General/Log/LogWinConfig.xml \
-    Style/SuperDT.qss
+    General/Log/LogWinConfig.xml
+
 

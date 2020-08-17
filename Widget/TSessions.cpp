@@ -59,7 +59,7 @@ void TSessions::creatTextEditor(QWidget *parent)
     TSession *textEditor = new TSession(parent);
     textEditor->setObjectName("textEditor" + QString::number(m_listTextEditor.size()));
     m_listTextEditor.append(textEditor);
-    emit sigNewTextEditor(textEditor);
+    emit sigNewSession(textEditor);
 }
 
 void TSessions::removeTextEditor(TSession *rmTextEditor)
@@ -348,8 +348,7 @@ void TSessions::slotFocusChange(QWidget *old, QWidget *now)
         }
         if(nullptr != m_pNowFocusTextEditor){
 //            m_pNowFocusTextEditor->appendPlainText("现在光标在这");
-            emit sigCurrentTextEditor(m_pNowFocusTextEditor);
-            qDebug()<<"现在光标在这！";
+            emit sigSelected(m_pNowFocusTextEditor);
         }
     }
 }

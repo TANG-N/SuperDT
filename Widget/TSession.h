@@ -4,6 +4,7 @@
 #include "TTextEditor.h"
 #include <QWidget>
 #include <QLabel>
+#include <QPushButton>
 
 class TSession : public QWidget
 {
@@ -23,7 +24,7 @@ private:
     QWidget *m_pWidgetTopBar = nullptr;
     QLabel *m_pLabelIpPort = nullptr;
     QLabel *m_pLabelState = nullptr;
-
+    QPushButton *m_pBtnClear = nullptr;
     //
     TTextEditor *m_pTextEditor = nullptr;
 };

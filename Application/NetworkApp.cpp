@@ -252,6 +252,9 @@ void NetworkApp::createSendText(TListCard *&pCard)
 
     QPushButton *pBtnSend = new QPushButton(this);
     pBtnSend->setText("发送");
+    pBtnSend->setAutoRepeat(true); //启用长按
+    pBtnSend->setAutoRepeatDelay(400);//触发长按的时间
+    pBtnSend->setAutoRepeatInterval(50);//长按时click信号间隔
     pBtnSend->resize(285,35);
     pBtnSend->setStyleSheet("QPushButton{background-color:#30a7f8;border-radius:0px;}"
                             "QPushButton:pressed{background-color:#2190db;}");
@@ -286,8 +289,6 @@ void NetworkApp::createQuickSend(TListCard *&pCard)
         connect(pQuickSendItem->m_pBtn,&QPushButton::clicked,this,[=]{
             qDebug()<<"快捷发送 点击发送"<<pQuickSendItem->m_pLineEdit->text();
             send(pQuickSendItem->m_pLineEdit->text());
-//            if(m_pConnection != nullptr)
-//                m_pConnection->send(m_stNetworkConfig.m_strCurrentRemoteIp,m_stNetworkConfig.m_nCurrentRemotePort,pQuickSendItem->m_pLineEdit->text());
         });
         m_mapQuckSend.insert(pQuickSendItem->m_pBtnDel,tmpItem);
         connect(pQuickSendItem->m_pBtnDel,&QPushButton::clicked,this,[=]{
@@ -372,7 +373,7 @@ void NetworkApp::toConnecting()
         case ENM_TCP_CLIENT:
             qDebug()<<"创建 Tcp 客户端";
             m_pConnection = new CTcpClientConnection(this);
-            m_pConnection->connect(m_stNetworkConfig.m_strCurrentRemoteIp,m_stNetworkConfig.m_nCurrentRemotePort);
+            m_pConnection->connect(m_stNetworkConfig.m_strCurrentRemoteIp,m_stNetworkConfig.m_nCurrentRemotePort); //@BUG 远程ip没有改动的话 需要重新获取
 
             break;
         case ENM_TCP_SERVER:
@@ -447,6 +448,12 @@ void NetworkApp::send(QString strIp, int nPort, QString strMsg)
 void NetworkApp::send(QString strMsg)
 {
     send(m_stNetworkConfig.m_strCurrentRemoteIp,m_stNetworkConfig.m_nCurrentRemotePort,strMsg);
+}
+
+void NetworkApp::setRemoteAddress(QString strIp, int nPort)
+{
+    m_stNetworkConfig.m_strCurrentRemoteIp = strIp;
+    m_stNetworkConfig.m_nCurrentRemotePort = nPort;
 }
 
 void NetworkApp::refreshBtn()

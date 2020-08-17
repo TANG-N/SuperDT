@@ -1,5 +1,21 @@
 <RCC>
+    <qresource prefix="/style">
+        <file>Resource/Style/SuperDT.qss</file>
+    </qresource>
     <qresource prefix="/font">
-        <file>image/font/fontawesome-webfont.ttf</file>
+        <file>Resource/Font/fontawesome-webfont.ttf</file>
+    </qresource>
+    <qresource prefix="/image">
+        <file>Resource/Image/combox-dropback.png</file>
+        <file>Resource/Image/combox-s.png</file>
+        <file>Resource/Image/exit.png</file>
+        <file>Resource/Image/exit-gray.png</file>
+        <file>Resource/Image/hebing.png</file>
+        <file>Resource/Image/hfenping.png</file>
+        <file>Resource/Image/max.png</file>
+        <file>Resource/Image/max-gray.png</file>
+        <file>Resource/Image/min.png</file>
+        <file>Resource/Image/min-gray.png</file>
+        <file>Resource/Image/vfenping.png</file>
     </qresource>
 </RCC>

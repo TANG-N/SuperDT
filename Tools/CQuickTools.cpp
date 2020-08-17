@@ -83,6 +83,17 @@ void CQuickTools::showHintLabel(QWidget *parent, QString strText, QString strFon
     });
 }
 
+void CQuickTools::installQss(QString strFile)
+{
+    QFile fileQss(strFile);
+    if(fileQss.open(QFile::ReadOnly)){
+        qApp->setStyleSheet(fileQss.readAll());
+        fileQss.close();
+    }else{
+        qWarning()<<strFile<<";文件打开失败!";
+    }
+}
+
 void CQuickTools::widgetShake(QWidget *pWidget, int nRange)
 {
     int nX = pWidget->x();
