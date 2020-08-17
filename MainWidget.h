@@ -7,7 +7,9 @@
 #include "TitleBar.h"
 #include "StatusBar.h"
 #include "TMsgArea.h"
-#include "TSettingArea.h"
+//#include "TSettingArea.h"
+
+#include <QMainWindow>
 
 class MainWidget : public QDialog
 {
@@ -28,7 +30,7 @@ private:
     TitleBar *m_pTitleBar;
     StatusBar *m_pStatusBar;
     TMsgArea *m_pMsgArea;
-    TSettingArea *m_pSettingArea;
+//    TSettingArea *m_pSettingArea;
 };
 
 #endif // MAINWIDGET_H

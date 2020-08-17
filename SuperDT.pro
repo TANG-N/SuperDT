@@ -45,7 +45,6 @@ SOURCES += \
     MainWidget.cpp \
     Widget/TMsgArea.cpp \
     Widget/TTextEditor.cpp \
-    Widget/TSettingArea.cpp \
     Application/NetworkApp.cpp \
     General/Log/CLogWin.cpp \
     General/Log/CLogWinForWindow.cpp \
@@ -64,7 +63,11 @@ SOURCES += \
     Tools/CQuickTools.cpp \
     Widget/TCenterWidget.cpp \
     Form/AdvaForm/TTabBar.cpp \
-    Form/TShadowEffect.cpp
+    Form/TShadowEffect.cpp \
+    Widget/TSession.cpp \
+    Widget/TSplitter.cpp \
+    Widget/TSessions.cpp
+
 
 
 
@@ -84,7 +87,6 @@ HEADERS += \
     Widget/TitleBar.h \
     Widget/TMsgArea.h \
     Widget/TTextEditor.h \
-    Widget/TSettingArea.h \
     General/Log/clog.h \
     General/Log/CLogWin.h \
     Application/NetworkApp.h \
@@ -106,7 +108,10 @@ HEADERS += \
     Tools/CFaIcon.h \
     Widget/TCenterWidget.h \
     Form/AdvaForm/TTabBar.h \
-    Form/TShadowEffect.h
+    Form/TShadowEffect.h\
+    Widget/TSession.h \
+    Widget/TSplitter.h \
+    Widget/TSessions.h
 
 
 INCLUDEPATH += \

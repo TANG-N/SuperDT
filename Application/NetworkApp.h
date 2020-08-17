@@ -28,6 +28,7 @@
 #include <QScrollArea>
 #include <QMap>
 
+#include "TSessions.h"
 
 enum EnmConnectType{
     ENM_TCP_CLIENT = 0,
@@ -89,9 +90,11 @@ public:
 
 
 public:
-    explicit NetworkApp(TTextEditor *pTextEditor,QWidget *parent = 0);
+    explicit NetworkApp(TSession *pTextEditor,QWidget *parent = 0);
 
     void initUI();
+signals:
+    void sigStateChanged(QString strIp,int nIp,bool bIsConnected);
 private:
     void initVal(); //先与UI
     void createProtocal(TListCard *&pCard);
@@ -100,7 +103,7 @@ private:
     void createSendText(TListCard *&pCard);
     void createQuickSend(TListCard *&pCard);
     void createTrig(TListCard *&pCard);
-    void createAdvaSend(TListCard *&pCard);
+    void createLoopSend(TListCard *&pCard);
 
     //连接
     void toConnecting();
@@ -116,6 +119,7 @@ private:
     void addQuickItem(); //添加快捷发送
     void addLoopItem(); //添加循环条目
     void addTrigItem(); //添加触发器条目
+
 private slots:
     void slotLoop();
 
@@ -145,7 +149,7 @@ private:
 
     //发送区域
     QTextEdit *m_pTextEdit = nullptr;         //编辑发送内容
-    TTextEditor *m_pOutTextEditor = nullptr;  //输出内容显示
+    TSession *m_pOutTextEditor = nullptr;  //输出内容显示
     TComBoxCardItem *m_pCurrentConnections = nullptr;  //当前所有连接  TcpClient不必 显示   因为只有一个发送目标  server和Udp都可选择
     QListWidgetItem *m_pConnectionsItem = nullptr;
 
