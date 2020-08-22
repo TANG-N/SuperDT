@@ -18,32 +18,39 @@ void TTabBar::addTab(QString strText, int nId)
     pBtn->setStyleSheet("QPushButton{background:transparent;color:#000000;}"
                         "QPushButton:checked{background-color:transparent;color:#ffffff;}"
                         );
-    new QVBoxLayout(pBtn);
+    pBtn->installEventFilter(this);
 
     m_pBtnGp->addButton(pBtn,nId);
-
     m_pHLayout->addWidget(pBtn);
-
-    if(m_bFirstButton){
-        m_bFirstButton = false;
-        pBtn->setChecked(true);
-
-    }
-//    this->show();
-    qDebug()<<"rect:"<<m_pBtnGp->checkedButton()->geometry();
-    m_pWidgetSelected->setGeometry(m_pBtnGp->checkedButton()->geometry()); //Layout会将button变形  所以每添加一个按钮  需要重新调整背景的大小
 }
 
 void TTabBar::setChecked(int nTabId)
 {
+    m_pWidgetSelected->show();
     m_pBtnGp->button(nTabId)->setChecked(true);
 }
 
-void TTabBar::resizeEvent(QResizeEvent *event)
+bool TTabBar::eventFilter(QObject *watched, QEvent *event)
+{
+//    if(event->type() == QEvent::Move || event->type() == QEvent::Resize){
+    if(event->type() == QEvent::Resize){
+        QAbstractButton *pBtn = static_cast<QAbstractButton *>(watched);
+
+        if(pBtn){
+            if(pBtn->isChecked()){
+//                qInfo()<<"btn:"<<pBtn->objectName()<<pBtn->geometry();
+                m_pWidgetSelected->setGeometry(pBtn->geometry());
+            }
+        }
+    }
+
+    return QWidget::eventFilter(watched,event);
+}
+
+void TTabBar::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
-     m_pWidgetSelected->setGeometry(m_pBtnGp->checkedButton()->geometry());
-     return QWidget::resizeEvent(event);
+    m_bIsOk = true;
 }
 
 void TTabBar::initUI()
@@ -60,16 +67,8 @@ void TTabBar::initUI()
     connect(m_pBtnGp,SIGNAL(buttonClicked(int)),this,SIGNAL(sigSelected(int)));
     connect(m_pBtnGp, static_cast<void(QButtonGroup::*)(QAbstractButton *, bool)>(&QButtonGroup::buttonToggled),
          [=](QAbstractButton *button, bool checked){
-        if(checked){
-             qDebug()<<"checked*******8888888888888888888888"<<checked<<button->geometry()<<m_pBtnGp->id(button);
-
-//            if(m_pBtnOld != nullptr){
-//                m_pBtnOld->layout()->removeWidget(m_pWidgetSelected);
-//                button->layout()->addWidget(m_pWidgetSelected);
-//            }
-//            m_pBtnOld = button;
-
-             m_pAnimation->setStartValue(m_pWidgetSelected->geometry());
+        if(checked && m_bIsOk){ //消除初始位置错误的bug
+            m_pAnimation->setStartValue(m_pWidgetSelected->geometry());
             m_pAnimation->setEndValue(button->geometry());
             m_pAnimation->start();
         }
@@ -78,6 +77,8 @@ void TTabBar::initUI()
     m_pWidgetSelected = new QWidget(this);
     m_pWidgetSelected->setObjectName("selected");
     m_pWidgetSelected->setStyleSheet("#selected{background:#33ccff;border-radius:5px;}");
+    m_pWidgetSelected->hide();
+    m_pWidgetSelected->installEventFilter(this);
     /*阴影效果*/
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect;
     effect->setBlurRadius(8);        // 阴影圆角的大小
@@ -87,7 +88,4 @@ void TTabBar::initUI()
 
     m_pAnimation = new QPropertyAnimation(m_pWidgetSelected,"geometry",this);
     m_pAnimation->setDuration(100);
-//    connect(m_pAnimation,&QPropertyAnimation::finished,[=]{
-//        m_pWidgetSelected->hide();
-//    });
 }
