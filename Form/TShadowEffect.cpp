@@ -1,78 +1,31 @@
 #include "TShadowEffect.h"
 #include <QPainter>
+#include <QApplication>
+#include <QScreen>
 
-
-TShadowEffect::TShadowEffect(QObject *parent) :
-    QGraphicsEffect(parent),
-    _distance(4.0f),
-    _blurRadius(10.0f),
-    _color(0, 0, 0, 80)
+TShadowEffect::TShadowEffect(QWidget *parent)
+    :QWidget(parent)
 {
-
+    init();
 }
 
-QT_BEGIN_NAMESPACE
-  extern Q_WIDGETS_EXPORT void qt_blurImage(QPainter *p, QImage &blurImage, qreal radius, bool quality, bool alphaOnly, int transposed = 0 );
-QT_END_NAMESPACE
-
-void TShadowEffect::draw(QPainter* painter)
+void TShadowEffect::paintEvent(QPaintEvent *event)
 {
-    // if nothing to show outside the item, just draw source
-    if ((blurRadius() + distance()) <= 0) {
-        drawSource(painter);
-        return;
-    }
+    Q_UNUSED(event)
 
-    PixmapPadMode mode = QGraphicsEffect::PadToEffectiveBoundingRect;
-    QPoint offset;
-    const QPixmap px = sourcePixmap(Qt::DeviceCoordinates, &offset, mode);
+    QPainter painter(this);
 
-    // return if no source
-    if (px.isNull())
-        return;
 
-    // save world transform
-    QTransform restoreTransform = painter->worldTransform();
-    painter->setWorldTransform(QTransform());
+    QScreen *pScreen = QApplication::primaryScreen();
 
-    // Calculate size for the background image
-    QSize szi(px.size().width() + 2 * distance(), px.size().height() + 2 * distance());
+//    painter.drawPixmap(QRect(0,0,100,100),pScreen->grabWindow(0),QRect(0,0,100,100));
 
-    QImage tmp(szi, QImage::Format_ARGB32_Premultiplied);
-    QPixmap scaled = px.scaled(szi);
-    tmp.fill(0);
-    QPainter tmpPainter(&tmp);
-    tmpPainter.setCompositionMode(QPainter::CompositionMode_Source);
-    tmpPainter.drawPixmap(QPointF(-distance(), -distance()), scaled);
-    tmpPainter.end();
-
-    // blur the alpha channel
-    QImage blurred(tmp.size(), QImage::Format_ARGB32_Premultiplied);
-    blurred.fill(0);
-    QPainter blurPainter(&blurred);
-    qt_blurImage(&blurPainter, tmp, blurRadius(), false, true);
-    blurPainter.end();
-
-    tmp = blurred;
-
-    // blacken the image...
-    tmpPainter.begin(&tmp);
-    tmpPainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-    tmpPainter.fillRect(tmp.rect(), color());
-    tmpPainter.end();
-
-    // draw the blurred shadow...
-    painter->drawImage(offset, tmp);
-
-    // draw the actual pixmap...
-    painter->drawPixmap(offset, px, QRectF());
-
-    // restore world transform
-    painter->setWorldTransform(restoreTransform);
+    painter.drawPixmap(rect(),pScreen->grabWindow(0),QRect(pos().x(),pos().y(),width(),height()));
 }
 
-QRectF TShadowEffect::boundingRectFor(const QRectF& rect) const
+void TShadowEffect::init()
 {
-    qreal delta = blurRadius() + distance();
-    return rect.united(rect.adjusted(-delta, -delta, delta, delta));
+//    update();
+    m_pBlur = new QGraphicsBlurEffect(this);
+    this->setGraphicsEffect(m_pBlur);
 }

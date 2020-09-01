@@ -30,8 +30,8 @@ void TTabBar::addTab(QString strText, int nId)
 
     }
 //    this->show();
-    qDebug()<<"rect:"<<m_pBtnGp->checkedButton()->geometry();
-    m_pWidgetSelected->setGeometry(m_pBtnGp->checkedButton()->geometry()); //Layout会将button变形  所以每添加一个按钮  需要重新调整背景的大小
+//    qDebug()<<"rect:"<<m_pBtnGp->checkedButton()->geometry();
+//    m_pWidgetSelected->setGeometry(m_pBtnGp->checkedButton()->geometry()); //Layout会将button变形  所以每添加一个按钮  需要重新调整背景的大小
 }
 
 void TTabBar::setChecked(int nTabId)
@@ -42,8 +42,29 @@ void TTabBar::setChecked(int nTabId)
 void TTabBar::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event)
-     m_pWidgetSelected->setGeometry(m_pBtnGp->checkedButton()->geometry());
-     return QWidget::resizeEvent(event);
+    qWarning()<<"rect:"<<m_pBtnGp->checkedButton()->geometry();
+    m_pWidgetSelected->setGeometry(m_pBtnGp->checkedButton()->geometry());
+    qWarning()<<"sle"<<m_pWidgetSelected->geometry();
+    return QWidget::resizeEvent(event);
+}
+
+void TTabBar::showEvent(QShowEvent *event)
+{
+    qWarning()<<"rect:"<<m_pBtnGp->checkedButton()->geometry();
+    m_pWidgetSelected->setGeometry(m_pBtnGp->checkedButton()->geometry());
+    qWarning()<<"sle"<<m_pWidgetSelected->geometry();
+    return QWidget::showEvent(event);
+}
+
+bool TTabBar::eventFilter(QObject *watched, QEvent *event)
+{
+    if(watched == m_pWidgetSelected && (event->type() == QEvent::Move)){
+        QMoveEvent *pMoveEvent = dynamic_cast<QMoveEvent *>(event);
+        qInfo()<<"selele："<<pMoveEvent->pos();
+    }
+    qInfo()<<"selele："<<m_pWidgetSelected->pos();
+
+    return QFrame::eventFilter(watched,event);
 }
 
 void TTabBar::initUI()
@@ -78,6 +99,7 @@ void TTabBar::initUI()
     m_pWidgetSelected = new QWidget(this);
     m_pWidgetSelected->setObjectName("selected");
     m_pWidgetSelected->setStyleSheet("#selected{background:#33ccff;border-radius:5px;}");
+    this->installEventFilter(m_pWidgetSelected);
     /*阴影效果*/
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect;
     effect->setBlurRadius(8);        // 阴影圆角的大小

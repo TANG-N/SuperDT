@@ -10,6 +10,8 @@
 #include <QGraphicsDropShadowEffect>
 #include <QFile>
 
+#include "TShadowEffect.h"
+
 void test2();
 
 
@@ -35,6 +37,8 @@ int main(int argc, char *argv[])
     MainWidget w;
     w.show();
 
+//    TShadowEffect p;
+//    p.show();
 
 //    w.setStyle(QStyleFactory::create("Windows"));
 

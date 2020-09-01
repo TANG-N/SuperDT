@@ -20,6 +20,8 @@ signals:
     void sigSelected(int nSelectedId);
 protected:
     void resizeEvent(QResizeEvent *event);
+    void showEvent(QShowEvent *event);
+    bool eventFilter(QObject *watched, QEvent *event);
 private:
     void initUI();
 

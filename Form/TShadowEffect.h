@@ -1,31 +1,25 @@
 #ifndef TSHADOWEFFECT_H
 #define TSHADOWEFFECT_H
 
-#include <QGraphicsDropShadowEffect>
-#include <QGraphicsEffect>
+#include <QWidget>
+#include <QPainter>
+#include <QGraphicsBlurEffect>
 
-class TShadowEffect : public QGraphicsEffect
+class TShadowEffect : public QWidget
 {
     Q_OBJECT
  public:
-     explicit TShadowEffect(QObject *parent = 0);
+     explicit TShadowEffect(QWidget *parent = 0);
 
-     void draw(QPainter* painter);
-     QRectF boundingRectFor(const QRectF& rect) const;
+protected:
+    void paintEvent(QPaintEvent *event);
 
-     inline void setDistance(qreal distance) { _distance = distance; updateBoundingRect(); }
-     inline qreal distance() const { return _distance; }
+private:
+    void init();
 
-     inline void setBlurRadius(qreal blurRadius) { _blurRadius = blurRadius; updateBoundingRect(); }
-     inline qreal blurRadius() const { return _blurRadius; }
+private:
+    QGraphicsBlurEffect *m_pBlur = nullptr;
 
-     inline void setColor(const QColor& color) { _color = color; }
-     inline QColor color() const { return _color; }
-
- private:
-     qreal  _distance;
-     qreal  _blurRadius;
-     QColor _color;
 };
 
 #endif // TSHADOWEFFECT_H
