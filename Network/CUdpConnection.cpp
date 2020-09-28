@@ -43,15 +43,17 @@ void CUdpConnection::send(QString strMsg)
 
 void CUdpConnection::send(QString strIp, int nPort, QString strMsg)
 {
+    send(strIp,nPort,strMsg.toUtf8());
+}
 
+void CUdpConnection::send(QString strIp, int nPort, QByteArray arrMsg)
+{
     QHostAddress hostRemote;
     bool bIsIp = hostRemote.setAddress(strIp);//可判断IP是否合法
     if(!bIsIp){
-        qDebug()<<"CUdpConnection::send   IP非法："<<strIp;
+        qDebug()<<"CUdpConnection::send   IP有误:"<<strIp;
         return;
     }
-
-    QByteArray arrMsg = strMsg.toUtf8();
     m_pUdpSocket->writeDatagram(arrMsg,hostRemote,nPort);
 }
 

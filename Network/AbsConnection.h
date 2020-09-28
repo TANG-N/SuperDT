@@ -19,6 +19,7 @@ public:
     virtual void connect(QString strIp,int nPort) = 0;
     virtual void disConnect() = 0;
     virtual void send(QString strIp,int nPort,QString strMsg) = 0;
+    virtual void send(QString strIp,int nPort,QByteArray arrMsg) = 0;
 signals:
     void sigRecv(QString strIp,int nPort,QString strMsg);
     void sigConnectStateChanged(QString strIp,int nPort,bool bState);

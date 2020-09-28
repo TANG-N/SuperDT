@@ -16,7 +16,7 @@ public:
     void connect(QString strIp,int nPort);
     void disConnect();
     void send(QString strIp,int nPort,QString strMsg);
-
+    void send(QString strIp,int nPort,QByteArray arrMsg) override;
     /*先设置远端IP  之后就可以不写Ip  直接发送*/
     void send(QString strMsg);
     void setRemoteAddress(QString strIp,int nPort);

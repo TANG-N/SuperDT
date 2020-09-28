@@ -11,7 +11,7 @@
 
 #include <QMainWindow>
 
-class MainWidget : public QDialog
+class MainWidget : public QMainWindow
 {
     Q_OBJECT
 

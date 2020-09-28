@@ -13,28 +13,9 @@ TLineEditCardItem::TLineEditCardItem(QString strBtnText,QWidget *parent)
     init();
 }
 
-void TLineEditCardItem::enterEvent(QEvent *event)
-{
-    Q_UNUSED(event)
-    m_bOn = true;
-    QTimer::singleShot(500,[=]{
-        if(m_bOn){
-            m_pBtnDel->show();
-        }
-    });
-}
-
-void TLineEditCardItem::leaveEvent(QEvent *event)
-{
-    Q_UNUSED(event)
-    m_bOn = false;
-    m_pBtnDel->hide();
-}
-
 void TLineEditCardItem::init()
 {
     this->resize(285,35);
-//    this->setMaximumHeight(35);
 
     m_pLineEdit = new QLineEdit(this);
     m_pLineEdit->setFixedHeight(30);
@@ -50,7 +31,6 @@ void TLineEditCardItem::init()
     m_pBtnDel->setFixedSize(28,28);
     m_pBtnDel->setText(CFaIcon::iconsQString(CFaIcon::Fa_times_circle_o));
     m_pBtnDel->setStyleSheet("QPushButton{color:#ff3333;font:22px FontAwesome;}");
-    m_pBtnDel->hide();
 
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addWidget(m_pLineEdit);

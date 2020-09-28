@@ -25,17 +25,18 @@ public:
     void connect(QString strIp,int nPort) override;
     void disConnect() override;
     void send(QString strIp,int nPort,QString strMsg) override;
+    void send(QString strIp,int nPort,QByteArray arrMsg) override;
 
     void setIpPort(QString strIp,int nPort);
-    void setEnableQueue(bool bIsOpen){m_bIsOpenQueue = bIsOpen;} //开关消息队列
-    void setQueueSPan(int nMs){m_nMsgSpan = nMs;m_pTimerQueue->setInterval(m_nMsgSpan);} //消息队列时间间隔
+//    void setEnableQueue(bool bIsOpen){m_bIsOpenQueue = bIsOpen;} //开关消息队列
+//    void setQueueSPan(int nMs){m_nMsgSpan = nMs;m_pTimerQueue->setInterval(m_nMsgSpan);} //消息队列时间间隔
 signals:
     void sigRecvLine(QString strMsg);
 private slots:
     void slotReConnection();
 private:
     void init();
-    void initQueue();
+//    void initQueue();
 private:
     int m_nMsgSpan = 0;             //两条消息之间的最小时间间隔 ms
     int m_nMaxReadSize = 1024;      //每次最多读取的字节数
@@ -50,9 +51,9 @@ private:
     QTimer *m_pTimerReconnection = nullptr;
 
     /*消息队列*/
-    bool m_bIsOpenQueue = false; //只要初始化  就会开启
-    QTimer *m_pTimerQueue = nullptr;
-    QQueue<QString> m_queueMsg;
+//    bool m_bIsOpenQueue = false; //只要初始化  就会开启
+//    QTimer *m_pTimerQueue = nullptr;
+//    QQueue<QString> m_queueMsg;
 };
 
 #endif // CTCPCLIENTCONNECTION_H

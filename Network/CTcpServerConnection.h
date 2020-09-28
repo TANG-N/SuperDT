@@ -16,6 +16,7 @@ public:
     void connect(QString strIp,int nPort);
     void disConnect();
     void send(QString strIp,int nPort,QString strMsg);
+    void send(QString strIp,int nPort,QByteArray arrMsg) override;
     void sendAll(QString strMsg);
 signals:
     void sigRecvLine(QString strIp,int nPort,QString strMsg);

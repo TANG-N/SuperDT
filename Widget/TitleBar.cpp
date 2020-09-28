@@ -41,6 +41,7 @@ void TitleBar::initUI()
     m_pMenu = new QMenu(this);
     m_pMenu->addAction("透明度设置");
     m_pMenu->addAction("背景设置");
+    //🗕 🗗 🗖 📌
 
     m_pBtnIcon = new QPushButton(this);
     m_pBtnIcon->setFixedSize(24,24);  //设置最大宽高和最小宽高固定  不再拉伸
@@ -56,10 +57,10 @@ void TitleBar::initUI()
 
     m_pMinButton = new QPushButton(this);
     m_pMinButton->setFixedSize(24,24);
-    m_pMinButton->setStyleSheet(getImageStytle("min-gray.png"));
-//    QIcon iconMini = QApplication::style()->standardIcon(QStyle::SP_TitleBarMinButton);
-//    m_pMinButton->setIconSize(QSize(50,50));
-//    m_pMinButton->setIcon(iconMini);
+//    m_pMinButton->setStyleSheet(getImageStytle("min-gray.png"));
+    m_pMinButton->setIcon(QApplication::style()->standardIcon(QStyle::SP_TitleBarMinButton));
+    m_pMinButton->setIconSize(QSize(50,50));
+
 //    m_pMinButton->setText(CFaIcon::iconsQString(CFaIcon::Fa_minus_square_o));
 //    m_pMinButton->setStyleSheet("QPushButton{background-color:transparent;color:#000000;font:22px FontAwesome;}"
 //                               "QPushButton::checked{color:#30A7F8;text-decoration:underline;}"
@@ -70,7 +71,9 @@ void TitleBar::initUI()
 
     m_pMaxButton = new QPushButton(this);
     m_pMaxButton->setFixedSize(24,24);
-    m_pMaxButton->setStyleSheet(getImageStytle("max-gray.png"));
+    m_pMaxButton->setIconSize(QSize(50,50));
+    m_pMaxButton->setIcon(QApplication::style()->standardIcon(QStyle::SP_TitleBarMaxButton));
+//    m_pMaxButton->setStyleSheet(getImageStytle("max-gray.png"));
 //    m_pMaxButton->setText(CFaIcon::iconsQString(CFaIcon::Fa_clone));
 //    m_pMaxButton->setStyleSheet("QPushButton{background-color:transparent;color:#000000;font:22px FontAwesome;}"
 //                               "QPushButton::checked{color:#30A7F8;text-decoration:underline;}"
@@ -81,7 +84,9 @@ void TitleBar::initUI()
 
     m_pExitButton = new QPushButton(this);
     m_pExitButton->setFixedSize(24,24);
-    m_pExitButton->setStyleSheet(getImageStytle("exit-gray.png"));
+    m_pExitButton->setIconSize(QSize(50,50));
+    m_pExitButton->setIcon(QApplication::style()->standardIcon(QStyle::SP_TitleBarCloseButton));
+//    m_pExitButton->setStyleSheet(getImageStytle("exit-gray.png"));
 //    m_pExitButton->setText(CFaIcon::iconsQString(CFaIcon::Fa_window_close_o));
 //    m_pExitButton->setStyleSheet("QPushButton{background-color:transparent;color:#000000;font:22px FontAwesome;}"
 //                               "QPushButton::checked{color:#30A7F8;text-decoration:underline;}"
@@ -152,10 +157,13 @@ void TitleBar::slotExit()
 
 void TitleBar::slotMax()
 {
-    if(m_pParentWindow->isMaximized())
+    if(m_pParentWindow->isMaximized()){
+        m_pMaxButton->setIcon(QApplication::style()->standardIcon(QStyle::SP_TitleBarMaxButton));
         m_pParentWindow->showNormal();
-    else
+    }else{
         m_pParentWindow->showMaximized();
+        m_pMaxButton->setIcon(QApplication::style()->standardIcon(QStyle::SP_TitleBarNormalButton));
+    }
 }
 
 void TitleBar::slotMin()

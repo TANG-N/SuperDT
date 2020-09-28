@@ -26,27 +26,15 @@ void CTcpClientConnection::disConnect()
 
 void CTcpClientConnection::send(QString strIp, int nPort, QString strMsg)
 {
+    send(strIp,nPort,strMsg.toUtf8());
+}
+
+void CTcpClientConnection::send(QString strIp, int nPort, QByteArray arrMsg)
+{
     Q_UNUSED(strIp)
     Q_UNUSED(nPort)
 
-    if(m_bIsOpenQueue){ //用消息队列机制
-        m_queueMsg.enqueue(strMsg); //加入队列
-        if(!m_pTimerQueue->isActive()){
-            m_pTimerQueue->start();
-           qDebug()<<"激活队列定时器";
-        }
-    }else{
-        if(!m_queueMsg.isEmpty()) //队列有内容 清空
-            m_queueMsg.clear();
-
-//        while(!m_queueMsg.isEmpty()){  //队列有内容  先发完
-//            QString strQueueMsg = m_queueMsg.dequeue();
-//            m_pTcpSocket->write(strQueueMsg.toUtf8());
-//        }
-        m_pTcpSocket->write(strMsg.toUtf8());
-
-        qDebug()<<"发送"<<strMsg;
-    }
+    m_pTcpSocket->write(arrMsg);
 }
 
 void CTcpClientConnection::setIpPort(QString strIp, int nPort)
@@ -117,21 +105,21 @@ void CTcpClientConnection::init()
 //    });
 
 
-    initQueue(); //初始化命令队列机制
+//    initQueue(); //初始化命令队列机制
 }
 
-void CTcpClientConnection::initQueue()
-{
-    //m_bIsOpenQueue = true;
+//void CTcpClientConnection::initQueue()
+//{
+//    //m_bIsOpenQueue = true;
 
-    m_pTimerQueue = new QTimer(this);
-    m_pTimerQueue->setInterval(m_nMsgSpan);
+//    m_pTimerQueue = new QTimer(this);
+//    m_pTimerQueue->setInterval(m_nMsgSpan);
 
-    QObject::connect(m_pTimerQueue,&QTimer::timeout,[=]{
-        if(!m_queueMsg.isEmpty()){
-            m_pTcpSocket->write(m_queueMsg.dequeue().toUtf8());   //按条发送队列信息
-        }else{
-            m_pTimerQueue->stop(); //队列内容发送完毕
-        }
-    });
-}
+//    QObject::connect(m_pTimerQueue,&QTimer::timeout,[=]{
+//        if(!m_queueMsg.isEmpty()){
+//            m_pTcpSocket->write(m_queueMsg.dequeue().toUtf8());   //按条发送队列信息
+//        }else{
+//            m_pTimerQueue->stop(); //队列内容发送完毕
+//        }
+//    });
+//}

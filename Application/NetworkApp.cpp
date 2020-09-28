@@ -222,6 +222,9 @@ void NetworkApp::createSend(TListCard *&pCard)
         m_stNetworkConfig.m_bDispalySendAble = bIsChecked;
     });
     TLockButtonCardItem *pCItemHexSendAble = new TLockButtonCardItem("十六进制发送",this);
+    connect(pCItemHexSendAble->m_pBtn,&QPushButton::clicked,[=](bool bIsChecked){
+        m_stNetworkConfig.m_bSendHexAble = bIsChecked;
+    });
 
     pCard = new TListCard(this);
     pCard->addWidget(pCardTitleSend);
@@ -247,7 +250,7 @@ void NetworkApp::createSendText(TListCard *&pCard)
     m_pTextEdit = new QTextEdit(this);
     m_pTextEdit->setStyleSheet("background-color:transparent;color:#000000;border-radius:0px;");
     m_pTextEdit->setEnabled(true);
-    m_pTextEdit->append("test...");
+    m_pTextEdit->append("01 02 1a ff010203f");
     m_pTextEdit->resize(285,200);
 
     QPushButton *pBtnSend = new QPushButton(this);
@@ -283,7 +286,7 @@ void NetworkApp::createQuickSend(TListCard *&pCard)
 
     connect(pBtnAdd,&QPushButton::clicked,[=](){
         TLineEditCardItem *pQuickSendItem = new TLineEditCardItem("发送",this);
-        QListWidgetItem *tmpItem = m_pCardQuickSend->insertWidget(1,pQuickSendItem);//添加项之后 需要自动调大高度值
+        QListWidgetItem *tmpItem = m_pCardQuickSend->insertWidget(m_pCardQuickSend->count() - 1,pQuickSendItem);//添加项之后 需要自动调大高度值
         this->adjustSize();//添加项之后 需要自动调大高度值
 
         connect(pQuickSendItem->m_pBtn,&QPushButton::clicked,this,[=]{
@@ -291,6 +294,7 @@ void NetworkApp::createQuickSend(TListCard *&pCard)
             send(pQuickSendItem->m_pLineEdit->text());
         });
         m_mapQuckSend.insert(pQuickSendItem->m_pBtnDel,tmpItem);
+        //删除
         connect(pQuickSendItem->m_pBtnDel,&QPushButton::clicked,this,[=]{
             pCard->removeItem(m_mapQuckSend.value(pQuickSendItem->m_pBtnDel)); //@TODO  bugs
         });
@@ -436,10 +440,16 @@ void NetworkApp::toDisconnect()
 void NetworkApp::send(QString strIp, int nPort, QString strMsg)
 {
     if(m_pConnection != nullptr || m_stNetworkConfig.m_enmConnectState == ENM_STATE_CONNECTED){
-        m_pConnection->send(strIp,nPort,strMsg);
+        if(m_stNetworkConfig.m_bSendHexAble){
+            m_pConnection->send(strIp,nPort,hexStr2ByteArray(strMsg));
+        }else{
+            m_pConnection->send(strIp,nPort,strMsg);
+        }
 
         if(m_stNetworkConfig.m_bDispalySendAble) //显示我发送的
             m_pOutTextEditor->appendPlainText("[send:]" + strMsg);
+
+        qDebug()<<"发送:"<<strIp << nPort;
     }else{
         qWarning()<<"未连接，不能发送";
     }
@@ -550,6 +560,35 @@ void NetworkApp::addTrigItem()
     });
     m_pCardTrig->insertWidget(2,pCItemTrig);
     this->adjustSize();//添加项之后 需要自动调大高度值
+}
+
+QByteArray NetworkApp::hexStr2ByteArray(QString str)
+{
+    QByteArray byteArr;
+    str = str.replace(" ",""); //去空格
+    if (0 != (str.size() % 2)) {
+        str.insert(str.size() - 1,'0'); //不是2的倍数 给最后一个补0 例如: a0 8 ,凑成 a0 08
+    }
+
+    for (int nIndex = 0; nIndex < str.size(); nIndex += 2) {
+        char ch = QString(str[nIndex]).toInt(nullptr,16) * 16 + QString(str[nIndex + 1]).toInt(nullptr,16);
+        byteArr.append(ch);
+    }
+
+//    qDebug()<<"reslut:"<<byteArr;
+    return byteArr;
+}
+
+QString NetworkApp::byteArray2HexStr(QByteArray byteArr)
+{
+    QString str = byteArr.toHex().toUpper();
+
+    for (int nIndex = 3; nIndex < str.size();nIndex += 3) {
+        str = str.insert(nIndex-1," ");
+    }
+
+//    qDebug()<<"reslut:"<<str;
+    return str;
 }
 
 void NetworkApp::slotLoop()

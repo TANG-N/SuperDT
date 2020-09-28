@@ -122,6 +122,9 @@ private:
     void addLoopItem(); //添加循环条目
     void addTrigItem(); //添加触发器条目
 
+    //十六进制字符串转换
+    QByteArray hexStr2ByteArray(QString str);
+    QString byteArray2HexStr(QByteArray byteArr);
 private slots:
     void slotLoop();
 

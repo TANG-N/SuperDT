@@ -12,9 +12,6 @@ class TLineEditCardItem : public QWidget
 public:
     explicit TLineEditCardItem(QString strBtnText,QWidget *parent = nullptr);
 
-protected:
-    void enterEvent(QEvent *event);
-    void leaveEvent(QEvent *event);
 private:
     void init();
     void paintEvent(QPaintEvent *event);

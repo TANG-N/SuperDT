@@ -36,7 +36,6 @@ public:
       //控件抖动
       static void widgetShake(QWidget *pWidget,int nRange = 3);
 
-
       //基本工具-------------------------------------------------------------------------------------------------------
 
       //两个时间点之差转文本  如:3小时5分钟
@@ -47,6 +46,10 @@ public:
       static bool isFutureDateTime(QDateTime detmFuture);
       //判断时间点是否已到 只精确到秒
       static bool isCurrentDateTime(QDateTime detm);
+
+      /*进制转换*/
+      static QByteArray hexStr2ByteArray(QString str);
+      static QString byteArray2HexStr(QByteArray byteArr);
 };
 
 #endif // CQUICKUI_H

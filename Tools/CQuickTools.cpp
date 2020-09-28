@@ -196,3 +196,30 @@ bool CQuickTools::isCurrentDateTime(QDateTime detm)
 {
     return (detm.toTime_t() == QDateTime::currentDateTime().toTime_t());
 }
+
+QByteArray CQuickTools::hexStr2ByteArray(QString str)
+{
+    QByteArray byteArr;
+    str = str.replace(" ",""); //去空格
+    if (0 != (str.size() % 2)) {
+        str.insert(str.size() - 1,'0'); //不是2的倍数 给最后一个补0 例如: a0 8 ,凑成 a0 08
+    }
+
+    for (int nIndex = 0; nIndex < str.size(); nIndex += 2) {
+        char ch = QString(str[nIndex]).toInt(nullptr,16) * 16 + QString(str[nIndex + 1]).toInt(nullptr,16);
+        byteArr.append(ch);
+    }
+
+    return byteArr;
+}
+
+QString CQuickTools::byteArray2HexStr(QByteArray byteArr)
+{
+    QString str = byteArr.toHex().toUpper();
+
+    for (int nIndex = 3; nIndex < str.size();nIndex += 3) {
+        str = str.insert(nIndex-1," ");
+    }
+
+    return str;
+}

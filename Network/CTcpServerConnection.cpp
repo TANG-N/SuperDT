@@ -31,11 +31,16 @@ void CTcpServerConnection::connect(QString strIp, int nPort)
 
 void CTcpServerConnection::send(QString strIp, int nPort, QString strMsg)
 {
+    send(strIp,nPort,strMsg.toUtf8());
+}
+
+void CTcpServerConnection::send(QString strIp, int nPort, QByteArray arrMsg)
+{
     QString strKey = toIpPort(strIp,nPort);
 
     if(m_mapConnections.contains(strKey)){
         QTcpSocket *pTcpSocket = m_mapConnections.value(strKey);
-        pTcpSocket->write(strMsg.toUtf8());
+        pTcpSocket->write(arrMsg);
     }
 }
 
@@ -50,7 +55,6 @@ void CTcpServerConnection::sendAll(QString strMsg)
 
     }
 }
-
 
 void CTcpServerConnection::init()
 {
